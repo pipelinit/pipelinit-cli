@@ -19,8 +19,10 @@ your project.
 pipelinit requires Deno to run, you can check how to install it
 [in the official Deno website](https://deno.land/#installation).
 
-After installing Deno, install pipelinit with: To install
+After installing Deno, install pipelinit with:
 
 ```
 deno install --unstable --allow-read --allow-write --allow-net ./pipelinit.ts
 ```
+
+Run `pipelinit --version` to test it.
