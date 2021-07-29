@@ -29,9 +29,9 @@ export default {
   async process(
     files: AsyncIterableIterator<FileEntry>,
   ): Promise<string | null> {
-    if (await files.next()) {
-      return TEMPLATE;
+    if ((await files.next()).done) {
+      return null;
     }
-    return null;
+    return TEMPLATE;
   },
 };
