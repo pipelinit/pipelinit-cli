@@ -1,8 +1,15 @@
 import { ensureFile, expandGlob } from "../../deps.ts";
 
-export const BUILTIN = [
-  "../../plugins/templates/github/lint/python.ts",
-];
+export const loadPlugins = async (): Promise<Array<string>> => {
+  const plugins: Array<string> = [];
+  // Load the template plugins ignoring the test files (ending in .test.ts)
+  for await (
+    const pluginFile of expandGlob("plugins/templates/**/*[!.test].ts")
+  ) {
+    plugins.push(pluginFile.path);
+  }
+  return plugins;
+};
 
 export const run = async (pluginUrl: string, platforms: Array<string>) => {
   const pluginModule = await import(pluginUrl);

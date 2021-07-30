@@ -1,3 +1,5 @@
+import { FileEntry } from "../../../mod.ts";
+
 const TEMPLATE = `
 name: Lint Python
 on: push
@@ -15,7 +17,7 @@ jobs:
 `;
 
 export default {
-  id: "dev.operous.pipelinit.lint-python",
+  id: "pipelinit.lint-python",
   platform: "GITHUB",
   glob: "**/*.py",
   async process(

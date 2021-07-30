@@ -10,12 +10,10 @@ export {
   assertEquals,
   assertExists,
 } from "https://deno.land/std@0.103.0/testing/asserts.ts";
+export { readLines } from "https://deno.land/std@0.103.0/io/mod.ts";
 
 // x/ini
 export { parse as parseIniFile } from "https://deno.land/x/ini@v2.1.0/mod.ts";
 
 // global
-import type { WalkEntry } from "https://deno.land/std@0.103.0/fs/mod.ts";
-declare global {
-  type FileEntry = WalkEntry;
-}
+export type { WalkEntry } from "https://deno.land/std@0.103.0/fs/mod.ts";

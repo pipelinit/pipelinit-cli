@@ -1,3 +1,4 @@
+import { FileEntry } from "../../../mod.ts";
 import { assertEquals, assertExists } from "../../../../deps.ts";
 
 import plugin from "./python.ts";
