@@ -3,6 +3,8 @@ import { parseArgs } from "./deps.ts";
 import { VERSION } from "./src/version.ts";
 import defaultCommand from "./src/subcommands/default.ts";
 
+export const PIPELINIT_ROOT = new URL(".", import.meta.url).pathname;
+
 const help = `pipelinit ${VERSION}
 Bootstrap and manage CI pipelines.
 
@@ -55,4 +57,4 @@ if (args.help) {
   console.log(help);
   Deno.exit(0);
 }
-await defaultCommand(args._.map((arg) => arg.toString()));
+await defaultCommand();

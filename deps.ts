@@ -11,6 +11,7 @@ export {
   assertExists,
 } from "https://deno.land/std@0.103.0/testing/asserts.ts";
 export { readLines } from "https://deno.land/std@0.103.0/io/mod.ts";
+export { join } from "https://deno.land/std@0.103.0/path/mod.ts";
 
 // x/ini
 export { parse as parseIniFile } from "https://deno.land/x/ini@v2.1.0/mod.ts";

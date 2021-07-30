@@ -1,4 +1,4 @@
-import { FileEntry, readLines } from "../../../mod.ts";
+import { FileEntry, readLines, Template } from "../../../mod.ts";
 
 // Search for an import statement from https://deno.land/ or usage from
 // the runtime api, such as Deno.cwd(), in JavaScript and TypeScript files
@@ -19,7 +19,7 @@ jobs:
     - run: deno lint
 `;
 
-export default {
+const plugin: Template = {
   id: "pipelinit.lint-deno",
   platform: "GITHUB",
   glob: "**/*.[j|t]s",
@@ -37,3 +37,5 @@ export default {
     return null;
   },
 };
+
+export default plugin;

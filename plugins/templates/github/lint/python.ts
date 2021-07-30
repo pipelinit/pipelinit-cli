@@ -1,4 +1,4 @@
-import { FileEntry } from "../../../mod.ts";
+import { FileEntry, Template } from "../../../mod.ts";
 
 const TEMPLATE = `
 name: Lint Python
@@ -16,7 +16,7 @@ jobs:
     - run: flake8
 `;
 
-export default {
+const plugin: Template = {
   id: "pipelinit.lint-python",
   platform: "GITHUB",
   glob: "**/*.py",
@@ -29,3 +29,5 @@ export default {
     return TEMPLATE;
   },
 };
+
+export default plugin;

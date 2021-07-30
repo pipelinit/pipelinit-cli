@@ -1,8 +1,12 @@
-import { fileExists, parseIniFile } from "../../../deps.ts";
-import { PlatformDetector } from "./detector.ts";
+import { ensureFile, fileExists, parseIniFile } from "../../deps.ts";
+import { Platform, RenderedTemplate } from "../mod.ts";
 
-export class GitHubDetector implements PlatformDetector {
-  platform = "GITHUB";
+export default class GitHub implements Platform {
+  platform: "GITHUB";
+
+  constructor() {
+    this.platform = "GITHUB";
+  }
 
   async detect(): Promise<boolean> {
     // Bail if it isn't a git repository
@@ -21,5 +25,13 @@ export class GitHubDetector implements PlatformDetector {
       }
     }
     return false;
+  }
+
+  async output(templates: RenderedTemplate[]): Promise<void> {
+    for (const template of templates) {
+      const { output, template: { id } } = template;
+      await ensureFile(`.github/workflows/${id}.yaml`);
+      await Deno.writeTextFile(`.github/workflows/${id}.yaml`, output);
+    }
   }
 }

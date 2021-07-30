@@ -1,30 +1,22 @@
-import { ensureFile, expandGlob } from "../../deps.ts";
+import { expandGlob } from "../../deps.ts";
+import { PIPELINIT_ROOT } from "../../pipelinit.ts";
+import { Template } from "../../plugins/mod.ts";
 
-export const loadPlugins = async (): Promise<Array<string>> => {
-  const plugins: Array<string> = [];
+export const loadPlugins = async (): Promise<Array<Template>> => {
+  const plugins: Array<Template> = [];
   // Load the template plugins ignoring the test files (ending in .test.ts)
   for await (
-    const pluginFile of expandGlob("plugins/templates/**/*[!.test].ts")
+    const pluginFile of expandGlob("plugins/templates/**/*[!.test].ts", {
+      root: PIPELINIT_ROOT,
+    })
   ) {
-    plugins.push(pluginFile.path);
+    const pluginModule: Template = (await import(pluginFile.path)).default;
+    plugins.push(pluginModule);
   }
   return plugins;
 };
 
-export const run = async (pluginUrl: string, platforms: Array<string>) => {
-  const pluginModule = await import(pluginUrl);
-
-  const { id, glob, process, platform } = pluginModule.default;
-
-  if (!platforms.includes(platform)) {
-    return;
-  }
-
-  const result = await process(expandGlob(glob));
-  if (result) {
-    await ensureFile(`.github/workflows/${id}.yaml`);
-    await Deno.writeTextFile(`.github/workflows/${id}.yaml`, result);
-    return;
-  }
-  // TODO: Log progress (no-op plugin)
+export const run = async (pluginModule: Template): Promise<string | null> => {
+  const { glob, process } = pluginModule;
+  return await process(expandGlob(glob));
 };
