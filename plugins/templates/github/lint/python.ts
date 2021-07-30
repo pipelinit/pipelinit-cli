@@ -14,14 +14,6 @@ jobs:
     - run: flake8
 `;
 
-interface FileEntry {
-  path: string;
-  name: string;
-  isFile: boolean;
-  isDirectory: boolean;
-  isSymlink: boolean;
-}
-
 export default {
   id: "dev.operous.pipelinit.lint-python",
   platform: "GITHUB",

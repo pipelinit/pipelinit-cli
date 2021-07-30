@@ -2,14 +2,6 @@ import { assertEquals, assertExists } from "../../../../deps.ts";
 
 import plugin from "./python.ts";
 
-interface FileEntry {
-  path: string;
-  name: string;
-  isFile: boolean;
-  isDirectory: boolean;
-  isSymlink: boolean;
-}
-
 Deno.test("Template > GitHub > Lint Python - project with Python file", async () => {
   async function* filesFixture(): AsyncIterableIterator<FileEntry> {
     for (let i = 0; i < 1; i++) {
