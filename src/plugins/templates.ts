@@ -6,8 +6,10 @@ export const loadPlugins = async (): Promise<Array<Template>> => {
   const plugins: Array<Template> = [];
   // Load the template plugins ignoring the test files (ending in .test.ts)
   for await (
-    const pluginFile of expandGlob("plugins/templates/**/*[!.test].ts", {
+    const pluginFile of expandGlob("plugins/templates/**/!(*.test).ts", {
       root: PIPELINIT_ROOT,
+      extended: true,
+      globstar: true,
     })
   ) {
     const pluginModule: Template = (await import(pluginFile.path)).default;
