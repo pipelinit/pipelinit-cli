@@ -2,7 +2,7 @@ import {
   loadPlugins as loadTemplates,
   run as renderTemplate,
 } from "../plugins/templates.ts";
-import { loadPlugins as loadPlatforms } from "../plugins/platforms.ts";
+import { loadAndDetect as loadPlatforms } from "../plugins/platforms.ts";
 import { RenderedTemplate } from "../../plugins/mod.ts";
 
 type Maybe<T> = T | null;
@@ -12,7 +12,7 @@ function isntNull<T>(v: Maybe<T>): v is T {
 }
 
 export default async function (): Promise<void> {
-  const platforms = (await loadPlatforms()).filter((p) => p.detect());
+  const platforms = (await loadPlatforms());
   const platformIds = platforms.map((p) => p.platform);
   const templatePlugins = await loadTemplates();
   const renderedTemplates = (await Promise.all(

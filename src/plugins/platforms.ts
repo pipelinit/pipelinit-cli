@@ -16,3 +16,15 @@ export const loadPlugins = async (): Promise<Array<Platform>> => {
   }
   return plugins;
 };
+
+/**
+ * Load available platform plugins, run the detection routine and return
+ * detected CI platforms for the current project.
+ *
+ * @returns an Array with detected CI platforms
+ */
+export const loadAndDetect = async (): Promise<Array<Platform>> => {
+  const plugins: Array<Platform> = await loadPlugins();
+  const detected = await Promise.all(plugins.map((p) => p.detect()));
+  return plugins.filter((_, i) => detected[i]);
+};
