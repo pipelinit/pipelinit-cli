@@ -27,12 +27,20 @@ const plugin: Template = {
     files: AsyncIterableIterator<FileEntry>,
   ): Promise<string | null> {
     for await (const file of files) {
+      // Some libraries directories might end in .js or .ts, such as:
+      // - @types/chart.js
+      // - asciidoctor.js
+      // If this isn't a file, skip to the next one
+      if (!file.isFile) {
+        continue;
+      }
       const fileReader = await Deno.open(file.path);
       for await (const line of readLines(fileReader)) {
         if (DENO_IMPORT.test(line) || DENO_RUNTIME.test(line)) {
           return TEMPLATE;
         }
       }
+      fileReader.close();
     }
     return null;
   },
