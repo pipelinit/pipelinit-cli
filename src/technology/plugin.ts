@@ -1,4 +1,4 @@
-import { files, hasAnyFile, readLines } from "./files.ts";
+import { files, hasAnyFile, readLines } from "./helpers/mod.ts";
 
 export const context = {
   helpers: {

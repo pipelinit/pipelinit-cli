@@ -1,4 +1,4 @@
-import { IntrospectFn } from "../../introspection/mod.ts";
+import { IntrospectFn } from "../deps.ts";
 
 interface Npm {
   name: "npm";

@@ -1,4 +1,4 @@
-import { Introspector } from "../../introspection/mod.ts";
+import { Introspector } from "../deps.ts";
 
 /**
  * Introspected information about a project with Python

@@ -1,5 +1,5 @@
-import { expandGlob, WalkEntry } from "../../deps.ts";
-export { readLines } from "../../deps.ts";
+import { expandGlob, WalkEntry } from "../../../deps.ts";
+export { readLines } from "../../../deps.ts";
 
 /**
  * Check if there are any files in the project that match

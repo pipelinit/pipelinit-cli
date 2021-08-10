@@ -1,4 +1,4 @@
-import { Introspector } from "../../introspection/mod.ts";
+import { Introspector } from "../deps.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import {
   introspect as introspectPackageManager,
