@@ -1,6 +1,6 @@
 import { files, hasAnyFile, readLines } from "./files.ts";
 
-export const introspectionContext = {
+export const context = {
   helpers: {
     files,
     hasAnyFile,
@@ -8,7 +8,7 @@ export const introspectionContext = {
   },
 };
 
-export type Context = typeof introspectionContext;
+export type Context = typeof context;
 
 export type IntrospectFn<T> = (context: Context) => Promise<T>;
 
