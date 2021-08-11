@@ -2,7 +2,8 @@ import { PIPELINIT_ROOT } from "../../../pipelinit.ts";
 import { platformWriters } from "../../../plugins/platforms/mod.ts";
 import { introspect } from "../../technology/mod.ts";
 import { renderTemplates } from "../../template/mod.ts";
-import { GlobalOptions, prelude } from "../global.ts";
+import { prelude } from "../prelude/mod.ts";
+import { GlobalOptions } from "../types.ts";
 
 type DefaultOptions = GlobalOptions;
 

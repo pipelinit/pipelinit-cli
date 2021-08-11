@@ -8,6 +8,8 @@ export type ProjectData =
   | JavaScriptProject
   | PythonProject;
 
+export type { JavaScriptProject, PythonProject };
+
 export const introspectors = [
   { name: "javascript", ...JavaScriptIntrospector },
   { name: "python", ...PythonIntrospector },

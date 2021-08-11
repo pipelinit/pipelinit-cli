@@ -1,10 +1,10 @@
-import { log } from "../../deps.ts";
+import { log } from "../../../deps.ts";
 
-export interface GlobalOptions {
-  debug?: boolean;
-}
-
-async function setupLogger(debug?: boolean) {
+/**
+ * Configure the logger for the CLI app
+ * @param debug if debug is `true` the logger level decrease from INFO to DEBUG
+ */
+export async function setupLogger(debug?: boolean) {
   const logLevel = debug ? "DEBUG" : "INFO";
   await log.setup({
     handlers: {
@@ -17,8 +17,4 @@ async function setupLogger(debug?: boolean) {
       },
     },
   });
-}
-
-export async function prelude(opts: GlobalOptions) {
-  await setupLogger(opts.debug);
 }
