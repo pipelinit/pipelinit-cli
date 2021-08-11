@@ -19,3 +19,6 @@ export { parse as parseIniFile } from "https://deno.land/x/ini@v2.1.0/mod.ts";
 
 // x/eta
 export * as eta from "https://deno.land/x/eta@v1.6.0/mod.ts";
+
+// x/cliffy
+export { Command } from "https://deno.land/x/cliffy@v0.19.4/command/mod.ts";
