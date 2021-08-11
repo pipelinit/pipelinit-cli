@@ -1,5 +1,5 @@
 import { eta, join, parse } from "../../deps.ts";
-import { RenderedTemplate } from "../../plugins/mod.ts";
+import { RenderedTemplate } from "../platform/plugin.ts";
 import { ProjectTechnology } from "../technology/mod.ts";
 
 /**

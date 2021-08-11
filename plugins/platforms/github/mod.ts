@@ -1,5 +1,4 @@
-import { ensureFile } from "../../../deps.ts";
-import { PlatformWriterFn } from "../platform.ts";
+import { ensureFile, PlatformWriterFn } from "../deps.ts";
 
 export const github: PlatformWriterFn = async (templates) => {
   for await (const template of templates) {
