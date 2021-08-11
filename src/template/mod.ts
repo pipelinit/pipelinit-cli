@@ -36,7 +36,9 @@ export async function* renderTemplates(
     for await (const dirEntry of Deno.readDir(dir)) {
       const templatePath = join(dir, dirEntry.name);
       const filename = parse(templatePath).name;
-      const content = await eta.renderFile(templatePath, data);
+      const content = await eta.renderFile(templatePath, data, {
+        autoTrim: false,
+      });
       yield {
         name: `pipelinit.${technology}.${filename}`,
         content,
