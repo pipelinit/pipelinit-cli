@@ -1,6 +1,15 @@
 import { files, hasAnyFile, readLines } from "./helpers/mod.ts";
+import { log } from "../../deps.ts";
+
+const logger = {
+  debug: log.debug,
+  info: log.info,
+  warning: log.warning,
+  error: log.error,
+};
 
 export const context = {
+  logger,
   helpers: {
     files,
     hasAnyFile,
