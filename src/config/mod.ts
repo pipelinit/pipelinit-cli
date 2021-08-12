@@ -1,11 +1,11 @@
-import { fileExists, parseToml, stringifyToml } from "../../deps.ts";
+import { deepMerge, fileExists, parseToml, stringifyToml } from "../../deps.ts";
 import { JavaScriptProject, PythonProject } from "../../plugins/stack/mod.ts";
 import { arePlatforms, Platforms } from "../platform/mod.ts";
 
 export const CONFIG_FILE = ".pipelinit.toml";
 export type Config = {
   platforms?: Platforms;
-  plugins?: {
+  plugins: {
     javascript?: Partial<JavaScriptProject>;
     python?: Partial<PythonProject>;
   };
@@ -26,7 +26,8 @@ function isConfig(c: Record<string, unknown>): c is Config {
   return false;
 }
 
-export let config: Config = {
+export const config: Config = {
+  plugins: {},
   exists: async () => await fileExists(CONFIG_FILE),
   save: async () => {
     await Deno.writeTextFile(CONFIG_FILE, stringifyToml(config));
@@ -35,8 +36,11 @@ export let config: Config = {
     const configContent = parseToml(await Deno.readTextFile(CONFIG_FILE));
     // FIXME this validation is weak
     if (isConfig(configContent)) {
-      config = { ...config, ...configContent };
+      const newConfig = deepMerge(config, configContent);
+      config.platforms = newConfig.platforms;
+      config.plugins = newConfig.plugins;
+    } else {
+      throw new Error("Couldn't parse configuration file");
     }
-    throw new Error("Couldn't parse configuration file");
   },
 };

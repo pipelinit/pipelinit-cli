@@ -13,6 +13,11 @@ const PYTHON_VERSIONS = [
 ];
 
 export const introspect: IntrospectFn<string> = async (context) => {
+  // If there is user defined configuration, use that value
+  if (context.config.plugins.python?.version) {
+    return context.config.plugins.python?.version;
+  }
+
   // Search for application specific `.python-version` file from pyenv
   //
   // See https://github.com/pyenv/pyenv/#choosing-the-python-version
@@ -47,5 +52,11 @@ export const introspect: IntrospectFn<string> = async (context) => {
   }
 
   // Didn't find what python version the project uses. Ask the user.
-  return await context.cli.askOption(QUESTION, PYTHON_VERSIONS);
+  const version = await context.cli.askOption(QUESTION, PYTHON_VERSIONS);
+  // Save it in the configuration to avoid asking again
+  const pythonConfig = (context.config.plugins || {}).python || {};
+  pythonConfig.version = version;
+  context.config.plugins.python = pythonConfig;
+  await context.config.save();
+  return version;
 };

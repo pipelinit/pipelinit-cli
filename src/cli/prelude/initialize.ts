@@ -3,9 +3,13 @@ import { config } from "../../config/mod.ts";
 import { isPlatform } from "../../platform/mod.ts";
 
 export async function initialize() {
-  // Bail if the project is already initialized
-  if (await config.exists()) return;
+  // If the project is already initialized, load the configuration and bail
+  if (await config.exists()) {
+    await config.load();
+    return;
+  }
 
+  // Otherwise initialize it
   const ciPlatforms = (await Checkbox.prompt({
     message: "Select CI platforms",
     options: [

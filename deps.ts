@@ -19,6 +19,7 @@ export {
   parse as parseToml,
   stringify as stringifyToml,
 } from "https://deno.land/std@0.103.0/encoding/toml.ts";
+export { deepMerge } from "https://deno.land/std@0.104.0/collections/mod.ts";
 
 // x/ini
 export { parse as parseIniFile } from "https://deno.land/x/ini@v2.1.0/mod.ts";
