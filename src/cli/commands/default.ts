@@ -1,6 +1,6 @@
 import { PIPELINIT_ROOT } from "../../../pipelinit.ts";
 import { platformWriters } from "../../../plugins/platforms/mod.ts";
-import { introspect } from "../../technology/mod.ts";
+import { introspect } from "../../stack/mod.ts";
 import { renderTemplates } from "../../template/mod.ts";
 import { prelude } from "../prelude/mod.ts";
 import { GlobalOptions } from "../types.ts";

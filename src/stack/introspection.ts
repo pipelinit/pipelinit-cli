@@ -1,12 +1,12 @@
 import { log } from "../../deps.ts";
 import { context } from "./plugin.ts";
-import { introspectors, ProjectData } from "../../plugins/technologies/mod.ts";
+import { introspectors, ProjectData } from "../../plugins/stack/mod.ts";
 
-export type ProjectTechnology = Record<string, ProjectData>;
+export type Stack = Record<string, ProjectData>;
 
 /**
  * Run the detect function for each introspector and filter
- * the ones which detected the technology in the analyzed project.
+ * the ones which detected the stack in the analyzed project.
  *
  * Returns the relevant introspectors for the analyzed project
  */
@@ -19,8 +19,8 @@ async function detected() {
 }
 
 /**
- * Introspect each technology detected in the project and returns an object
- * with the technology as a key and the introspected data as the value
+ * Introspect each stack detected in the project and returns an object
+ * with the stack as a key and the introspected data as the value
  *
  * Example:
  * ```ts
@@ -30,20 +30,20 @@ async function detected() {
 export async function introspect() {
   const logger = log.getLogger("main");
 
-  logger.info("Detecting technologies...");
-  const technologies = await detected();
-  const technologyList = technologies.map((t) => t.name).sort().join(", ");
-  logger.info(`Detected technologies: ${technologyList}`);
+  logger.info("Detecting stack...");
+  const stack = await detected();
+  const stackNames = stack.map((t) => t.name).sort().join(", ");
+  logger.info(`Detected stack: ${stackNames}`);
 
   const introspected = await Promise.all(
-    technologies.map<Promise<ProjectData>>((introspector) =>
+    stack.map<Promise<ProjectData>>((introspector) =>
       introspector.introspect(context)
     ),
   );
 
-  return technologies
+  return stack
     .reduce((obj, introspector, i) => {
       obj[introspector.name] = introspected[i];
       return obj;
-    }, {} as ProjectTechnology);
+    }, {} as Stack);
 }
