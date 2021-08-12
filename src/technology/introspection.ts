@@ -1,3 +1,4 @@
+import { log } from "../../deps.ts";
 import { context } from "./plugin.ts";
 import { introspectors, ProjectData } from "../../plugins/technologies/mod.ts";
 
@@ -27,12 +28,19 @@ async function detected() {
  * ```
  */
 export async function introspect() {
+  const logger = log.getLogger("main");
+
+  logger.info("Detecting technologies...");
   const technologies = await detected();
+  const technologyList = technologies.map((t) => t.name).sort().join(", ");
+  logger.info(`Detected technologies: ${technologyList}`);
+
   const introspected = await Promise.all(
     technologies.map<Promise<ProjectData>>((introspector) =>
       introspector.introspect(context)
     ),
   );
+
   return technologies
     .reduce((obj, introspector, i) => {
       obj[introspector.name] = introspected[i];

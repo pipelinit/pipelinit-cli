@@ -16,12 +16,12 @@ export const introspector: Introspector<PythonProject> = {
     return await context.helpers.hasAnyFile("**/*.py");
   },
   introspect: async (context) => {
-    const { logger } = context;
+    const logger = context.getLogger("python");
 
     // Version
-    logger.debug("py: detecting version");
+    logger.debug("detecting version");
     const version = await introspectVersion(context);
-    logger.debug(`py: detected version ${version}`);
+    logger.debug(`detected version ${version}`);
     return {
       version: version,
     };

@@ -28,24 +28,24 @@ export const introspector: Introspector<JavaScriptProject> = {
     return await context.helpers.hasAnyFile("**/*.[j|t]s");
   },
   introspect: async (context) => {
-    const { logger } = context;
+    const logger = context.getLogger("javascript");
 
     // Runtime
-    logger.debug("js: detecting runtime");
+    logger.debug("detecting runtime");
     const runtime = await introspectRuntime(context);
-    logger.debug(`js: detected runtime "${runtime.name}"`);
+    logger.debug(`detected runtime "${runtime.name}"`);
 
     // Package manager
     let packageManager: PackageManager | null;
     if (runtime.name === "deno") {
       logger.debug(
-        "js: skipping package manager detection, unapplicable for the detected runtime",
+        "skipping package manager detection, unapplicable for the detected runtime",
       );
       packageManager = null;
     } else {
-      logger.debug("js: detecting package manager");
+      logger.debug("detecting package manager");
       packageManager = await introspectPackageManager(context);
-      logger.debug(`js: detected package manager "${packageManager.name}"`);
+      logger.debug(`detected package manager "${packageManager.name}"`);
     }
 
     return {

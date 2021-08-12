@@ -14,6 +14,7 @@ export { readLines } from "https://deno.land/std@0.103.0/io/mod.ts";
 export { join, parse } from "https://deno.land/std@0.103.0/path/mod.ts";
 export type { WalkEntry } from "https://deno.land/std@0.103.0/fs/mod.ts";
 export * as log from "https://deno.land/std@0.103.0/log/mod.ts";
+export { LogRecord } from "https://deno.land/std@0.103.0/log/logger.ts";
 export {
   parse as parseToml,
   stringify as stringifyToml,
@@ -34,3 +35,4 @@ export {
   prompt,
   Select,
 } from "https://deno.land/x/cliffy@v0.19.4/prompt/mod.ts";
+export { colors } from "https://deno.land/x/cliffy@v0.19.4/ansi/colors.ts";
