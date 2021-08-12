@@ -16,11 +16,9 @@ const DENO_IMPORT = /import.*from ["']https:\/\/deno\.land/;
 const DENO_RUNTIME = /Deno\..*/;
 
 export const introspect: IntrospectFn<Runtime> = async (context) => {
-  const { helpers } = context;
-
-  for await (const file of helpers.files("**/*.[j|t]s")) {
+  for await (const file of context.files.each("**/*.[j|t]s")) {
     const fileReader = await Deno.open(file.path);
-    for await (const line of helpers.readLines(fileReader)) {
+    for await (const line of context.files.readLines(fileReader)) {
       if (DENO_IMPORT.test(line) || DENO_RUNTIME.test(line)) {
         return {
           name: "deno",

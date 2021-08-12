@@ -25,7 +25,7 @@ export default interface JavaScriptProject {
 
 export const introspector: Introspector<JavaScriptProject> = {
   detect: async (context) => {
-    return await context.helpers.hasAnyFile("**/*.[j|t]s");
+    return await context.files.includes("**/*.[j|t]s");
   },
   introspect: async (context) => {
     const logger = context.getLogger("javascript");

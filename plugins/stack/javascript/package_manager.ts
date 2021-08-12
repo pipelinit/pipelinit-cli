@@ -11,9 +11,7 @@ interface Yarn {
 export type PackageManager = Npm | Yarn;
 
 export const introspect: IntrospectFn<PackageManager> = async (context) => {
-  const { helpers } = context;
-
-  if (await helpers.hasAnyFile("**/yarn.lock")) {
+  if (await context.files.includes("**/yarn.lock")) {
     return {
       name: "yarn",
     };

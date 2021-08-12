@@ -1,1 +1,1 @@
-export * from "../../src/stack/plugin.ts";
+export * from "../../src/plugin/mod.ts";

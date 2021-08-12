@@ -1,9 +1,6 @@
-import { fileExists, parseToml, stringifyToml } from "../../../deps.ts";
-import {
-  JavaScriptProject,
-  PythonProject,
-} from "../../../plugins/stack/mod.ts";
-import { arePlatforms, Platforms } from "../../platform/mod.ts";
+import { fileExists, parseToml, stringifyToml } from "../../deps.ts";
+import { JavaScriptProject, PythonProject } from "../../plugins/stack/mod.ts";
+import { arePlatforms, Platforms } from "../platform/mod.ts";
 
 export const CONFIG_FILE = ".pipelinit.toml";
 export type Config = {

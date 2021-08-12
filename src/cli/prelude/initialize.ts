@@ -1,5 +1,5 @@
 import { Checkbox } from "../../../deps.ts";
-import { config } from "../config/mod.ts";
+import { config } from "../../config/mod.ts";
 import { isPlatform } from "../../platform/mod.ts";
 
 export async function initialize() {

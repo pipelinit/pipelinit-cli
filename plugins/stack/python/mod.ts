@@ -13,7 +13,7 @@ export default interface PythonProject {
 
 export const introspector: Introspector<PythonProject> = {
   detect: async (context) => {
-    return await context.helpers.hasAnyFile("**/*.py");
+    return await context.files.includes("**/*.py");
   },
   introspect: async (context) => {
     const logger = context.getLogger("python");

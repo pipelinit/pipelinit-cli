@@ -13,12 +13,10 @@ const PYTHON_VERSIONS = [
 ];
 
 export const introspect: IntrospectFn<string> = async (context) => {
-  const { helpers } = context;
-
   // Search for application specific `.python-version` file from pyenv
   //
   // See https://github.com/pyenv/pyenv/#choosing-the-python-version
-  for await (const file of helpers.files("**/.python-version")) {
+  for await (const file of context.files.each("**/.python-version")) {
     return await Deno.readTextFile(file.path);
   }
 
@@ -26,8 +24,8 @@ export const introspect: IntrospectFn<string> = async (context) => {
   // by pipenv
   //
   // See https://pipenv.pypa.io/en/latest/basics/#specifying-versions-of-python
-  for await (const file of helpers.files("**/Pipfile")) {
-    const pipfile = await helpers.readToml(file.path);
+  for await (const file of context.files.each("**/Pipfile")) {
+    const pipfile = await context.files.readToml(file.path);
     const version = pipfile?.requires?.python_version;
     if (version) return version;
   }
@@ -36,8 +34,8 @@ export const introspect: IntrospectFn<string> = async (context) => {
   // with the Python version
   //
   // See https://python-poetry.org/docs/pyproject/#dependencies-and-dev-dependencies
-  for await (const file of helpers.files("**/pyproject.toml")) {
-    const pyproject = await helpers.readToml(file.path);
+  for await (const file of context.files.each("**/pyproject.toml")) {
+    const pyproject = await context.files.readToml(file.path);
     const version: string | null = pyproject?.tool?.poetry?.dependencies
       ?.python;
     if (version) {
@@ -49,5 +47,5 @@ export const introspect: IntrospectFn<string> = async (context) => {
   }
 
   // Didn't find what python version the project uses. Ask the user.
-  return await helpers.askOption(QUESTION, PYTHON_VERSIONS);
+  return await context.cli.askOption(QUESTION, PYTHON_VERSIONS);
 };

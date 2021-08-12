@@ -1,11 +1,11 @@
-import { expandGlob, parseToml, Select, WalkEntry } from "../../../deps.ts";
-export { readLines } from "../../../deps.ts";
+import { expandGlob, parseToml, WalkEntry } from "../../deps.ts";
+export { readLines } from "../../deps.ts";
 
 /**
- * Check if there are any files in the project that match
- * the received glob pattern
+ * Check if there is at least one file in the project that match the received
+ * glob pattern
  */
-export async function hasAnyFile(glob: string): Promise<boolean> {
+export async function includes(glob: string): Promise<boolean> {
   return !(await expandGlob(glob).next()).done;
 }
 
@@ -14,7 +14,7 @@ export async function hasAnyFile(glob: string): Promise<boolean> {
  *
  * Return only files, not directories
  */
-export async function* files(glob: string): AsyncIterableIterator<WalkEntry> {
+export async function* each(glob: string): AsyncIterableIterator<WalkEntry> {
   for await (const file of expandGlob(glob)) {
     if (!file.isFile) {
       continue;
@@ -33,11 +33,4 @@ export async function readToml(path: string) {
   //
   // deno-lint-ignore no-explicit-any
   return parseToml(await Deno.readTextFile(path)) as any;
-}
-
-/**
- * Ask the user to pick one option from a list
- */
-export async function askOption(question: string, options: string[]) {
-  return await Select.prompt({ message: question, options });
 }

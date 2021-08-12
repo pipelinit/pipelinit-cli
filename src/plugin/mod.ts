@@ -1,21 +1,20 @@
-import {
-  askOption,
-  files,
-  hasAnyFile,
-  readLines,
-  readToml,
-} from "./helpers/mod.ts";
+import { config } from "../config/mod.ts";
+import { each, includes, readLines, readToml } from "./files.ts";
+import { askOption } from "./cli.ts";
 import { log } from "../../deps.ts";
 
 export const context = {
   getLogger: log.getLogger,
-  helpers: {
-    askOption,
-    files,
-    hasAnyFile,
+  files: {
+    each,
+    includes,
     readLines,
     readToml,
   },
+  cli: {
+    askOption,
+  },
+  config,
 };
 
 export type Context = typeof context;
