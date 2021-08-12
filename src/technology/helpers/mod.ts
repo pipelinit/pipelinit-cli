@@ -1,4 +1,4 @@
-import { expandGlob, WalkEntry } from "../../../deps.ts";
+import { expandGlob, parseToml, Select, WalkEntry } from "../../../deps.ts";
 export { readLines } from "../../../deps.ts";
 
 /**
@@ -22,4 +22,22 @@ export async function* files(glob: string): AsyncIterableIterator<WalkEntry> {
     yield file;
   }
   return;
+}
+
+/**
+ * Returns the serialized content from a TOML file
+ */
+export async function readToml(path: string) {
+  // FIXME how to easily handle typing here without pushing the
+  // job towards the plugin code?
+  //
+  // deno-lint-ignore no-explicit-any
+  return parseToml(await Deno.readTextFile(path)) as any;
+}
+
+/**
+ * Ask the user to pick one option from a list
+ */
+export async function askOption(question: string, options: string[]) {
+  return await Select.prompt({ message: question, options });
 }

@@ -1,4 +1,10 @@
-import { files, hasAnyFile, readLines } from "./helpers/mod.ts";
+import {
+  askOption,
+  files,
+  hasAnyFile,
+  readLines,
+  readToml,
+} from "./helpers/mod.ts";
 import { log } from "../../deps.ts";
 
 const logger = {
@@ -11,9 +17,11 @@ const logger = {
 export const context = {
   logger,
   helpers: {
+    askOption,
     files,
     hasAnyFile,
     readLines,
+    readToml,
   },
 };
 

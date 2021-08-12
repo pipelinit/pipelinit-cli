@@ -1,4 +1,5 @@
 import { Introspector } from "../deps.ts";
+import { introspect as introspectVersion } from "./version.ts";
 
 /**
  * Introspected information about a project with Python
@@ -19,7 +20,7 @@ export const introspector: Introspector<PythonProject> = {
 
     // Version
     logger.debug("py: detecting version");
-    const version = "3.9";
+    const version = await introspectVersion(context);
     logger.debug(`py: detected version ${version}`);
     return {
       version: version,

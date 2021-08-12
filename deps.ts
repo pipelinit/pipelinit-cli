@@ -32,4 +32,5 @@ export {
   Confirm,
   Number,
   prompt,
+  Select,
 } from "https://deno.land/x/cliffy@v0.19.4/prompt/mod.ts";
