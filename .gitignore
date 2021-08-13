@@ -1,1 +1,4 @@
 cov_profile
+app.bundle.js
+bin/*
+!bin/.gitkeep

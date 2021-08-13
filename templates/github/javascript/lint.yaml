@@ -1,0 +1,13 @@
+<% if (it.runtime.name === "deno") { %>
+name: Lint Deno
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - run: deno lint
+<% } %>
