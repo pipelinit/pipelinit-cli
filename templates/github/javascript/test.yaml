@@ -1,5 +1,5 @@
 <% if (it.runtime.name === "deno") { -%>
-name: Lint Deno
+name: Test Deno
 on:
   pull_request:
     paths:
@@ -13,5 +13,5 @@ jobs:
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
-      - run: deno lint --unstable
+      - run: deno test --unstable --allow-all
 <% } -%>
