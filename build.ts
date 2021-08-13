@@ -17,6 +17,7 @@ const p = Deno.run({
   cmd: [
     "deno",
     "compile",
+    "--unstable",
     "--allow-read=.",
     "--allow-write",
     "--output",
