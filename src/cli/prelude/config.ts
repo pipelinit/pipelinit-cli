@@ -1,17 +1,20 @@
-import { Checkbox } from "../../../deps.ts";
+import { Checkbox, log } from "../../../deps.ts";
 import { config } from "../../config/mod.ts";
 import { isPlatform } from "../../platform/mod.ts";
 
-export async function initialize() {
-  // If the project is already initialized, load the configuration and bail
+export async function configure() {
+  const logger = log.getLogger("main");
+  // Load the project config if it exists
   if (await config.exists()) {
+    logger.info("Loading project configuration");
     await config.load();
     return;
   }
 
-  // Otherwise initialize it
+  // Otherwise configure it
+  logger.info("Configure this project");
   const ciPlatforms = (await Checkbox.prompt({
-    message: "Select CI platforms",
+    message: "Which platforms does this project use?",
     options: [
       { name: "GitHub Actions", value: "github", checked: true },
       { name: "GitLab CI (coming soon)", value: "gitlab", disabled: true },

@@ -1,9 +1,12 @@
-import { ensureFile, PlatformWriterFn } from "../deps.ts";
+import { ensureFile, log, PlatformWriterFn } from "../deps.ts";
 
 export const github: PlatformWriterFn = async (templates) => {
+  const logger = log.getLogger("main");
   for await (const template of templates) {
     const { name, content } = template;
-    await ensureFile(`.github/workflows/${name}.yaml`);
-    await Deno.writeTextFile(`.github/workflows/${name}.yaml`, content);
+    const filename = `.github/workflows/${name}.yaml`;
+    logger.info(`Writing ${filename}`);
+    await ensureFile(filename);
+    await Deno.writeTextFile(filename, content);
   }
 };
