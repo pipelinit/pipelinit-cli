@@ -6,23 +6,23 @@ Bootstrap and manage CI pipelines.
 
 Run pipelinit in your project root.
 
-It tries to detect two aspects from your project:
+If the project isn't initialized, it asks what CI platform you use.
 
-- Which CI/CD platform it's using or what platform is available
-- What programming languages and tools it uses
+After the asnwer (or if the project is initialized) it:
 
-With this information pipelinit generates files to configure a CI pipeline for
-your project.
+1. Detects what programming languages and tools it uses (stacks)
+2. Creates CI pipelines configuration files for your project
 
-## Install
+## Building
 
-pipelinit requires Deno to run, you can check how to install it
-[in the official Deno website](https://deno.land/#installation).
+Pipelinit is built with Deno. To build the project from source, make sure you
+have Deno installed. You can check how to install it
+[in the official Deno website](https://deno.land/#installation)
 
-After installing Deno, install pipelinit with:
+Run the following command:
 
 ```
-deno install --unstable --allow-read --allow-write --allow-net ./pipelinit.ts
+deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
 ```
 
-Run `pipelinit --version` to test it.
+It creates the executable at `bin/pipelinit`.
