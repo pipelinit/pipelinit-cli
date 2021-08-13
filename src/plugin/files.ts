@@ -1,12 +1,32 @@
-import { expandGlob, parseToml, WalkEntry } from "../../deps.ts";
+import { expandGlob, parseToml, WalkEntry, fileExists } from "../../deps.ts";
 export { readLines } from "../../deps.ts";
+
+  /**
+  * Search for the .gitignore file and if it exists use the content
+  * to exclude files or directories from the glob.
+  */
+async function loadGitignoreExcludes() {
+  const excludedFiles: string[] = [];
+
+  if (await fileExists(".gitignore")){
+    const text = await Deno.readTextFile(".gitignore");
+    for await ( const file of text.split('\n') ){
+      if (file.includes("#") || (file.includes("!") || (file.includes(" ") || (!file)))){
+        continue
+      }
+      excludedFiles.push(file)
+    }
+    return excludedFiles
+  }
+  return []
+}
 
 /**
  * Check if there is at least one file in the project that match the received
  * glob pattern
  */
 export async function includes(glob: string): Promise<boolean> {
-  return !(await expandGlob(glob).next()).done;
+  return !(await expandGlob(glob, { exclude: await loadGitignoreExcludes() }).next()).done;
 }
 
 /**
@@ -15,7 +35,7 @@ export async function includes(glob: string): Promise<boolean> {
  * Return only files, not directories
  */
 export async function* each(glob: string): AsyncIterableIterator<WalkEntry> {
-  for await (const file of expandGlob(glob)) {
+  for await (const file of expandGlob(glob, { exclude: await loadGitignoreExcludes() })) {
     if (!file.isFile) {
       continue;
     }
