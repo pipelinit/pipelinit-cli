@@ -1,11 +1,12 @@
 import { Command } from "./deps.ts";
+import { VERSION } from "./src/version.ts";
 import defaultCommand from "./src/cli/commands/default.ts";
 
 export const PIPELINIT_ROOT = new URL(".", import.meta.url).pathname;
 
 await new Command()
   .name("pipelinit")
-  .version("0.1.0")
+  .version(VERSION)
   .description("Bootstrap and manage CI pipelines")
   .option(
     "-d, --debug [debug:boolean]",
