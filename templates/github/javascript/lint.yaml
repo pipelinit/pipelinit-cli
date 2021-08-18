@@ -14,4 +14,46 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno lint --unstable
+<% } else if (it.runtime.name === "node") { -%>
+name: Lint JavaScript
+on:
+  pull_request:
+    paths:
+      - '**.js'
+      - '**.ts'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '<%= it.runtime.version %>'
+          cache: '<%= it.packageManager.name %>'
+
+      <%_ if (it.packageManager.name === "npm") { -%>
+
+      - run: npm ci
+      <%_ if (it.linter.name === "eslint" && it.linter.hasIgnoreFile) { %>
+      - run: npx eslint --ext \".js,.ts\" .
+      <%_ } else if (it.linter.name === "eslint") { -%>
+      - run: npx eslint --ext \".js,.ts\" --ignore-path .gitignore .
+      <%_ } else { -%>
+      - run: npm install -g eslint
+      - run: npx eslint --no-eslintrc --ext \".js,.ts\" .
+      <% } -%>
+
+      <% } else { -%>
+
+      - run: yarn
+      <%_ if (it.linter.name === "eslint" && it.linter.hasIgnoreFile) { -%>
+      - run: yarn eslint --ext \".js,.ts\" .
+      <%_ } else if (it.linter.name === "eslint") { -%>
+      - run: yarn eslint --ext \".js,.ts\" --ignore-path .gitignore .
+      <%_ } else { -%>
+      - run: yarn global add eslint
+      - run: eslint --no-eslintrc --ext \".js,.ts\" .
+      <% } -%>
+
+      <% } -%>
 <% } -%>

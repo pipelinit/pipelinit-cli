@@ -40,3 +40,5 @@ export { colors } from "https://deno.land/x/cliffy@v0.19.4/ansi/colors.ts";
 
 // x/buckets
 export { loadBuckets } from "https://deno.land/x/buckets@0.1.0/mod.ts";
+
+export * as semver from "https://deno.land/x/semver@v1.4.0/mod.ts";

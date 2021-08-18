@@ -96,7 +96,7 @@ export async function* renderTemplates(
       const content = await eta.render(template.content, data, {
         autoTrim: false,
       });
-      if (typeof content === "string") {
+      if (typeof content === "string" && content) {
         yield {
           name: `pipelinit.${stack}.${template.name}`,
           content,
