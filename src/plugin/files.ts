@@ -60,3 +60,10 @@ export async function readToml(path: string) {
   // deno-lint-ignore no-explicit-any
   return parseToml(await Deno.readTextFile(path)) as any;
 }
+
+/**
+ * Returns the serialized content from a JSON file
+ */
+export async function readJSON(path: string) {
+  return JSON.parse(await Deno.readTextFile(path));
+}

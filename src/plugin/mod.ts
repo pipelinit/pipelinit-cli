@@ -1,5 +1,5 @@
 import { config } from "../config/mod.ts";
-import { each, includes, readLines, readToml } from "./files.ts";
+import { each, includes, readJSON, readLines, readToml } from "./files.ts";
 import { askOption } from "./cli.ts";
 import { log } from "../../deps.ts";
 
@@ -10,6 +10,7 @@ export const context = {
     includes,
     readLines,
     readToml,
+    readJSON,
   },
   cli: {
     askOption,

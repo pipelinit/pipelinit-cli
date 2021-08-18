@@ -1,4 +1,5 @@
 import { Introspector } from "../deps.ts";
+import { introspect as introspectLinter, Linter } from "./linter.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import {
   introspect as introspectPackageManager,
@@ -21,6 +22,10 @@ export default interface JavaScriptProject {
    * Which runtime the project uses
    */
   runtime: Runtime;
+  /**
+   * Which linter the project uses, if any
+   */
+  linter?: Linter;
 }
 
 export const introspector: Introspector<JavaScriptProject> = {
@@ -29,6 +34,15 @@ export const introspector: Introspector<JavaScriptProject> = {
   },
   introspect: async (context) => {
     const logger = context.getLogger("javascript");
+
+    // Linter
+    logger.debug("detecting linter");
+    const linter = await introspectLinter(context);
+    if (linter !== null) {
+      logger.debug(`detected linter "${linter.name}"`);
+    } else {
+      logger.debug("no supported linter detected");
+    }
 
     // Runtime
     logger.debug("detecting runtime");
@@ -51,6 +65,7 @@ export const introspector: Introspector<JavaScriptProject> = {
     return {
       runtime,
       packageManager,
+      linter,
     };
   },
 };
