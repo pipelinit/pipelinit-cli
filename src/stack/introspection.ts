@@ -41,9 +41,13 @@ export async function introspect() {
     ),
   );
 
-  return stack
+  const data = stack
     .reduce((obj, introspector, i) => {
       obj[introspector.name] = introspected[i];
       return obj;
     }, {} as Stack);
+
+  logger.debug(`Introspected data: ${JSON.stringify(data)}`);
+
+  return data;
 }
