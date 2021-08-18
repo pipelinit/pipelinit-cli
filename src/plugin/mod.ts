@@ -1,7 +1,7 @@
 import { config } from "../config/mod.ts";
 import { each, includes, readJSON, readLines, readToml } from "./files.ts";
 import { askOption } from "./cli.ts";
-import { log } from "../../deps.ts";
+import { log, semver } from "../../deps.ts";
 
 export const context = {
   getLogger: log.getLogger,
@@ -16,6 +16,7 @@ export const context = {
     askOption,
   },
   config,
+  semver,
 };
 
 export type Context = typeof context;
