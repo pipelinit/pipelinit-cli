@@ -4,8 +4,11 @@ import { introspect as introspectLinter, Linter } from "./linter.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import {
   introspect as introspectPackageManager,
-  PackageManager,
-} from "./package_manager.ts";
+  NodePackageManager,
+} from "../_shared/node_package_manager/mod.ts";
+
+// Available package managers
+type PackageManager = NodePackageManager | null;
 
 /**
  * Introspected information about a project with JavaScript
@@ -18,7 +21,7 @@ export default interface JavaScriptProject {
    * For example, a project that uses Deno doesn't need to use
    * npm, yarn or any other package manager.
    */
-  packageManager: PackageManager | null;
+  packageManager?: PackageManager;
   /**
    * Which runtime the project uses
    */

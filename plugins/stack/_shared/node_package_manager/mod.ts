@@ -1,4 +1,4 @@
-import { IntrospectFn } from "../deps.ts";
+import { IntrospectFn } from "../../deps.ts";
 
 interface Npm {
   name: "npm";
@@ -8,9 +8,9 @@ interface Yarn {
   name: "yarn";
 }
 
-export type PackageManager = Npm | Yarn;
+export type NodePackageManager = Npm | Yarn;
 
-export const introspect: IntrospectFn<PackageManager> = async (context) => {
+export const introspect: IntrospectFn<NodePackageManager> = async (context) => {
   if (await context.files.includes("**/yarn.lock")) {
     return {
       name: "yarn",
