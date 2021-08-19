@@ -31,29 +31,24 @@ jobs:
           node-version: '<%= it.runtime.version %>'
           cache: '<%= it.packageManager.name %>'
 
+      <%_ let installCmd; let runPrefix; let globalInstall; -%>
       <%_ if (it.packageManager.name === "npm") { -%>
+        <%_ installCmd = "npm ci" %>
+        <%_ runPrefix = "npx eslint" %>
+        <%_ globalInstall = "npm install -g eslint" %>
+      <%_ } else { -%>
+        <%_ installCmd = "yarn" %>
+        <%_ runPrefix = "yarn eslint" %>
+        <%_ globalInstall = "yarn global add eslint" %>
+      <% } -%>
 
-      - run: npm ci
+      - run: <%= installCmd %>
       <%_ if (it.linter.name === "eslint" && it.linter.hasIgnoreFile) { %>
-      - run: npx eslint --ext \".js,.ts\" .
+      - run: <%= runPrefix %> --ext .js --ext .ts .
       <%_ } else if (it.linter.name === "eslint") { -%>
-      - run: npx eslint --ext \".js,.ts\" --ignore-path .gitignore .
+      - run: <%= runPrefix %> --ext .js --ext .ts --ignore-path .gitignore .
       <%_ } else { -%>
-      - run: npm install -g eslint
-      - run: npx eslint --no-eslintrc --ext \".js,.ts\" .
-      <% } -%>
-
-      <% } else { -%>
-
-      - run: yarn
-      <%_ if (it.linter.name === "eslint" && it.linter.hasIgnoreFile) { -%>
-      - run: yarn eslint --ext \".js,.ts\" .
-      <%_ } else if (it.linter.name === "eslint") { -%>
-      - run: yarn eslint --ext \".js,.ts\" --ignore-path .gitignore .
-      <%_ } else { -%>
-      - run: yarn global add eslint
-      - run: eslint --no-eslintrc --ext \".js,.ts\" .
-      <% } -%>
-
+      - run: <%= globalInstall %>
+      - run: <%= runPrefix %> --no-eslintrc --ext .js --ext .ts .
       <% } -%>
 <% } -%>
