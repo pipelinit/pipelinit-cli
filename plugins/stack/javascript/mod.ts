@@ -1,4 +1,5 @@
 import { Introspector } from "../deps.ts";
+import { Formatter, introspect as introspectFormatter } from "./formatter.ts";
 import { introspect as introspectLinter, Linter } from "./linter.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import {
@@ -26,6 +27,10 @@ export default interface JavaScriptProject {
    * Which linter the project uses, if any
    */
   linter?: Linter;
+  /**
+   * Which formatter the project uses, if any
+   */
+  formatter?: Formatter;
 }
 
 export const introspector: Introspector<JavaScriptProject> = {
@@ -62,10 +67,20 @@ export const introspector: Introspector<JavaScriptProject> = {
       logger.debug(`detected package manager "${packageManager.name}"`);
     }
 
+    // Formatter
+    logger.debug("detecting formatter");
+    const formatter = await introspectFormatter(context);
+    if (formatter !== null) {
+      logger.debug(`detected formatter "${formatter.name}"`);
+    } else {
+      logger.debug("no supported formatter detected");
+    }
+
     return {
       runtime,
       packageManager,
       linter,
+      formatter,
     };
   },
 };
