@@ -3,7 +3,10 @@ import {
   introspect as introspectFormatter,
   Prettier,
 } from "../_shared/prettier/mod.ts";
-import { introspect as introspectLinter, Linter } from "./linter.ts";
+import {
+  ESLint,
+  introspect as introspectLinter,
+} from "../_shared/eslint/mod.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import {
   introspect as introspectPackageManager,
@@ -14,6 +17,8 @@ import {
 type PackageManager = NodePackageManager | null;
 // Available code formatters
 type Formatter = Prettier | null;
+// Available linters
+type Linter = ESLint | null;
 
 /**
  * Introspected information about a project with JavaScript
