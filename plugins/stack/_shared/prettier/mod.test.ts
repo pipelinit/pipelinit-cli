@@ -1,7 +1,7 @@
-import { context } from "../../../src/plugin/mod.ts";
-import { assertEquals, deepMerge, WalkEntry } from "../../../deps.ts";
+import { context } from "../../../../src/plugin/mod.ts";
+import { assertEquals, deepMerge, WalkEntry } from "../../../../deps.ts";
 
-import { introspect } from "./formatter.ts";
+import { introspect } from "./mod.ts";
 
 const fakeContext = (
   withIgnore: boolean,

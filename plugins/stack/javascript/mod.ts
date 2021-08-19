@@ -1,5 +1,8 @@
 import { Introspector } from "../deps.ts";
-import { Formatter, introspect as introspectFormatter } from "./formatter.ts";
+import {
+  introspect as introspectFormatter,
+  Prettier,
+} from "../_shared/prettier/mod.ts";
 import { introspect as introspectLinter, Linter } from "./linter.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import {
@@ -9,6 +12,8 @@ import {
 
 // Available package managers
 type PackageManager = NodePackageManager | null;
+// Available code formatters
+type Formatter = Prettier | null;
 
 /**
  * Introspected information about a project with JavaScript

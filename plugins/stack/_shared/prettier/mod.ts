@@ -1,11 +1,9 @@
-import { IntrospectFn } from "../deps.ts";
+import { IntrospectFn } from "../../deps.ts";
 
-interface Prettier {
+export interface Prettier {
   name: "prettier";
   hasIgnoreFile: boolean;
 }
-
-export type Formatter = Prettier | null;
 
 const PRETTIER_V1_WARNING = `
 Detected Prettier 1 in the project.
@@ -17,7 +15,7 @@ isn't hard. Read more about it here:
 https://prettier.io/blog/2020/03/21/2.0.0.html
 `;
 
-export const introspect: IntrospectFn<Formatter> = async (context) => {
+export const introspect: IntrospectFn<Prettier | null> = async (context) => {
   const logger = context.getLogger("javascript");
 
   // See https://prettier.io/docs/en/ignore.html
