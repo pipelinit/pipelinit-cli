@@ -81,7 +81,7 @@ When you run pipelinit in the root of a software project:
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="7">Coming soon</td>
+      <td rowspan="6">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -161,16 +161,61 @@ When you run pipelinit in the root of a software project:
 | -----  | ----- |
 | Lint   | [Flake8](https://flake8.pycqa.org/) |
 
-## Building
+## Development
 
-Pipelinit is built with Deno. To build the project from source, make sure you
-have Deno installed. You can check how to install it
+Pipelinit is built with Deno. To develop, test or build the project, make sure
+you have Deno installed. You can check how to install it
 [in the official Deno website](https://deno.land/#installation)
 
-Run the following command:
+### Manual testing
 
+To quickly test the tool in your local environment, install it as a script. In
+this project root run:
+```
+deno install      \
+  --unstable      \
+  --allow-read=.  \
+  --allow-write=. \
+  pipelinit.ts
+```
+
+When you update the code in the repository, just run "pipelinit" again in the
+target project to start the CLI with the latest changes.
+
+### Automated testing
+
+To run the project automated tests use:
+```
+deno --unstable test --allow-read --coverage=cov_profile
+```
+
+And to check the test coverage use:
+```
+deno coverage cov_profile
+```
+
+| ⚠️ | Clear the content from cov_profile between each test run. Otherwise your coverage data may be incorrect. |
+| --- | --- |
+
+### Compiling
+
+To generate compiled executables for Linux, Windows, and macOS, run the
+following command:
 ```
 deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
 ```
 
-It creates the executable at `bin/pipelinit`.
+This creates one executable per target with the following name pattern:
+```
+pipelinit-<VERSION>-<TARGET>
+```
+
+And the correspondent compressed file:
+
+- .tar.gz for Linux and macOS
+- .zip for Widnows
+
+It also generates one executable named just "pipelinit", that uses the native
+target (the computer where you ran the build).
+
+The build script puts those files in the "bin" directory.
