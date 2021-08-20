@@ -59,7 +59,38 @@ When you run pipelinit in the root of a software project:
 2. It collects more detailed data about each _stack_.
 3. It uses that data to build the CI configuration files.
 
-## Supported Stacks and Platforms
+## Stages
+
+Which stages are present in the final CI pipeline depends on the identified
+stacks and their support. You can check a complete reference of supported tools,
+stacks and which stages are available to each one further down in this document.
+
+Here is a list of available stages and what is the goal of each one:
+
+### Format
+
+The format step checks if the code is properly formatted with an automated code
+formatter.
+
+This is useful for most programming languages and text files because:
+
+- It makes the code style looks the same regardless the project
+- It removes style discussions from code review
+- It free developers from thinking about code style
+
+### Lint
+
+The lint step uses static analysis tools to improve overall code quality. It
+enforces some rules in the code base and can detect bugs before execution.
+
+This is useful for most programming languages and text files because:
+
+- It helps building more standarized code bases, which is easier to read and maintain
+- It can prevent some bugs
+- It can help with deleting unused code
+- It is a great tool to teach how to write better code
+
+## Stacks and Platforms
 
 <table>
   <caption class="title">Pipelinit Support Matrix</caption>
@@ -108,11 +139,26 @@ When you run pipelinit in the root of a software project:
   </tbody>
 </table>
 
+### Notes about partial support (cells with 🟡)
+
+- The test stage for JavaScript currently supports Deno
+
+## Stack support
+
+In this section you can check details about what each stack supports.
+
+When one of the supported tools can't be detected, pipelinit generates a
+pipeline configuration with the tool marked as _default_. If your project
+doesn't use one of those tools with custom configurations, the pipeline
+generated uses _sensible defaults_ from the picked tools.
+
+If this isn't desired, you can disable this with the flag `--no-default-stage`.
+
 ### CSS Support
 
 #### Package Managers
 
-- [npm](https://www.npmjs.com/)
+- [npm](https://www.npmjs.com/) _default_
 - [yarn](https://yarnpkg.com/)
 
 #### Flavors
@@ -125,32 +171,32 @@ When you run pipelinit in the root of a software project:
 
 | Stage  |  Tools |
 | -----  | ------ |
-| Format | [Prettier](https://prettier.io/) |
-| Lint   | [stylelint](https://stylelint.io/) |
+| Format | [Prettier](https://prettier.io/) (_default_) |
+| Lint   | [stylelint](https://stylelint.io/) (_default_) |
 
 ### JavaScript Support
 
 #### Package Managers
 
-- [npm](https://www.npmjs.com/)
+- [npm](https://www.npmjs.com/) _default_
 - [yarn](https://yarnpkg.com/)
 
 #### Flavors
 
-- JavaScript
+- JavaScript _default_
 - [TypeScript](https://www.typescriptlang.org/)
 
 #### Runtime
 
-- [Node.js](https://nodejs.org/)
+- [Node.js](https://nodejs.org/) _default_
 - [Deno](https://deno.land/)
 
 #### Tools
 
 | Stage  | Tools |
 | -----  | ----- |
-| Format | [Prettier](https://prettier.io/), [Deno](https://deno.land/manual@v1.13.1/tools/formatter) |
-| Lint   | [ESLint](https://eslint.org/), [Deno](https://deno.land/manual@v1.13.1/tools/linter) |
+| Format | [Prettier](https://prettier.io/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/formatter) |
+| Lint   | [ESLint](https://eslint.org/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/linter) |
 | Test   | [Deno](https://deno.land/manual@v1.13.1/testing) |
 
 ### Python
