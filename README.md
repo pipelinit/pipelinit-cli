@@ -1,21 +1,65 @@
 # Pipelinit
 
-Bootstrap and manage CI pipelines.
+Bootstrap and manage **Continuous Integration (CI)** pipelines.
+
+## How to install
+
+Download an executable from the [Releases page](https://github.com/pipelinit/pipelinit/releases).
+
+If you have [Deno](https://deno.land/) installed, an alternative method is the
+[Script installer](https://deno.land/manual@v1.13.1/tools/script_installer):
+```bash
+deno install      \
+  --unstable      \
+  --allow-read=.  \
+  --allow-write=. \
+  https://raw.githubusercontent.com/pipelinit/pipelinit/v0.1.0-rc.1/pipelinit.ts
+```
 
 ## How to use
 
-Run pipelinit in your project root.
+In the root of a git repository run:
+```
+pipelinit
+```
+And follow the instructions.
 
-If the project isn't initialized, it asks what CI platform you use.
+## Concepts
 
-After the asnwer (or if the project is initialized) it:
+To understand how Pipelinit generates CI pipelines for a software project,
+first read a brief description about the following concepts:
 
-1. Detects what programming languages and tools it uses (stacks)
-2. Creates CI pipelines configuration files for your project
+### Stacks
 
-Now you just need to check the created (or updated) files into git.
+A _Stack_ is a set of technologies used by a project such as programming
+languages, frameworks, libraries, and tools. Pipelinit introspects a project
+searching for technologies that can be checked in a CI pipeline. Those projects
+traits are grouped into _Stacks_.
 
-## Supported Stacks
+### CI Stage
+
+A _Stage_ is a step, which can contain substeps, in a CI pipeline that perform
+tasks with **similar goals** independent from the _stack_. Pipelinit generates
+standarized CI pipelines with well-defined _stages_. The tools that each step
+uses changes to fit the stack, but serve the same purpose.
+
+Every stage uses free and open source software.
+
+### CI Platform
+
+A _Platform_ is a service that runs the CI pipeline, each platform has its own
+set of features and therefore configuration. A CI platform may be a public
+service or a self-hosted solution.
+
+## How it works
+
+When you run pipelinit in the root of a software project:
+
+1. It checks what kind of files exists there to detect the _stacks_.
+2. It collects more detailed data about each _stack_.
+3. It uses that data to build the CI configuration files.
+
+## Supported Stacks and Platforms
 
 <table>
   <caption class="title">Pipelinit Support Matrix</caption>
@@ -37,23 +81,14 @@ Now you just need to check the created (or updated) files into git.
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="8">Coming soon</td>
+      <td rowspan="7">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="2">JavaScript (Node.js)</td>
-      <td>Format</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td>Lint</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td rowspan="3">JavaScript (Deno)</td>
+      <td rowspan="3">JavaScript</td>
       <td>Format</td>
       <td>✔️</td>
     </tr>
@@ -63,7 +98,7 @@ Now you just need to check the created (or updated) files into git.
     </tr>
     <tr>
       <td>Test</td>
-      <td>✔️</td>
+      <td>🟡</td>
     </tr>
     <tr>
       <td>Python</td>
@@ -72,6 +107,59 @@ Now you just need to check the created (or updated) files into git.
     </tr>
   </tbody>
 </table>
+
+### CSS Support
+
+#### Package Managers
+
+- [npm](https://www.npmjs.com/)
+- [yarn](https://yarnpkg.com/)
+
+#### Flavors
+
+- CSS
+- [Sass](https://sass-lang.com/)
+- [Less](https://lesscss.org/)
+
+#### Tools
+
+| Stage  |  Tools |
+| -----  | ------ |
+| Format | [Prettier](https://prettier.io/) |
+| Lint   | [stylelint](https://stylelint.io/) |
+
+### JavaScript Support
+
+#### Package Managers
+
+- [npm](https://www.npmjs.com/)
+- [yarn](https://yarnpkg.com/)
+
+#### Flavors
+
+- JavaScript
+- [TypeScript](https://www.typescriptlang.org/)
+
+#### Runtime
+
+- [Node.js](https://nodejs.org/)
+- [Deno](https://deno.land/)
+
+#### Tools
+
+| Stage  | Tools |
+| -----  | ----- |
+| Format | [Prettier](https://prettier.io/), [Deno](https://deno.land/manual@v1.13.1/tools/formatter) |
+| Lint   | [ESLint](https://eslint.org/), [Deno](https://deno.land/manual@v1.13.1/tools/linter) |
+| Test   | [Deno](https://deno.land/manual@v1.13.1/testing) |
+
+### Python
+
+#### Tools
+
+| Stage  | Tools |
+| -----  | ----- |
+| Lint   | [Flake8](https://flake8.pycqa.org/) |
 
 ## Building
 
