@@ -1,13 +1,11 @@
-import { IntrospectFn } from "../deps.ts";
+import { IntrospectFn } from "../../deps.ts";
 
-interface ESLint {
+export interface ESLint {
   name: "eslint";
   hasIgnoreFile: boolean;
 }
 
-export type Linter = ESLint | null;
-
-export const introspect: IntrospectFn<Linter> = async (context) => {
+export const introspect: IntrospectFn<ESLint | null> = async (context) => {
   // See https://eslint.org/docs/user-guide/configuring/ignoring-code
   const hasIgnoreFile = await context.files.includes("**/.eslintignore");
 

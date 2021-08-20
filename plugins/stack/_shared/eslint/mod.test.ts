@@ -1,9 +1,9 @@
-import { context } from "../../../src/plugin/mod.ts";
-import { assertEquals, deepMerge } from "../../../deps.ts";
+import { context } from "../../../../src/plugin/mod.ts";
+import { assertEquals, deepMerge } from "../../../../deps.ts";
 
-import { introspect } from "./linter.ts";
+import { introspect } from "./mod.ts";
 
-Deno.test("Plugins > JavaScript > Linter - project with ESLint dedicated config and no ignore file", async () => {
+Deno.test("Plugins > _shared > ESLint - dedicated config and no ignore file", async () => {
   const fakeContext = deepMerge(
     context,
     {
@@ -22,7 +22,7 @@ Deno.test("Plugins > JavaScript > Linter - project with ESLint dedicated config 
   assertEquals(result, { name: "eslint", hasIgnoreFile: false });
 });
 
-Deno.test("Plugins > JavaScript > Linter - project with ESLint dedicated config and ignore file", async () => {
+Deno.test("Plugins > _shared > ESLint - dedicated config and ignore file", async () => {
   const fakeContext = deepMerge(
     context,
     {

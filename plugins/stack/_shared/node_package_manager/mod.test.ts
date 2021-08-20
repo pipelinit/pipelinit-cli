@@ -1,9 +1,9 @@
-import { context } from "../../../src/plugin/mod.ts";
-import { assertEquals, deepMerge } from "../../../deps.ts";
+import { context } from "../../../../src/plugin/mod.ts";
+import { assertEquals, deepMerge } from "../../../../deps.ts";
 
-import { introspect } from "./package_manager.ts";
+import { introspect } from "./mod.ts";
 
-Deno.test("Plugins > JavaScript > Package Manager - project with npm", async () => {
+Deno.test("Plugins > _shared > Node Package Manager - npm", async () => {
   // Mock the original context to return false when the introspection
   // function search for the "yarn.lock" file.
   const fakeContext = deepMerge(
@@ -21,7 +21,7 @@ Deno.test("Plugins > JavaScript > Package Manager - project with npm", async () 
   assertEquals(result, { name: "npm" });
 });
 
-Deno.test("Plugins > JavaScript > Package Manager - project with yarn", async () => {
+Deno.test("Plugins > _shared > Node Package Manager - yarn", async () => {
   // Mock the original context to return true when the introspection
   // function search for the "yarn.lock" file.
   const fakeContext = deepMerge(

@@ -1,0 +1,30 @@
+<% if (it.formatter) { -%>
+name: Format CSS
+on:
+  pull_request:
+    paths:
+      - '**.css'
+      - '**.scss'
+      - '**.sass'
+      - '**.less'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: '<%= it.packageManager.name %>'
+
+      <%_ let installCmd; let runPrefix; -%>
+      <%_ if (it.packageManager.name === "npm") { -%>
+        <%_ installCmd = "npm ci" %>
+        <%_ runPrefix = "npx" %>
+      <%_ } else { -%>
+        <%_ installCmd = "yarn" %>
+        <%_ runPrefix = "yarn" %>
+      <% } -%>
+
+      - run: <%= installCmd %>
+      - run: <%= runPrefix %> prettier --no-error-on-unmatched-pattern --check "**.css" "**.scss" "**.sass" "**.less"
+<% } -%>
