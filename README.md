@@ -31,29 +31,29 @@ first read a brief description about the following concepts:
 
 ### Stacks
 
-A _Stack_ is a set of technologies used by a project such as programming
+A _Stack_ is a set of technologies used by a project, such as programming
 languages, frameworks, libraries, and tools. Pipelinit introspects a project
-searching for technologies that can be checked in a CI pipeline. Those projects
-traits are grouped into _Stacks_.
+searching for technologies that a CI pipeline can check.
 
 ### CI Stage
 
-A _Stage_ is a step, which can contain substeps, in a CI pipeline that perform
-tasks with **similar goals** independent from the _stack_. Pipelinit generates
-standarized CI pipelines with well-defined _stages_. The tools that each step
-uses changes to fit the stack, but serve the same purpose.
+A _Stage_ is a step in a CI pipeline that performs tasks with **similar goals**
+independent from the _stack_. Each step can have multiple substeps. Pipelinit
+generates standardized CI pipelines with well-defined _stages_. The tools that
+each step uses change to fit the stack but serve the same purpose.
 
-Every stage uses free and open source software.
+Every stage uses free and open-source software.
 
 ### CI Platform
 
-A _Platform_ is a service that runs the CI pipeline, each platform has its own
-set of features and therefore configuration. A CI platform may be a public
-service or a self-hosted solution.
+A _CI Platform_ is a public SaaS or self-hosted solution that runs the CI
+pipeline. Every platform has its capabilities, features, and configurations.
+Pipelinit leverages the platform features and generates configuration files to
+build a pipeline tuned for the project and platform.
 
 ## How it works
 
-When you run pipelinit in the root of a software project:
+When you run Pipelinit in the root of a software project:
 
 1. It checks what kind of files exists there to detect the _stacks_.
 2. It collects more detailed data about each _stack_.
@@ -63,18 +63,19 @@ When you run pipelinit in the root of a software project:
 
 Which stages are present in the final CI pipeline depends on the identified
 stacks and their support. You can check a complete reference of supported tools,
-stacks and which stages are available to each one further down in this document.
+stacks, and which stages are available to each one further down in this
+document.
 
 Here is a list of available stages and what is the goal of each one:
 
 ### Format
 
-The format step checks if the code is properly formatted with an automated code
-formatter.
+The format step checks if the code follows the format style from an automated
+code formatter.
 
-This is useful for most programming languages and text files because:
+Formatters are valuable for most programming languages and text files because:
 
-- It makes the code style looks the same regardless the project
+- It makes the code style looks the same regardless of the project
 - It removes style discussions from code review
 - It free developers from thinking about code style
 
@@ -83,24 +84,23 @@ This is useful for most programming languages and text files because:
 The lint step uses static analysis tools to improve overall code quality. It
 enforces some rules in the code base and can detect bugs before execution.
 
-This is useful for most programming languages and text files because:
+Linters are valuable for most programming languages and text files because:
 
-- It helps building more standarized code bases, which is easier to read and maintain
+- It helps to build more standardized codebases, which is easier to read and maintain
 - It can prevent some bugs
-- It can help with deleting unused code
+- It helps to delete unused code
 - It is a great tool to teach how to write better code
 
 ### SAST
 
 The SAST (Static application security testing) step uses static analysis tools
 to improve overall code security. This step is distinct from the _Lint_ step
-because of the focus towards security.
+because of the security focus.
 
-One issue with SAST tools is that it may generate some false-positives,
-therefore it's adoption should be done incrementally. To mitigate this, by
-default Pipelinit allows this step to fail.
+One issue with SAST tools is that they generate false positives. That's why the
+default behavior for this step is to allow failure.
 
-SAST is useful for most applications and libraries because:
+SAST tools are valuable for most applications and libraries because:
 
 - It prevents vulnerabilities early
 - It improves application reliability
@@ -110,8 +110,8 @@ SAST is useful for most applications and libraries because:
 
 The test step runs automated tests detected in the project.
 
-The scope of this step isn't individual files, but the whole application or
-library. This stage may start extra services if the application or library
+The scope of this step isn't individual files but the application or library.
+This stage may start extra services if the application or library
 requires it.
 
 Any application or library, no matter how small the codebase or the team,
@@ -122,7 +122,7 @@ benefits from automated tests because:
 - It's required to refactor the codebase towards something better
 - It documents how the software behaves
 
-The benefits far outweight the costs.
+The benefits far outweigh the costs.
 
 ## Stacks and Platforms
 
