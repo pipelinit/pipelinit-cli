@@ -90,6 +90,40 @@ This is useful for most programming languages and text files because:
 - It can help with deleting unused code
 - It is a great tool to teach how to write better code
 
+### SAST
+
+The SAST (Static application security testing) step uses static analysis tools
+to improve overall code security. This step is distinct from the _Lint_ step
+because of the focus towards security.
+
+One issue with SAST tools is that it may generate some false-positives,
+therefore it's adoption should be done incrementally. To mitigate this, by
+default Pipelinit allows this step to fail.
+
+SAST is useful for most applications and libraries because:
+
+- It prevents vulnerabilities early
+- It improves application reliability
+- It is a great tool to teach how to write safer code
+
+### Test
+
+The test step runs automated tests detected in the project.
+
+The scope of this step isn't individual files, but the whole application or
+library. This stage may start extra services if the application or library
+requires it.
+
+Any application or library, no matter how small the codebase or the team,
+benefits from automated tests because:
+
+- It prevents bugs from (re)appearing
+- It helps to onboard new contributors
+- It's required to refactor the codebase towards something better
+- It documents how the software behaves
+
+The benefits far outweight the costs.
+
 ## Stacks and Platforms
 
 <table>
