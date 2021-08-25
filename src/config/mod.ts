@@ -1,14 +1,9 @@
 import { deepMerge, fileExists, parseToml, stringifyToml } from "../../deps.ts";
-import { JavaScriptProject, PythonProject } from "../../plugins/stack/mod.ts";
 import { arePlatforms, Platforms } from "../platform/mod.ts";
 
 export const CONFIG_FILE = ".pipelinit.toml";
 export type Config = {
   platforms?: Platforms;
-  plugins: {
-    javascript?: Partial<JavaScriptProject>;
-    python?: Partial<PythonProject>;
-  };
   exists: () => Promise<boolean>;
   load: () => Promise<void>;
   save: () => Promise<void>;
@@ -27,7 +22,6 @@ function isConfig(c: Record<string, unknown>): c is Config {
 }
 
 export const config: Config = {
-  plugins: {},
   exists: async () => await fileExists(CONFIG_FILE),
   save: async () => {
     await Deno.writeTextFile(CONFIG_FILE, stringifyToml(config));
@@ -38,7 +32,6 @@ export const config: Config = {
     if (isConfig(configContent)) {
       const newConfig = deepMerge(config, configContent);
       config.platforms = newConfig.platforms;
-      config.plugins = newConfig.plugins;
     } else {
       throw new Error("Couldn't parse configuration file");
     }
