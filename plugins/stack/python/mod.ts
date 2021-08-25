@@ -5,6 +5,14 @@ import {
   PackageManager,
 } from "./package_manager.ts";
 import {
+  introspect as instrospectBlack,
+  Black,
+} from "./black.ts"
+import {
+  introspect as instrospectIsort,
+  Isort,
+} from "./isort.ts"
+import {
   introspect as instrospectFlake8,
   Flake8,
 } from "./flake8.ts"
@@ -12,6 +20,9 @@ import {
 
 // Available package managers
 type PythonPackageManager = PackageManager | null
+// Available code formatters
+type BlackFormatter = Black | null
+type IsortFormatter = Isort | null
 // Available Linter
 type Flake8Linter = Flake8 | null
 
@@ -43,12 +54,18 @@ export const introspector: Introspector<PythonProject | undefined> = {
     // Package Manager
     logger.debug("detecting package manager");
     const packageManager = await introspectPackageManager(context)
+    // Formatter
+    logger.debug("detecting formatter");
+    const black = await instrospectBlack(context)
+    const isort = await instrospectIsort(context)
     // Linter
     logger.debug("detecting linter");
     const flake8 = await instrospectFlake8(context)
     return {
       version: version,
       pythonPackageManager: packageManager,
+      blackFormatter: black,
+      isortFormatter: isort,
       flake8Linter: flake8,
     };
   },
