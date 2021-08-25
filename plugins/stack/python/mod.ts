@@ -8,10 +8,10 @@ export default interface PythonProject {
   /**
    * Python version
    */
-  version: string;
+  version?: string;
 }
 
-export const introspector: Introspector<PythonProject> = {
+export const introspector: Introspector<PythonProject | undefined> = {
   detect: async (context) => {
     return await context.files.includes("**/*.py");
   },
@@ -21,6 +21,10 @@ export const introspector: Introspector<PythonProject> = {
     // Version
     logger.debug("detecting version");
     const version = await introspectVersion(context);
+    if (version === undefined) {
+      logger.debug("didn't detect the version");
+      return undefined;
+    }
     logger.debug(`detected version ${version}`);
     return {
       version: version,

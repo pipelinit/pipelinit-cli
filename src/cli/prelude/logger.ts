@@ -32,8 +32,8 @@ function verboseHandler() {
 function defaultHandler() {
   const info = colors.bold.blue;
   const warning = colors.bold.yellow;
-  const error = colors.bold.red;
-  const critical = colors.bold.bgRed;
+  const error = colors.bold;
+  const critical = colors.bold.red;
   return new RawConsoleLogHandler("INFO", {
     formatter: (logRecord) => {
       const { levelName, msg } = logRecord;

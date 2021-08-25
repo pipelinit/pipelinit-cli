@@ -1,23 +1,39 @@
 import { IntrospectFn } from "../deps.ts";
 
-// Used when the Python version can't be introspected
-const QUESTION =
-  "Couldn't determine the Python version. Please select an option";
-// Offer current available Python versions, check those here:
-// https://devguide.python.org/#status-of-python-branches
-const PYTHON_VERSIONS = [
-  "3.6",
-  "3.7",
-  "3.8",
-  "3.9",
-];
+const ERR_UNDETECTABLE_TITLE =
+  "Couldn't detect which Python version this project uses.";
+const ERR_UNDETECTABLE_INSTRUCTIONS = `
+To fix this issue, consider one of the following suggestions:
 
-export const introspect: IntrospectFn<string> = async (context) => {
-  // If there is user defined configuration, use that value
-  if (context.config.plugins.python?.version) {
-    return context.config.plugins.python?.version;
-  }
+1. Adopt Pipenv
 
+Pipenv is a tool, which is maintaned by the Python Packaging Authority, that
+manages project dependencies, a local virtualenv, split dependencies between
+development and production, and declares what is the Python version used in
+the project.
+
+See https://pipenv.pypa.io/
+
+2. Adopt Poetry
+
+Poetry is a popular alternative to Pipenv, it solves similar problems and helps
+to build and publish Python packages. It also declares what Python version a
+project is using.
+
+See https://python-poetry.org/
+
+3. Create a .python-version file
+
+The .python-version file is used by pyenv to choose a specific Python version
+for a project.
+
+Its the easiest option, all you have to do is create a .python-version text
+file with a version inside, like "3.9".
+
+See https://github.com/pyenv/pyenv
+`;
+
+export const introspect: IntrospectFn<string | undefined> = async (context) => {
   // Search for application specific `.python-version` file from pyenv
   //
   // See https://github.com/pyenv/pyenv/#choosing-the-python-version
@@ -44,19 +60,15 @@ export const introspect: IntrospectFn<string> = async (context) => {
     const version: string | null = pyproject?.tool?.poetry?.dependencies
       ?.python;
     if (version) {
-      // TODO this simply removes caret and tilde from version specification
-      // to convert something like "^3.6" to "3.6". Maybe a more suitable
-      // behaviour would be to convert it to 3.6, 3.7, 3.8 and 3.9
+      // FIXME this simply removes caret and tilde from version specification
+      // to convert something like "^3.6" to "3.6". The correct behavior
+      // would be to convert it to a range with 3.6, 3.7, 3.8 and 3.9
       return version.replace(/[\^~]/, "");
     }
   }
 
-  // Didn't find what python version the project uses. Ask the user.
-  const version = await context.cli.askOption(QUESTION, PYTHON_VERSIONS);
-  // Save it in the configuration to avoid asking again
-  const pythonConfig = (context.config.plugins || {}).python || {};
-  pythonConfig.version = version;
-  context.config.plugins.python = pythonConfig;
-  await context.config.save();
-  return version;
+  context.errors.add({
+    title: ERR_UNDETECTABLE_TITLE,
+    message: ERR_UNDETECTABLE_INSTRUCTIONS,
+  });
 };
