@@ -13,6 +13,10 @@ import {
   Isort,
 } from "./isort.ts"
 import {
+  introspect as instrospectPytest,
+  Pytest,
+} from "./pytest.ts"
+import {
   introspect as instrospectFlake8,
   Flake8,
 } from "./flake8.ts"
@@ -23,6 +27,8 @@ type PythonPackageManager = PackageManager | null
 // Available code formatters
 type BlackFormatter = Black | null
 type IsortFormatter = Isort | null
+// Available code tester
+type PytestTester = Pytest | null
 // Available Linter
 type Flake8Linter = Flake8 | null
 
@@ -58,6 +64,9 @@ export const introspector: Introspector<PythonProject | undefined> = {
     logger.debug("detecting formatter");
     const black = await instrospectBlack(context)
     const isort = await instrospectIsort(context)
+    // Tester
+    logger.debug("detecting tester");
+    const pytest = await instrospectPytest(context)
     // Linter
     logger.debug("detecting linter");
     const flake8 = await instrospectFlake8(context)
@@ -66,6 +75,7 @@ export const introspector: Introspector<PythonProject | undefined> = {
       pythonPackageManager: packageManager,
       blackFormatter: black,
       isortFormatter: isort,
+      pytestTester: pytest,
       flake8Linter: flake8,
     };
   },

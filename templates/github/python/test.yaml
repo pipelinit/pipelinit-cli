@@ -1,0 +1,26 @@
+name: Test Python
+on:
+  pull_request:
+    paths:
+      - "**.py"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: <%= it.version %>
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install <%= it.pythonPackageManager.name %>
+          <%= it.pythonPackageManager.dependenciesCommand %>
+
+        <%_ if (!it.pytestTester.hasPytest) { %>
+      - name: Install Pytest
+        run: pip install pytest
+      <%_ } -%>
+
+      - run: <%= it.pythonPackageManager.runCommand %> pytest
