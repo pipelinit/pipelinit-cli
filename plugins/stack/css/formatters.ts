@@ -4,11 +4,7 @@ import {
   Prettier,
 } from "../_shared/prettier/mod.ts";
 
-// deno-lint-ignore no-empty-interface
-interface Deno {}
-
 export type Formatters = {
-  deno?: Deno;
   prettier?: Prettier | null;
 } | null;
 
@@ -17,7 +13,7 @@ function anyValue(records: Record<string, unknown>): boolean {
 }
 
 export const introspect: IntrospectFn<Formatters> = async (context) => {
-  const logger = context.getLogger("javascript");
+  const logger = context.getLogger("css");
   logger.debug("detecting formatter");
 
   const prettier = await introspectPrettier(context);
@@ -32,7 +28,7 @@ export const introspect: IntrospectFn<Formatters> = async (context) => {
   if (anyValue(formatters)) return formatters;
 
   if (context.suggestDefault) {
-    logger.warning("No JavaScript formatter detected, using Prettier");
+    logger.warning("No CSS formatter detected, using Prettier");
     return {
       prettier: { name: "prettier", hasIgnoreFile: false },
     };

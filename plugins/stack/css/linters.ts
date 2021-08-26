@@ -1,15 +1,11 @@
 import { IntrospectFn } from "../deps.ts";
 import {
-  ESLint,
-  introspect as introspectESLint,
-} from "../_shared/eslint/mod.ts";
-
-// deno-lint-ignore no-empty-interface
-interface Deno {}
+  introspect as introspectStylelint,
+  Stylelint,
+} from "../_shared/stylelint/mod.ts";
 
 export type Linters = {
-  deno?: Deno;
-  eslint?: ESLint | null;
+  stylelint?: Stylelint | null;
 } | null;
 
 function anyValue(records: Record<string, unknown>): boolean {
@@ -20,21 +16,21 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   const logger = context.getLogger("javascript");
   logger.debug("detecting linter");
 
-  const eslint = await introspectESLint(context);
-  if (eslint !== null) {
-    logger.debug("detected ESLint");
+  const stylelint = await introspectStylelint(context);
+  if (stylelint !== null) {
+    logger.debug("detected stylelint");
   }
 
   const linters = {
-    eslint,
+    stylelint,
   };
 
   if (anyValue(linters)) return linters;
 
   if (context.suggestDefault) {
-    logger.warning("No JavaScript linter detected, using ESLint");
+    logger.warning("No CSS linter detected, using stylelint");
     return {
-      eslint: { name: "eslint", hasIgnoreFile: false },
+      stylelint: { name: "stylelint" },
     };
   }
 
