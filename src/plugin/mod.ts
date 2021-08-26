@@ -1,4 +1,3 @@
-import { config } from "../config/mod.ts";
 import { each, includes, readJSON, readLines, readToml } from "./files.ts";
 import { errors } from "./errors.ts";
 import { log, semver } from "../../deps.ts";
@@ -15,8 +14,8 @@ export const context = {
   errors: {
     add: errors.add,
   },
-  config,
   semver,
+  suggestDefault: true,
 };
 
 export type Context = typeof context;

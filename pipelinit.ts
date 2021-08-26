@@ -13,5 +13,9 @@ await new Command()
     "Output more information, useful for debugging",
     { global: true },
   )
+  .option(
+    "--no-default-stage [no-default-stage:boolean]",
+    "Disable default suggestion for a CI stage when can't detect a supported tool",
+  )
   .action(defaultCommand)
   .parse(Deno.args);
