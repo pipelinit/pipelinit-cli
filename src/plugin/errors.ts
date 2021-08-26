@@ -18,7 +18,7 @@ export const errors = {
 };
 
 export const outputErrors = () => {
-  if (!errors.list) return;
+  if (errors.list.length === 0) return;
   const logger = log.getLogger("main");
   logger.warning(`Didn't generate pipeline for every detected stack!
   `);
