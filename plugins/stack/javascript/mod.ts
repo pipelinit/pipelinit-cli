@@ -1,12 +1,6 @@
 import { Introspector } from "../deps.ts";
-import {
-  introspect as introspectFormatter,
-  Prettier,
-} from "../_shared/prettier/mod.ts";
-import {
-  ESLint,
-  introspect as introspectLinter,
-} from "../_shared/eslint/mod.ts";
+import { Formatters, introspect as introspectFormatter } from "./formatters.ts";
+import { introspect as introspectLinter, Linters } from "./linters.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import {
   introspect as introspectPackageManager,
@@ -15,10 +9,6 @@ import {
 
 // Available package managers
 type PackageManager = NodePackageManager | null;
-// Available code formatters
-type Formatter = Prettier | null;
-// Available linters
-type Linter = ESLint | null;
 
 /**
  * Introspected information about a project with JavaScript
@@ -39,11 +29,11 @@ export default interface JavaScriptProject {
   /**
    * Which linter the project uses, if any
    */
-  linter?: Linter;
+  linters: Linters;
   /**
    * Which formatter the project uses, if any
    */
-  formatter?: Formatter;
+  formatters: Formatters;
 }
 
 export const introspector: Introspector<JavaScriptProject> = {
@@ -53,47 +43,36 @@ export const introspector: Introspector<JavaScriptProject> = {
   introspect: async (context) => {
     const logger = context.getLogger("javascript");
 
-    // Linter
-    logger.debug("detecting linter");
-    const linter = await introspectLinter(context);
-    if (linter !== null) {
-      logger.debug(`detected linter "${linter.name}"`);
-    } else {
-      logger.debug("no supported linter detected");
-    }
-
     // Runtime
     logger.debug("detecting runtime");
     const runtime = await introspectRuntime(context);
     logger.debug(`detected runtime "${runtime.name}"`);
+    if (runtime.name === "deno") {
+      return {
+        runtime,
+        linters: {
+          deno: {},
+        },
+        formatters: {
+          deno: {},
+        },
+      };
+    }
 
     // Package manager
-    let packageManager: PackageManager | null;
-    if (runtime.name === "deno") {
-      logger.debug(
-        "skipping package manager detection, unapplicable for the detected runtime",
-      );
-      packageManager = null;
-    } else {
-      logger.debug("detecting package manager");
-      packageManager = await introspectPackageManager(context);
-      logger.debug(`detected package manager "${packageManager.name}"`);
-    }
+    logger.debug("detecting package manager");
+    const packageManager = await introspectPackageManager(context);
+    logger.debug(`detected package manager "${packageManager.name}"`);
 
-    // Formatter
-    logger.debug("detecting formatter");
-    const formatter = await introspectFormatter(context);
-    if (formatter !== null) {
-      logger.debug(`detected formatter "${formatter.name}"`);
-    } else {
-      logger.debug("no supported formatter detected");
-    }
+    // Linter and Formatter
+    const linters = await introspectLinter(context);
+    const formatters = await introspectFormatter(context);
 
     return {
       runtime,
       packageManager,
-      linter,
-      formatter,
+      linters,
+      formatters,
     };
   },
 };

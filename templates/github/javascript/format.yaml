@@ -14,7 +14,7 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno fmt --check $(find . -iname "*.[j|t]s")
-<% } else if (it.runtime.name === "node" && it.formatter?.name === "prettier") { -%>
+<% } else if (it.runtime.name === "node" && it.formatters) { -%>
 name: Format JavaScript
 on:
   pull_request:
@@ -31,19 +31,15 @@ jobs:
           node-version: '<%= it.runtime.version %>'
           cache: '<%= it.packageManager.name %>'
 
-      <%_ let installCmd; let runPrefix; -%>
+      <%_ let installCmd; -%>
       <%_ if (it.packageManager.name === "npm") { -%>
         <%_ installCmd = "npm ci" %>
-        <%_ runPrefix = "npx" %>
       <%_ } else { -%>
         <%_ installCmd = "yarn" %>
-        <%_ runPrefix = "yarn" %>
       <% } -%>
 
       - run: <%= installCmd %>
-      <%_ if (it.formatter.hasIgnoreFile) { %>
-      - run: <%= runPrefix %> prettier --no-error-on-unmatched-pattern --check "**/*.js" "**/*.ts"
-      <%_ } else { -%>
-      - run: <%= runPrefix %> prettier --no-error-on-unmatched-pattern --ignore-path .gitignore --check "**/*.js" "**/*.ts"
+      <%_ if (it.formatters.prettier) { %>
+      - run: npx prettier --no-error-on-unmatched-pattern --check "**/*.js" "**/*.ts"
       <% } -%>
 <% } -%>

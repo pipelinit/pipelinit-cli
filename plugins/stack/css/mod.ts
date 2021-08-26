@@ -1,12 +1,6 @@
 import { Introspector } from "../deps.ts";
-import {
-  introspect as introspectFormatter,
-  Prettier,
-} from "../_shared/prettier/mod.ts";
-import {
-  introspect as introspectLinter,
-  Stylelint,
-} from "../_shared/stylelint/mod.ts";
+import { Formatters, introspect as introspectFormatter } from "./formatters.ts";
+import { introspect as introspectLinter, Linters } from "./linters.ts";
 import {
   introspect as introspectPackageManager,
   NodePackageManager,
@@ -14,10 +8,6 @@ import {
 
 // Available package managers
 type PackageManager = NodePackageManager | null;
-// Available code formatters
-type Formatter = Prettier | null;
-// Available linters
-type Linter = Stylelint | null;
 
 /**
  * Introspected information about a project with JavaScript
@@ -30,11 +20,11 @@ export default interface CssProject {
   /**
    * Which formatter the project uses, if any
    */
-  formatter?: Formatter;
+  formatters: Formatters;
   /**
    * Which linter the project uses, if any
    */
-  linter?: Linter;
+  linters: Linters;
 }
 
 export const introspector: Introspector<CssProject> = {
@@ -50,27 +40,13 @@ export const introspector: Introspector<CssProject> = {
     logger.debug(`detected package manager "${packageManager.name}"`);
 
     // Formatter
-    logger.debug("detecting formatter");
-    const formatter = await introspectFormatter(context);
-    if (formatter !== null) {
-      logger.debug(`detected formatter "${formatter.name}"`);
-    } else {
-      logger.debug("no supported formatter detected");
-    }
-
-    // Linter
-    logger.debug("detecting linter");
-    const linter = await introspectLinter(context);
-    if (linter !== null) {
-      logger.debug(`detected linter "${linter.name}"`);
-    } else {
-      logger.debug("no supported linter detected");
-    }
+    const formatters = await introspectFormatter(context);
+    const linters = await introspectLinter(context);
 
     return {
       packageManager,
-      formatter,
-      linter,
+      formatters,
+      linters,
     };
   },
 };

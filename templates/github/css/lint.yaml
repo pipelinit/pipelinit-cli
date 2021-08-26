@@ -1,4 +1,4 @@
-<% if (it.formatter) { -%>
+<% if (it.linters) { -%>
 name: Lint CSS
 on:
   pull_request:
@@ -16,15 +16,13 @@ jobs:
         with:
           cache: '<%= it.packageManager.name %>'
 
-      <%_ let installCmd; let runPrefix; -%>
-      <%_ if (it.packageManager.name === "npm") { -%>
-        <%_ installCmd = "npm ci" %>
-        <%_ runPrefix = "npx" %>
-      <%_ } else { -%>
-        <%_ installCmd = "yarn" %>
-        <%_ runPrefix = "yarn" %>
+      <%_ if (it.packageManager.name === "npm") { %>
+      - run: npm ci
+      <%_ } else { %>
+      - run: yarn
       <% } -%>
 
-      - run: <%= installCmd %>
-      - run: <%= runPrefix %> stylelint "**/*.css" "**/*.scss" "**/*.sass" "**/*.less"
+      <%_ if (it.linters.stylelint) { %>
+      - run: npx stylelint "**/*.css" "**/*.scss" "**/*.sass" "**/*.less"
+      <% } -%>
 <% } -%>
