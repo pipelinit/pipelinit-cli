@@ -1,6 +1,6 @@
 import { config } from "../config/mod.ts";
 import { each, includes, readJSON, readLines, readToml } from "./files.ts";
-import { askOption } from "./cli.ts";
+import { errors } from "./errors.ts";
 import { log, semver } from "../../deps.ts";
 
 export const context = {
@@ -12,8 +12,8 @@ export const context = {
     readToml,
     readJSON,
   },
-  cli: {
-    askOption,
+  errors: {
+    add: errors.add,
   },
   config,
   semver,

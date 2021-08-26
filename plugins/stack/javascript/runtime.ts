@@ -14,17 +14,8 @@ export type Runtime = Node | Deno;
 const DENO_IMPORT = /import.*from ["']https:\/\/deno\.land/;
 const DENO_RUNTIME = /Deno\..*/;
 
-// Used when the Node.js version can't be introspected
-const QUESTION =
-  "Couldn't detect the Node.js version. Which version does this project use?";
-// Offer versions which are in "Maintenance", "Active" or "Current",
-// check those here:
-// https://nodejs.org/en/about/releases/
-const NODEJS_VERSIONS = [
-  "12",
-  "14",
-  "16",
-];
+// Use the major with status "Current" at https://nodejs.org/en/about/releases/
+const NODEJS_LATEST_MAJOR = "16";
 
 // Latest available version for each major
 const NODEJS_LATEST_VERSIONS = [
@@ -34,11 +25,6 @@ const NODEJS_LATEST_VERSIONS = [
 ];
 
 export const introspect: IntrospectFn<Runtime> = async (context) => {
-  // If there is user defined configuration, use that value
-  if (context.config.plugins.javascript?.runtime) {
-    return context.config.plugins.javascript.runtime;
-  }
-
   // Search for an import statement from https://deno.land/ or usage from
   // the runtime api, such as Deno.cwd(), in JavaScript and TypeScript files
   for await (const file of context.files.each("**/*.[j|t]s")) {
@@ -84,20 +70,16 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
     }
   }
 
-  // Didn't find what Node.js version the project uses. Ask the user.
-  const version = await context.cli.askOption(QUESTION, NODEJS_VERSIONS);
-  // Save it in the configuration to avoid asking again
-  const javascriptConfig = (context.config.plugins || {}).javascript || {};
-  const runtime = javascriptConfig.runtime || { name: "node", version };
-  if (runtime.name === "node") {
-    runtime.version = version;
-  }
-  javascriptConfig.runtime = runtime;
-  context.config.plugins.javascript = javascriptConfig;
-  await context.config.save();
-
+  // If couldn't detect the Node.js version neither in the .nvmrc nor in the
+  // package.json file, use the latest available version, per the
+  // documentation:
+  //
+  // > And, like with dependencies, if you don't specify the version (or if
+  // > you specify "*" as the version), then any version of node will do.
+  //
+  // See https://docs.npmjs.com/cli/v7/configuring-npm/package-json#engines
   return {
     name: "node",
-    version,
+    version: NODEJS_LATEST_MAJOR,
   };
 };
