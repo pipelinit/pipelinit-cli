@@ -14,7 +14,7 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno lint --unstable
-<% } else if (it.runtime.name === "node") { -%>
+<% } else if (it.runtime.name === "node" && it.linters) { -%>
 name: Lint JavaScript
 on:
   pull_request:
@@ -31,24 +31,15 @@ jobs:
           node-version: '<%= it.runtime.version %>'
           cache: '<%= it.packageManager.name %>'
 
-      <%_ let installCmd; let runPrefix; let globalInstall; -%>
+      <%_ let installCmd; -%>
       <%_ if (it.packageManager.name === "npm") { -%>
         <%_ installCmd = "npm ci" %>
-        <%_ runPrefix = "npx eslint" %>
-        <%_ globalInstall = "npm install -g eslint" %>
       <%_ } else { -%>
         <%_ installCmd = "yarn" %>
-        <%_ runPrefix = "yarn eslint" %>
-        <%_ globalInstall = "yarn global add eslint" %>
       <% } -%>
 
       - run: <%= installCmd %>
-      <%_ if (it.linter.name === "eslint" && it.linter.hasIgnoreFile) { %>
-      - run: <%= runPrefix %> --ext .js --ext .ts .
-      <%_ } else if (it.linter.name === "eslint") { -%>
-      - run: <%= runPrefix %> --ext .js --ext .ts --ignore-path .gitignore .
-      <%_ } else { -%>
-      - run: <%= globalInstall %>
-      - run: <%= runPrefix %> --no-eslintrc --ext .js --ext .ts .
+      <%_ if (it.linters.eslint) { %>
+      - run: npx eslint --ext .js --ext .ts .
       <% } -%>
 <% } -%>
