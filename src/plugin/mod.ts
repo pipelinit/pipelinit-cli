@@ -1,6 +1,7 @@
+import { log, semver } from "../../deps.ts";
 import { each, includes, readJSON, readLines, readToml } from "./files.ts";
 import { errors } from "./errors.ts";
-import { log, semver } from "../../deps.ts";
+import { VERSION } from "../version.ts";
 
 export const context = {
   getLogger: log.getLogger,
@@ -16,6 +17,7 @@ export const context = {
   },
   semver,
   suggestDefault: true,
+  version: VERSION,
 };
 
 export type Context = typeof context;
