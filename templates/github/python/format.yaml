@@ -15,19 +15,19 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install <%= it.pythonPackageManager.name %>
-          <%= it.pythonPackageManager.dependenciesCommand %>
+          pip install <%= it.packageManager.name %>
+          <%= it.packageManager.dependenciesCommand %>
 
-      <%_ if (!it.blackFormatter.hasBlack) { %>
+      <%_ if (!it.formatters.black.hasBlack) { %>
       - name: Install black
         run: pip install black
       <%_ } -%>
 
-      - run: <%= it.pythonPackageManager.runCommand %> black . --check
+      - run: <%= it.packageManager.runCommand %> black . --check
 
-      <%_ if (!it.isortFormatter.hasIsort) { %>
+      <%_ if (!it.formatters.isort.hasIsort) { %>
       - name: Install Isort
         run: pip install isort
       <%_ } -%>
 
-      - run: <%= it.pythonPackageManager.runCommand %> isort . --check-only
+      - run: <%= it.packageManager.runCommand %> isort . --check-only
