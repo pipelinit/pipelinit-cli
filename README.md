@@ -1,13 +1,70 @@
-# Pipelinit
+# Pipelinit - creates complete pipelines for your project
 
-Bootstrap and manage **Continuous Integration (CI)** pipelines.
+Detects the stack of your project and automatically creates a fully working
+pipeline configuration for multiple continous integration (CI) platforms
+(currently supporting GitHub Actions).
+
+Say goodbye to YAML!
+
+## Support overview
+
+<table>
+  <caption class="title">Pipelinit Support Matrix</caption>
+  <colgroup>
+    <col style="width: 33.3333%;">
+    <col style="width: 33.3333%;">
+    <col style="width: 33.3334%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Stack</th>
+      <th>Stage</th>
+      <th>GitHub Actions</th>
+      <th>GitLab CI</th>
+      <th>Travis CI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">CSS</td>
+      <td>Format</td>
+      <td>✔️</td>
+      <td rowspan="6">Coming soon</td>
+      <td rowspan="6">Coming soon</td>
+    </tr>
+    <tr>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="3">JavaScript</td>
+      <td>Format</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Test</td>
+      <td>Deno (Node.js comming soon)</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+  </tbody>
+</table>
 
 ## How to install
 
-Download an executable from the [Releases page](https://github.com/pipelinit/pipelinit/releases).
+Download an executable from the
+[Releases page](https://github.com/pipelinit/pipelinit/releases).
 
 If you have [Deno](https://deno.land/) installed, an alternative method is the
 [Script installer](https://deno.land/manual@v1.13.1/tools/script_installer):
+
 ```bash
 deno install      \
   --unstable      \
@@ -18,16 +75,20 @@ deno install      \
 
 ## How to use
 
-In the root of a git repository run:
+Just run `pipelinit` on the root of your project's source code and follow the
+instructions:
+
 ```
 pipelinit
 ```
-And follow the instructions.
 
 ## Concepts
 
-To understand how Pipelinit generates CI pipelines for a software project,
-first read a brief description about the following concepts:
+Pipelinit generates pipeline configuration based on these core concepts:
+
+- Stacks
+- CI Stage
+- CI Platform
 
 ### Stacks
 
@@ -42,14 +103,14 @@ independent from the _stack_. Each step can have multiple substeps. Pipelinit
 generates standardized CI pipelines with well-defined _stages_. The tools that
 each step uses change to fit the stack but serve the same purpose.
 
-Every stage uses free and open-source software.
+Every stage uses Free or Open Source software.
 
 ### CI Platform
 
 A _CI Platform_ is a public SaaS or self-hosted solution that runs the CI
 pipeline. Every platform has its capabilities, features, and configurations.
 Pipelinit leverages the platform features and generates configuration files to
-build a pipeline tuned for the project and platform.
+build a pipeline tuned for the chosen platform.
 
 ## How it works
 
@@ -86,7 +147,8 @@ enforces some rules in the code base and can detect bugs before execution.
 
 Linters are valuable for most programming languages and text files because:
 
-- It helps to build more standardized codebases, which is easier to read and maintain
+- It helps to build more standardized codebases, which is easier to read and
+  maintain
 - It can prevent some bugs
 - It helps to delete unused code
 - It is a great tool to teach how to write better code
@@ -111,8 +173,7 @@ SAST tools are valuable for most applications and libraries because:
 The test step runs automated tests detected in the project.
 
 The scope of this step isn't individual files but the application or library.
-This stage may start extra services if the application or library
-requires it.
+This stage may start extra services if the application or library requires it.
 
 Any application or library, no matter how small the codebase or the team,
 benefits from automated tests because:
@@ -124,60 +185,7 @@ benefits from automated tests because:
 
 The benefits far outweigh the costs.
 
-## Stacks and Platforms
-
-<table>
-  <caption class="title">Pipelinit Support Matrix</caption>
-  <colgroup>
-    <col style="width: 33.3333%;">
-    <col style="width: 33.3333%;">
-    <col style="width: 33.3334%;">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Stack</th>
-      <th>Stage</th>
-      <th>GitHub</th>
-      <th>GitLab</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="2">CSS</td>
-      <td>Format</td>
-      <td>✔️</td>
-      <td rowspan="6">Coming soon</td>
-    </tr>
-    <tr>
-      <td>Lint</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td rowspan="3">JavaScript</td>
-      <td>Format</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td>Lint</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td>Test</td>
-      <td>🟡</td>
-    </tr>
-    <tr>
-      <td>Python</td>
-      <td>Lint</td>
-      <td>✔️</td>
-    </tr>
-  </tbody>
-</table>
-
-### Notes about partial support (cells with 🟡)
-
-- The test stage for JavaScript currently supports Deno
-
-## Stack support
+## Detailed stack support
 
 In this section you can check details about what each stack supports.
 
@@ -203,9 +211,9 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 #### Tools
 
-| Stage  |  Tools |
-| -----  | ------ |
-| Format | [Prettier](https://prettier.io/) (_default_) |
+| Stage  | Tools                                          |
+| ------ | ---------------------------------------------- |
+| Format | [Prettier](https://prettier.io/) (_default_)   |
 | Lint   | [stylelint](https://stylelint.io/) (_default_) |
 
 ### JavaScript Support
@@ -227,21 +235,21 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 #### Tools
 
-| Stage  | Tools |
-| -----  | ----- |
+| Stage  | Tools                                                                                                  |
+| ------ | ------------------------------------------------------------------------------------------------------ |
 | Format | [Prettier](https://prettier.io/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/formatter) |
-| Lint   | [ESLint](https://eslint.org/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/linter) |
-| Test   | [Deno](https://deno.land/manual@v1.13.1/testing) |
+| Lint   | [ESLint](https://eslint.org/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/linter)       |
+| Test   | [Deno](https://deno.land/manual@v1.13.1/testing)                                                       |
 
 ### Python
 
 #### Tools
 
-| Stage  | Tools |
-| -----  | ----- |
-| Lint   | [Flake8](https://flake8.pycqa.org/) |
+| Stage | Tools                               |
+| ----- | ----------------------------------- |
+| Lint  | [Flake8](https://flake8.pycqa.org/) |
 
-## Development
+## Developmenting and contributing
 
 Pipelinit is built with Deno. To develop, test or build the project, make sure
 you have Deno installed. You can check how to install it
@@ -251,6 +259,7 @@ you have Deno installed. You can check how to install it
 
 To quickly test the tool in your local environment, install it as a script. In
 this project root run:
+
 ```
 deno install      \
   --unstable      \
@@ -265,27 +274,31 @@ target project to start the CLI with the latest changes.
 ### Automated testing
 
 To run the project automated tests use:
+
 ```
 deno --unstable test --allow-read --coverage=cov_profile
 ```
 
 And to check the test coverage use:
+
 ```
 deno coverage cov_profile
 ```
 
 | ⚠️ | Clear the content from cov_profile between each test run. Otherwise your coverage data may be incorrect. |
-| --- | --- |
+| -- | -------------------------------------------------------------------------------------------------------- |
 
 ### Compiling
 
 To generate compiled executables for Linux, Windows, and macOS, run the
 following command:
+
 ```
 deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
 ```
 
 This creates one executable per target with the following name pattern:
+
 ```
 pipelinit-<VERSION>-<TARGET>
 ```
