@@ -1,45 +1,27 @@
 import { Introspector } from "../deps.ts";
 import { introspect as introspectVersion } from "./version.ts";
+import { introspect as instrospectLinter, Linters } from "./linters.ts";
+import {
+  Formatters,
+  introspect as instrospectFormatter,
+} from "./formatters.ts";
+import { introspect as instrospectTester, Testers } from "./testers.ts";
 import {
   introspect as introspectPackageManager,
   PackageManager,
 } from "./package_manager.ts";
-import {
-  introspect as instrospectBlack,
-  Black,
-} from "./black.ts"
-import {
-  introspect as instrospectIsort,
-  Isort,
-} from "./isort.ts"
-import {
-  introspect as instrospectPytest,
-  Pytest,
-} from "./pytest.ts"
-import {
-  introspect as instrospectFlake8,
-  Flake8,
-} from "./flake8.ts"
-
 
 // Available package managers
-type PythonPackageManager = PackageManager | null
-// Available code formatters
-type BlackFormatter = Black | null
-type IsortFormatter = Isort | null
-// Available code tester
-type PytestTester = Pytest | null
-// Available Linter
-type Flake8Linter = Flake8 | null
-
+type PythonPackageManager = PackageManager | null;
 /**
  * Introspected information about a project with Python
  */
 export default interface PythonProject {
-  /**
-   * Python version
-   */
   version?: string;
+  packageManager: PythonPackageManager;
+  linters: Linters | null;
+  formatters: Formatters | null;
+  testers: Testers | null;
 }
 
 export const introspector: Introspector<PythonProject | undefined> = {
@@ -59,24 +41,19 @@ export const introspector: Introspector<PythonProject | undefined> = {
     logger.debug(`detected version ${version}`);
     // Package Manager
     logger.debug("detecting package manager");
-    const packageManager = await introspectPackageManager(context)
+    const packageManager = await introspectPackageManager(context);
     // Formatter
-    logger.debug("detecting formatter");
-    const black = await instrospectBlack(context)
-    const isort = await instrospectIsort(context)
+    const formatters = await instrospectFormatter(context);
     // Tester
-    logger.debug("detecting tester");
-    const pytest = await instrospectPytest(context)
+    const testers = await instrospectTester(context);
     // Linter
-    logger.debug("detecting linter");
-    const flake8 = await instrospectFlake8(context)
+    const linters = await instrospectLinter(context);
     return {
-      version: version,
-      pythonPackageManager: packageManager,
-      blackFormatter: black,
-      isortFormatter: isort,
-      pytestTester: pytest,
-      flake8Linter: flake8,
+      version,
+      packageManager,
+      linters,
+      formatters,
+      testers,
     };
   },
 };
