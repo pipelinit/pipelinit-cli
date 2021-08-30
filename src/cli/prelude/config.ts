@@ -34,6 +34,7 @@ export async function configure() {
     options: [
       { name: "GitHub Actions", value: "github", checked: true },
       { name: "GitLab CI (coming soon)", value: "gitlab", disabled: true },
+      { name: "Travis CI (coming soon)", value: "travis", disabled: true },
     ],
   })).filter(isPlatform);
 
