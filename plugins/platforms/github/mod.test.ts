@@ -25,7 +25,7 @@ jobs:
 `;
 
 const fakeYamlWithHeader = `# Generated with pipelinit ${FAKE_VERSION}
-# https://www.pipelinit.com/
+# https://pipelinit.com/
 ${fakeYaml}`;
 
 Deno.test("Plugins > GitHub - prepends a header to generated files", async () => {
