@@ -40,7 +40,11 @@ export async function introspect() {
   logger.info("Detecting stack...");
   const stack = await detected();
   const stackNames = stack.map((t) => t.name).sort().join(", ");
-  logger.info(`Detected stack: ${stackNames}`);
+  if (stackNames.length === 0) {
+    logger.warning("No stack detected!");
+  } else {
+    logger.info(`Detected stack: ${stackNames}`);
+  }
 
   const introspected = (await Promise.all(
     stack.map<Promise<Maybe<ProjectData>>>((introspector) =>
