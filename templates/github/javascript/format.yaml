@@ -6,7 +6,7 @@ on:
       - '**.js'
       - '**.ts'
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,7 +22,7 @@ on:
       - '**.js'
       - '**.ts'
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
