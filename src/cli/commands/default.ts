@@ -7,6 +7,7 @@ import { outputErrors } from "../../plugin/errors.ts";
 import { context } from "../../plugin/mod.ts";
 import { ensureFile } from "../../../deps.ts";
 import { errorCodes } from "../errors.ts";
+import { config } from "../../config/mod.ts";
 
 type DefaultOptions = GlobalOptions;
 
@@ -34,15 +35,18 @@ export default async function (opts: DefaultOptions): Promise<void> {
     Deno.exit(errorCodes.NO_STACK_DETECTED);
   }
 
-  const platform = "github";
-  const files = await platformWriters[platform](
-    context,
-    renderTemplates(platform, detected),
-  );
-  for (const { path, content } of files) {
-    logger.info(`Writing ${path}`);
-    await ensureFile(path);
-    await Deno.writeTextFile(path, content);
+  const platforms = config.platforms!;
+  for (const platform of platforms) {
+    const files = await platformWriters[platform](
+      context,
+      renderTemplates(platform, detected),
+    );
+    for (const { path, content } of files) {
+      logger.info(`Writing ${path}`);
+      await ensureFile(path);
+      await Deno.writeTextFile(path, content);
+    }
   }
+
   outputErrors();
 }
