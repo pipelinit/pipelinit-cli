@@ -1,0 +1,31 @@
+<% if (it.runtime.name === "node" && it.linters) { -%>
+name: Lint Vue
+on:
+  pull_request:
+    paths:
+      - '**.vue'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '<%= it.runtime.version %>'
+          cache: '<%= it.packageManager.name %>'
+
+      <%_ let installCmd; -%>
+      <%_ if (it.packageManager.name === "npm") { -%>
+        <%_ installCmd = "npm ci" %>
+      <%_ } else { -%>
+        <%_ installCmd = "yarn" %>
+      <% } -%>
+
+      - run: <%= installCmd %>
+      <%_ if (it.linters.eslint) { %>
+      - run: npx eslint --ext .vue .
+      <% } -%>
+      <%_ if (it.linters.styleLint) { %>
+      - run: npx stylelint --aei **/*.vue
+      <% } -%>
+<% } -%>
