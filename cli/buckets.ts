@@ -5,7 +5,7 @@ export default {
   buckets: [
     {
       name: "templates",
-      folder: "templates",
+      folder: "../core/templates",
     },
   ],
   output: "app.bundle.js",

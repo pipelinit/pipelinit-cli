@@ -1,4 +1,4 @@
-import { platformWriters } from "../../../plugins/platforms/mod.ts";
+import { platformWriters } from "../../../../core/plugins/platforms/mod.ts";
 import { introspect } from "../../stack/mod.ts";
 import { renderTemplates } from "../../template/mod.ts";
 import { prelude } from "../prelude/mod.ts";

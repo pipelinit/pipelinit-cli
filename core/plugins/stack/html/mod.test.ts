@@ -1,5 +1,5 @@
-import { context } from "../../../src/plugin/mod.ts";
-import { assertEquals, deepMerge, WalkEntry } from "../../../deps.ts";
+import { context } from "../../../../cli/src/plugin/mod.ts";
+import { assertEquals, deepMerge, WalkEntry } from "../../../../cli/deps.ts";
 
 import { introspector } from "./mod.ts";
 
