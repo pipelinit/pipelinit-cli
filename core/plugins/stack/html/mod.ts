@@ -1,4 +1,4 @@
-import { Introspector } from "../deps.ts";
+import { Introspector } from "../../../types.ts";
 import { Formatters, introspect as introspectFormatter } from "./formatters.ts";
 import { introspect as introspectLinter, Linters } from "./linters.ts";
 import {

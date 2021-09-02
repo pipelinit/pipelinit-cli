@@ -1,4 +1,4 @@
-import { IntrospectFn } from "../deps.ts";
+import { IntrospectFn } from "../../../types.ts";
 
 const ERR_UNDETECTABLE_TITLE =
   "Couldn't detect which Python version this project uses.";

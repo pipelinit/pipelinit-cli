@@ -1,4 +1,4 @@
-import { IntrospectFn } from "../deps.ts";
+import { IntrospectFn } from "../../../types.ts";
 import {
   introspect as introspectPrettier,
   Prettier,

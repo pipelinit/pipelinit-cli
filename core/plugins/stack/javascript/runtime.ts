@@ -1,4 +1,4 @@
-import { IntrospectFn } from "../deps.ts";
+import { IntrospectFn } from "../../../types.ts";
 
 interface Node {
   name: "node";

@@ -1,5 +1,5 @@
+import { RenderedTemplate } from "../../../types.ts";
 import { assertEquals, context, deepMerge } from "../../../tests/mod.ts";
-import { RenderedTemplate } from "../../../../cli/src/platform/plugin.ts";
 
 import { github } from "./mod.ts";
 

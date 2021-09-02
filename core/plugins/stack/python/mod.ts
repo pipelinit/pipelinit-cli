@@ -1,4 +1,4 @@
-import { Introspector } from "../deps.ts";
+import { Introspector } from "../../../types.ts";
 import { introspect as introspectVersion } from "./version.ts";
 
 /**

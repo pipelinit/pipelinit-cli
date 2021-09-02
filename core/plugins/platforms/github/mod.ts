@@ -1,4 +1,4 @@
-import { PlatformWriterFn } from "../deps.ts";
+import { PlatformWriterFn } from "../../../types.ts";
 
 export const github: PlatformWriterFn = async (context, templates) => {
   const header = `

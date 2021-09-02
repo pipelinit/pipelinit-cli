@@ -55,3 +55,25 @@ export type Context = {
   suggestDefault: boolean;
   version: string;
 };
+
+export type IntrospectFn<T> = (context: Context) => Promise<T>;
+
+export type Introspector<T> = {
+  detect: (context: Context) => Promise<boolean>;
+  introspect: IntrospectFn<T>;
+};
+
+export interface RenderedTemplate {
+  name: string;
+  content: string;
+}
+
+export interface CiConfigurationFile {
+  path: string;
+  content: string;
+}
+
+export type PlatformWriterFn = (
+  context: Context,
+  templates: AsyncIterableIterator<RenderedTemplate>,
+) => Promise<Array<CiConfigurationFile>>;
