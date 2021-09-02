@@ -94,3 +94,5 @@ for (const target of TARGETS) {
   await compile(target);
   await compress(target);
 }
+
+await Deno.remove(conf.output);
