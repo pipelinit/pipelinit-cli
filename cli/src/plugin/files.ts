@@ -1,5 +1,10 @@
-import { expandGlob, FileEntry, fileExists, parseToml } from "../../deps.ts";
-export { readLines } from "../../deps.ts";
+import {
+  expandGlob,
+  FileEntry,
+  fileExists,
+  parseToml,
+  readLines as stdReadLines,
+} from "../../deps.ts";
 
 /**
   * Search for the .gitignore file and if it exists use the content
@@ -66,4 +71,16 @@ export async function readToml(path: string) {
  */
 export async function readJSON(path: string) {
   return JSON.parse(await Deno.readTextFile(path));
+}
+
+/**
+ * Yields each line of a text file
+ */
+export async function* readLines(path: string): AsyncIterableIterator<string> {
+  const fileReader = await Deno.open(path);
+  for await (const line of stdReadLines(fileReader)) {
+    yield line;
+  }
+  fileReader.close();
+  return;
 }

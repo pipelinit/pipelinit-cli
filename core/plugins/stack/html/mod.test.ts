@@ -1,5 +1,5 @@
-import { context } from "../../../../cli/src/plugin/mod.ts";
-import { assertEquals, deepMerge, WalkEntry } from "../../../../cli/deps.ts";
+import { FileEntry } from "../../../types.ts";
+import { assertEquals, context, deepMerge } from "../../../tests/mod.ts";
 
 import { introspector } from "./mod.ts";
 
@@ -15,48 +15,33 @@ Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
           }
           return false;
         },
-        each: async function* (glob: string): AsyncIterableIterator<WalkEntry> {
+        each: async function* (glob: string): AsyncIterableIterator<FileEntry> {
           if (glob === "**/*.{html,vue}") {
             yield {
               name: "test.html",
               path: "fake-path",
-              isFile: true,
-              isSymlink: false,
-              isDirectory: false,
             };
             yield {
               name: "test.vue",
               path: "fake-path",
-              isFile: true,
-              isSymlink: false,
-              isDirectory: false,
             };
           }
           if (glob === "**/package.json") {
             yield {
               name: "package.json",
               path: "fake-path",
-              isFile: true,
-              isSymlink: false,
-              isDirectory: false,
             };
           }
           if (glob === "**/.eslintrc.{js,cjs,yaml,yml,json}") {
             yield {
               name: ".eslintrc.js",
               path: "fake-path",
-              isFile: true,
-              isSymlink: false,
-              isDirectory: false,
             };
           }
           if (glob === "**/.eslintignore") {
             yield {
               name: ".eslintignore",
               path: "fake-path",
-              isFile: true,
-              isSymlink: false,
-              isDirectory: false,
             };
           }
           return;

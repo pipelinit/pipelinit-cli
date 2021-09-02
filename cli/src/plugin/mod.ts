@@ -1,9 +1,9 @@
-import { log, semver } from "../../deps.ts";
+import { Context, log, semver } from "../../deps.ts";
 import { each, includes, readJSON, readLines, readToml } from "./files.ts";
 import { errors } from "./errors.ts";
 import { VERSION } from "../version.ts";
 
-export const context = {
+export const context: Context = {
   getLogger: log.getLogger,
   files: {
     each,
@@ -20,7 +20,7 @@ export const context = {
   version: VERSION,
 };
 
-export type Context = typeof context;
+export type { Context };
 
 export type IntrospectFn<T> = (context: Context) => Promise<T>;
 
