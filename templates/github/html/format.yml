@@ -1,0 +1,29 @@
+<% if (it.runtime.name === "node" && it.formatters) { -%>
+name: Format HTML
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - '**.vue'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '<%= it.runtime.version %>'
+          cache: '<%= it.packageManager.name %>'
+
+      <%_ let installCmd; -%>
+      <%_ if (it.packageManager.name === "npm") { -%>
+        <%_ installCmd = "npm ci" %>
+      <%_ } else { -%>
+        <%_ installCmd = "yarn" %>
+      <% } -%>
+
+      - run: <%= installCmd %>
+      <%_ if (it.formatters.prettier) { %>
+      - run: npx prettier --no-error-on-unmatched-pattern --check "**/*.vue" "**/*.html"
+      <% } -%>
+<% } -%>
