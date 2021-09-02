@@ -1,9 +1,4 @@
-import { log } from "../../deps.ts";
-
-interface IntrospectionError {
-  title: string;
-  message: string;
-}
+import { IntrospectionError, log } from "../../deps.ts";
 
 /**
  * Holds a list of fatal errors for stack introspection

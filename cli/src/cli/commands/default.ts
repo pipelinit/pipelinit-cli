@@ -1,11 +1,12 @@
-import { platformWriters } from "../../../../core/plugins/platforms/mod.ts";
+import { ensureFile, platformWriters } from "../../../deps.ts";
+
+import { GlobalOptions } from "../types.ts";
+import { prelude } from "../prelude/mod.ts";
 import { introspect } from "../../stack/mod.ts";
 import { renderTemplates } from "../../template/mod.ts";
-import { prelude } from "../prelude/mod.ts";
-import { GlobalOptions } from "../types.ts";
 import { outputErrors } from "../../plugin/errors.ts";
 import { context } from "../../plugin/mod.ts";
-import { ensureFile } from "../../../deps.ts";
+
 import { errorCodes } from "../errors.ts";
 import { config } from "../../config/mod.ts";
 

@@ -19,12 +19,3 @@ export const context: Context = {
   suggestDefault: true,
   version: VERSION,
 };
-
-export type { Context };
-
-export type IntrospectFn<T> = (context: Context) => Promise<T>;
-
-export type Introspector<T> = {
-  detect: (context: Context) => Promise<boolean>;
-  introspect: IntrospectFn<T>;
-};

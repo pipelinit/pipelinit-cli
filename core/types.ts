@@ -45,7 +45,9 @@ export type Context = {
     each(glob: string): AsyncIterableIterator<FileEntry>;
     includes(glob: string): Promise<boolean>;
     readLines(path: string): AsyncIterableIterator<string>;
+    // deno-lint-ignore no-explicit-any
     readToml(path: string): Promise<any>;
+    // deno-lint-ignore no-explicit-any
     readJSON(path: string): Promise<any>;
   };
   errors: {
@@ -68,7 +70,7 @@ export interface RenderedTemplate {
   content: string;
 }
 
-export interface CiConfigurationFile {
+interface CiConfigurationFile {
   path: string;
   content: string;
 }

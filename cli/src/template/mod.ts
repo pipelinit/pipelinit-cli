@@ -1,5 +1,4 @@
-import { eta, join, loadBuckets, parse } from "../../deps.ts";
-import { RenderedTemplate } from "../platform/plugin.ts";
+import { eta, join, loadBuckets, parse, RenderedTemplate } from "../../deps.ts";
 import { Stack } from "../stack/mod.ts";
 import bucketsConf from "../../buckets.ts";
 

@@ -1,6 +1,5 @@
-import { log } from "../../deps.ts";
+import { introspectors, log, ProjectData } from "../../deps.ts";
 import { context } from "../plugin/mod.ts";
-import { introspectors, ProjectData } from "../../../core/plugins/stack/mod.ts";
 
 export type Stack = Record<string, ProjectData>;
 

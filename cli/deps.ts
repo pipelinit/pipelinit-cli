@@ -10,7 +10,6 @@ export {
 export { assertEquals } from "https://deno.land/std@0.106.0/testing/asserts.ts";
 export { readLines } from "https://deno.land/std@0.106.0/io/mod.ts";
 export { join, parse } from "https://deno.land/std@0.106.0/path/mod.ts";
-export type { WalkEntry } from "https://deno.land/std@0.106.0/fs/mod.ts";
 export * as log from "https://deno.land/std@0.106.0/log/mod.ts";
 export {
   parse as parseToml,
