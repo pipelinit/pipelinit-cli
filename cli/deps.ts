@@ -1,3 +1,6 @@
+// @/core
+export * from "../core/mod.ts";
+
 // std
 export {
   ensureFile,

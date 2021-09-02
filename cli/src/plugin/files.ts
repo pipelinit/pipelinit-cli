@@ -1,4 +1,4 @@
-import { expandGlob, fileExists, parseToml, WalkEntry } from "../../deps.ts";
+import { expandGlob, FileEntry, fileExists, parseToml } from "../../deps.ts";
 export { readLines } from "../../deps.ts";
 
 /**
@@ -38,7 +38,7 @@ export async function includes(glob: string): Promise<boolean> {
  *
  * Return only files, not directories
  */
-export async function* each(glob: string): AsyncIterableIterator<WalkEntry> {
+export async function* each(glob: string): AsyncIterableIterator<FileEntry> {
   for await (
     const file of expandGlob(glob, { exclude: await loadGitignoreExcludes() })
   ) {

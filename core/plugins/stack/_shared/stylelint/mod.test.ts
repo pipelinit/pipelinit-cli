@@ -1,5 +1,6 @@
 import { context } from "../../../../../cli/src/plugin/mod.ts";
-import { assertEquals, deepMerge, WalkEntry } from "../../../../../cli/deps.ts";
+import { assertEquals, deepMerge } from "../../../../tests/mod.ts";
+import { FileEntry } from "../../../../types.ts";
 
 import { introspect } from "./mod.ts";
 
@@ -13,14 +14,11 @@ const fakeContext = (
     context,
     {
       files: {
-        each: async function* (glob: string): AsyncIterableIterator<WalkEntry> {
+        each: async function* (glob: string): AsyncIterableIterator<FileEntry> {
           if (glob === "**/package.json") {
             yield {
               name: "package.json",
               path: "fake-path",
-              isFile: true,
-              isSymlink: false,
-              isDirectory: false,
             };
           }
           return;
