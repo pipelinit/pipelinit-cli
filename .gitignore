@@ -2,3 +2,5 @@ cov_profile
 app.bundle.js
 cli/bin/*
 !cli/bin/.gitkeep
+core/dist/*
+!core/dist/.gitkeep

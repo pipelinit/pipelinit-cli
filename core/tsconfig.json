@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "es2020",
+    "target": "es2020",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "dist"
+  },
+  "exclude": [
+    "deps.ts",
+    "package.ts",
+    "**/tests/*.ts",
+    "**/*.test.ts",
+  ]
+}
