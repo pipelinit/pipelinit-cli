@@ -2,7 +2,7 @@ import { bundle } from "https://deno.land/x/buckets@0.1.0/mod.ts";
 import * as esbuild from "https://deno.land/x/esbuild@v0.12.19/mod.js";
 
 import conf from "./buckets.ts";
-import { VERSION } from "./src/version.ts";
+import { PIPELINIT_VERSION } from "./deps.ts";
 
 const TARGETS = [
   "x86_64-unknown-linux-gnu",
@@ -33,7 +33,7 @@ const compile = async function (target?: string) {
       "--target",
       target,
       "--output",
-      `bin/pipelinit-${VERSION}-${target}`,
+      `bin/pipelinit-${PIPELINIT_VERSION}-${target}`,
     );
   } else {
     cmd.push("--output", "bin/pipelinit");
@@ -53,8 +53,8 @@ const tar = async function (target: string) {
     cmd: [
       "tar",
       "-czf",
-      `pipelinit-${VERSION}-${target}.tar.gz`,
-      `pipelinit-${VERSION}-${target}`,
+      `pipelinit-${PIPELINIT_VERSION}-${target}.tar.gz`,
+      `pipelinit-${PIPELINIT_VERSION}-${target}`,
     ],
   });
 
@@ -70,8 +70,8 @@ const zip = async function (target: string) {
     cmd: [
       "zip",
       "-9",
-      `pipelinit-${VERSION}-${target}.zip`,
-      `pipelinit-${VERSION}-${target}.exe`,
+      `pipelinit-${PIPELINIT_VERSION}-${target}.zip`,
+      `pipelinit-${PIPELINIT_VERSION}-${target}.exe`,
     ],
   });
 

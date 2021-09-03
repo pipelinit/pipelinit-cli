@@ -1,4 +1,4 @@
-import { Context, log, semver } from "../../deps.ts";
+import { Context, log, PIPELINIT_VERSION, semver } from "../../deps.ts";
 import {
   each,
   includes,
@@ -8,7 +8,6 @@ import {
   readToml,
 } from "./files.ts";
 import { errors } from "./errors.ts";
-import { VERSION } from "../version.ts";
 
 export const context: Context = {
   getLogger: log.getLogger,
@@ -25,5 +24,5 @@ export const context: Context = {
   },
   semver,
   suggestDefault: true,
-  version: VERSION,
+  version: PIPELINIT_VERSION,
 };
