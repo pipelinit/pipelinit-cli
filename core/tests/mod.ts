@@ -28,6 +28,10 @@ export const context: Context = {
       return;
     },
     // deno-lint-ignore require-await
+    async readText(_) {
+      return "";
+    },
+    // deno-lint-ignore require-await
     async readToml(_) {
       return {};
     },

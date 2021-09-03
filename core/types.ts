@@ -44,11 +44,12 @@ export type Context = {
   files: {
     each(glob: string): AsyncIterableIterator<FileEntry>;
     includes(glob: string): Promise<boolean>;
-    readLines(path: string): AsyncIterableIterator<string>;
-    // deno-lint-ignore no-explicit-any
-    readToml(path: string): Promise<any>;
     // deno-lint-ignore no-explicit-any
     readJSON(path: string): Promise<any>;
+    readLines(path: string): AsyncIterableIterator<string>;
+    readText(path: string): Promise<string>;
+    // deno-lint-ignore no-explicit-any
+    readToml(path: string): Promise<any>;
   };
   errors: {
     add(error: IntrospectionError): void;

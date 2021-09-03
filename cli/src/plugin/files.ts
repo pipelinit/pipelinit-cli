@@ -84,3 +84,7 @@ export async function* readLines(path: string): AsyncIterableIterator<string> {
   fileReader.close();
   return;
 }
+
+export async function readText(path: string): Promise<string> {
+  return await Deno.readTextFile(path);
+}

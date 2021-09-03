@@ -41,7 +41,7 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
   //
   // See https://github.com/nvm-sh/nvm#nvmrc
   for await (const file of context.files.each("**/.nvmrc")) {
-    const version = await Deno.readTextFile(file.path);
+    const version = await context.files.readText(file.path);
     return {
       name: "node",
       version,

@@ -38,7 +38,7 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
   //
   // See https://github.com/pyenv/pyenv/#choosing-the-python-version
   for await (const file of context.files.each("**/.python-version")) {
-    return await Deno.readTextFile(file.path);
+    return await context.files.readText(file.path);
   }
 
   // Search a Pipfile file, that have a key with the Python version, as managed

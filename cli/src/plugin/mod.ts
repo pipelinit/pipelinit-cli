@@ -1,5 +1,12 @@
 import { Context, log, semver } from "../../deps.ts";
-import { each, includes, readJSON, readLines, readToml } from "./files.ts";
+import {
+  each,
+  includes,
+  readJSON,
+  readLines,
+  readText,
+  readToml,
+} from "./files.ts";
 import { errors } from "./errors.ts";
 import { VERSION } from "../version.ts";
 
@@ -8,9 +15,10 @@ export const context: Context = {
   files: {
     each,
     includes,
-    readLines,
-    readToml,
     readJSON,
+    readLines,
+    readText,
+    readToml,
   },
   errors: {
     add: errors.add,
