@@ -29,8 +29,8 @@ Say goodbye to YAML!
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="6">Coming soon</td>
-      <td rowspan="6">Coming soon</td>
+      <td rowspan="8">Coming soon</td>
+      <td rowspan="8">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
