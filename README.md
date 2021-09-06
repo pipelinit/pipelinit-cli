@@ -37,6 +37,15 @@ Say goodbye to YAML!
       <td>✔️</td>
     </tr>
     <tr>
+      <td rowspan="2">HTML</td>
+      <td>Format</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
       <td rowspan="3">JavaScript</td>
       <td>Format</td>
       <td>✔️</td>
@@ -215,6 +224,25 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | ------ | ---------------------------------------------- |
 | Format | [Prettier](https://prettier.io/) (_default_)   |
 | Lint   | [stylelint](https://stylelint.io/) (_default_) |
+
+### HTML Support
+
+#### Package Managers
+
+- [npm](https://www.npmjs.com/) _default_
+- [yarn](https://yarnpkg.com/)
+
+#### Flavors
+
+- HTML
+- [Vue](https://v3.vuejs.org/guide/single-file-component.html)
+
+#### Tools
+
+| Stage  | Tools                                          |
+| ------ | ---------------------------------------------- |
+| Format | [Prettier](https://prettier.io/) (_default_)   |
+| Lint   | [ESLint](https://eslint.org/) (_default_), [stylelint](https://stylelint.io/) |
 
 ### JavaScript Support
 
