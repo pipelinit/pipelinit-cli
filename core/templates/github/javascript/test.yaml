@@ -30,6 +30,10 @@ jobs:
         with:
           node-version: '<%= it.runtime.version %>'
           cache: '<%= it.packageManager.name %>'
-      - run: <%= it.packageManager.name %> ci
+<% if (it.packageManager.name === "npm") { -%>
+      - run: npm ci
+<% } else if (it.packageManager.name === "yarn") { -%>
+      - run: yarn
+<% } -%>
       - run: <%= it.packageManager.name %> test
 <% } -%>

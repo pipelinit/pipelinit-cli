@@ -1,4 +1,4 @@
-import { Introspector } from "../deps.ts";
+import { Introspector } from "../../../types.ts";
 
 /**
  * Introspected information about a project with Docker
