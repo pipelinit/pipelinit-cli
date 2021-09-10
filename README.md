@@ -115,7 +115,7 @@ pipelinit
 
 ## Examples
 
-You can see the generated pipelines running by your through our sample projects for each stack:
+You can see the generated pipelines that ran, through our sample projects for the following stacks:
 
 - [Python Django](https://github.com/pipelinit/pipelinit-sample-python/pulls)
 - [Docker](https://github.com/pipelinit/pipelinit-sample-docker/pulls)
