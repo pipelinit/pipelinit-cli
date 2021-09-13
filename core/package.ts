@@ -4,10 +4,13 @@ import { walk } from "https://deno.land/std@0.106.0/fs/mod.ts";
 const TEMPLATE_DIR = "./templates";
 const TEMPLATE_MOD = `${TEMPLATE_DIR}/mod.ts`;
 
+const isYaml = (path: string) =>
+  path.endsWith(".yml") || path.endsWith(".yaml");
+
 async function readTemplates() {
   const bucket: Record<string, string> = {};
   for await (const entry of walk(TEMPLATE_DIR, { includeDirs: false })) {
-    if (entry.path.endsWith(".yaml")) {
+    if (isYaml(entry.path)) {
       bucket[entry.path] = await Deno.readTextFile(entry.path);
     }
   }
