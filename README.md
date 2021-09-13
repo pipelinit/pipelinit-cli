@@ -81,7 +81,7 @@ Say goodbye to YAML!
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="2">Java</td>
+      <td>Java</td>
       <td>Build (Gradle)</td>
       <td>✔️</td>
     </tr>
