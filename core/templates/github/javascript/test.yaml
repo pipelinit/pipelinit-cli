@@ -14,4 +14,26 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno test --unstable --allow-all
+<% } else if (it.runtime.name === "node") { -%>
+name: Test Node
+on:
+  pull_request:
+    paths:
+      - '**.js'
+      - '**.ts'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '<%= it.runtime.version %>'
+          cache: '<%= it.packageManager.name %>'
+<% if (it.packageManager.name === "npm") { -%>
+      - run: npm ci
+<% } else if (it.packageManager.name === "yarn") { -%>
+      - run: yarn
+<% } -%>
+      - run: <%= it.packageManager.name %> test
 <% } -%>

@@ -1,5 +1,6 @@
 import { Introspector } from "../../../types.ts";
 import { introspect as introspectVersion } from "./version.ts";
+import { introspect as introspectDjango } from "./django.ts";
 
 /**
  * Introspected information about a project with Python
@@ -9,6 +10,10 @@ export default interface PythonProject {
    * Python version
    */
   version?: string;
+  /**
+   * If is a Django project
+   */
+  django?: boolean;
 }
 
 export const introspector: Introspector<PythonProject | undefined> = {
@@ -26,8 +31,15 @@ export const introspector: Introspector<PythonProject | undefined> = {
       return undefined;
     }
     logger.debug(`detected version ${version}`);
+
+    // Django
+    const django = await introspectDjango(context);
+    if (django) {
+      logger.info("detected Django project");
+    }
     return {
       version: version,
+      django: django,
     };
   },
 };

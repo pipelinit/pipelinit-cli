@@ -29,8 +29,8 @@ Say goodbye to YAML!
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="8">Coming soon</td>
-      <td rowspan="8">Coming soon</td>
+      <td rowspan="13">Coming soon</td>
+      <td rowspan="13">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -46,7 +46,7 @@ Say goodbye to YAML!
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="3">JavaScript</td>
+      <td rowspan="3">JavaScript / Typescript</td>
       <td>Format</td>
       <td>✔️</td>
     </tr>
@@ -56,11 +56,33 @@ Say goodbye to YAML!
     </tr>
     <tr>
       <td>Test</td>
-      <td>Deno (Node.js comming soon)</td>
+      <td>✔️</td>
     </tr>
     <tr>
-      <td>Python</td>
+      <td rowspan="3">Python</td>
       <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Format</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Test</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Docker</td>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Build</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Java</td>
+      <td>Build (Gradle)</td>
       <td>✔️</td>
     </tr>
   </tbody>
@@ -90,6 +112,15 @@ instructions:
 ```
 pipelinit
 ```
+
+## Examples
+
+You can see the generated pipelines that ran, through our sample projects for the following stacks:
+
+- [Python Django](https://github.com/pipelinit/pipelinit-sample-python/pulls)
+- [Docker](https://github.com/pipelinit/pipelinit-sample-docker/pulls)
+- [Vue](https://github.com/pipelinit/pipelinit-sample-vue-html/pulls)
+- [Java with Gradle](https://github.com/pipelinit/pipelinit-sample-java-gradle/pulls)
 
 ## Concepts
 
@@ -273,9 +304,10 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 #### Tools
 
-| Stage | Tools                               |
-| ----- | ----------------------------------- |
-| Lint  | [Flake8](https://flake8.pycqa.org/) |
+| Stage   | Tools                                |
+| ------  | ------------------------------------ |
+| Lint    | [Flake8](https://flake8.pycqa.org/) _default_  |
+| Format  | [Black](https://black.readthedocs.io/en/stable/) _default_
 
 ## Developmenting and contributing
 

@@ -1,3 +1,5 @@
+# Generated with pipelinit 0.1.0-rc.3
+# https://pipelinit.com/
 name: Lint Deno
 on:
   pull_request:
