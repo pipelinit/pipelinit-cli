@@ -2,6 +2,7 @@ import { Introspector } from "../../../types.ts";
 import { Formatters, introspect as introspectFormatter } from "./formatters.ts";
 import { introspect as introspectLinter, Linters } from "./linters.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
+import { introspect as introspectTestCommand } from "./test.ts";
 import {
   introspect as introspectPackageManager,
   NodePackageManager,
@@ -34,6 +35,10 @@ export default interface JavaScriptProject {
    * Which formatter the project uses, if any
    */
   formatters: Formatters;
+  /**
+   * Project has a configured test command
+   */
+  testCommand: boolean;
 }
 
 export const introspector: Introspector<JavaScriptProject> = {
@@ -56,6 +61,7 @@ export const introspector: Introspector<JavaScriptProject> = {
         formatters: {
           deno: {},
         },
+        testCommand: false,
       };
     }
 
@@ -68,11 +74,15 @@ export const introspector: Introspector<JavaScriptProject> = {
     const linters = await introspectLinter(context);
     const formatters = await introspectFormatter(context);
 
+    // Has a test script
+    const hasTestCommand = await introspectTestCommand(context);
+
     return {
-      runtime,
-      packageManager,
-      linters,
-      formatters,
+      runtime: runtime,
+      packageManager: packageManager,
+      linters: linters,
+      formatters: formatters,
+      testCommand: hasTestCommand,
     };
   },
 };

@@ -33,6 +33,12 @@ Deno.test("Plugins > Check eslint and node for javascript project", async () => 
               path: "fake-path",
             };
           }
+          if (glob === "./package.json") {
+            yield {
+              name: "package.json",
+              path: "fake-path",
+            };
+          }
           if (glob === "**/.eslintrc.{js,cjs,yaml,yml,json}") {
             yield {
               name: ".eslintrc.js",
@@ -51,7 +57,12 @@ Deno.test("Plugins > Check eslint and node for javascript project", async () => 
         readJSON: async (path: string): Promise<Record<string, unknown>> => {
           const deps = { stylelint: "1.0.0", eslint: "7.2.2" };
           if (path === "fake-path") {
-            return { devDependencies: deps };
+            return {
+              devDependencies: deps,
+              scripts: {
+                test: "yarn jest",
+              },
+            };
           }
           return {};
         },
@@ -69,5 +80,6 @@ Deno.test("Plugins > Check eslint and node for javascript project", async () => 
       eslint: { name: "eslint", hasIgnoreFile: false },
     },
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
+    testCommand: true,
   });
 });

@@ -14,7 +14,7 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno test --unstable --allow-all
-<% } else if (it.runtime.name === "node") { -%>
+<% } else if (it.runtime.name === "node" && it.testCommand) { -%>
 name: Test Node
 on:
   pull_request:
