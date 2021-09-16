@@ -7,9 +7,9 @@ import {
 } from "../../deps.ts";
 
 /**
-  * Search for the .gitignore file and if it exists use the content
-  * to exclude files or directories from the glob.
-  */
+ * Search for the .gitignore file and if it exists use the content
+ * to exclude files or directories from the glob.
+ */
 async function loadGitignoreExcludes() {
   const excludedFiles: string[] = [];
 

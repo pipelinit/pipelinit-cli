@@ -4,8 +4,12 @@ import { FileEntry } from "../../../types.ts";
 
 import { introspector } from "./mod.ts";
 
-Deno.test("Plugins > Check if python version and django project is identified", async () => {
-  const fakeContext = deepMerge(
+const fakeContext = (
+  {
+    isDjango = false,
+  } = {},
+) => {
+  return deepMerge(
     context,
     {
       files: {
@@ -14,7 +18,7 @@ Deno.test("Plugins > Check if python version and django project is identified", 
           if (glob === "**/*.py") {
             return true;
           }
-          if (glob === "**/manage.py") {
+          if (glob === "**/manage.py" && isDjango) {
             return true;
           }
           return false;
@@ -38,12 +42,24 @@ Deno.test("Plugins > Check if python version and django project is identified", 
       },
     },
   );
+};
+
+Deno.test("Plugins > Check if python version and django project is identified", async () => {
+  const result = await introspector.introspect(fakeContext({ isDjango: true }));
+
+  assertEquals(result, {
+    version: "3.6",
+    isDjango: true,
+  });
+});
+
+Deno.test("Plugins > Check if python version and a non-django-project", async () => {
   const result = await introspector.introspect(
-    fakeContext,
+    fakeContext({ isDjango: false }),
   );
 
   assertEquals(result, {
     version: "3.6",
-    django: true,
+    isDjango: false,
   });
 });

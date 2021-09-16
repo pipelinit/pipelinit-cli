@@ -13,7 +13,7 @@ export default interface PythonProject {
   /**
    * If is a Django project
    */
-  django?: boolean;
+  isDjango?: boolean;
 }
 
 export const introspector: Introspector<PythonProject | undefined> = {
@@ -35,11 +35,11 @@ export const introspector: Introspector<PythonProject | undefined> = {
     // Django
     const django = await introspectDjango(context);
     if (django) {
-      logger.info("detected Django project");
+      logger.debug("detected Django project");
     }
     return {
       version: version,
-      django: django,
+      isDjango: django,
     };
   },
 };

@@ -38,7 +38,7 @@ export default interface JavaScriptProject {
   /**
    * Project has a configured test command
    */
-  testCommand: boolean;
+  hasTestCommand: boolean;
 }
 
 export const introspector: Introspector<JavaScriptProject> = {
@@ -61,7 +61,7 @@ export const introspector: Introspector<JavaScriptProject> = {
         formatters: {
           deno: {},
         },
-        testCommand: false,
+        hasTestCommand: false,
       };
     }
 
@@ -82,7 +82,7 @@ export const introspector: Introspector<JavaScriptProject> = {
       packageManager: packageManager,
       linters: linters,
       formatters: formatters,
-      testCommand: hasTestCommand,
+      hasTestCommand: hasTestCommand,
     };
   },
 };

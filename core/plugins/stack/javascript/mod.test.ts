@@ -4,8 +4,12 @@ import { FileEntry } from "../../../types.ts";
 
 import { introspector } from "./mod.ts";
 
-Deno.test("Plugins > Check eslint and node for javascript project", async () => {
-  const fakeContext = deepMerge(
+const fakeContext = (
+  {
+    hasTestCommand = true,
+  } = {},
+) => {
+  return deepMerge(
     context,
     {
       files: {
@@ -56,12 +60,11 @@ Deno.test("Plugins > Check eslint and node for javascript project", async () => 
         // deno-lint-ignore require-await
         readJSON: async (path: string): Promise<Record<string, unknown>> => {
           const deps = { stylelint: "1.0.0", eslint: "7.2.2" };
+          const scripts = hasTestCommand ? { test: "yarn jest" } : {};
           if (path === "fake-path") {
             return {
               devDependencies: deps,
-              scripts: {
-                test: "yarn jest",
-              },
+              scripts: scripts,
             };
           }
           return {};
@@ -69,17 +72,46 @@ Deno.test("Plugins > Check eslint and node for javascript project", async () => 
       },
     },
   );
+};
+
+Deno.test("Plugins > Check eslint and node for javascript project with a defined test command", async () => {
   const result = await introspector.introspect(
-    fakeContext,
+    fakeContext({ hasTestCommand: true }),
   );
 
   assertEquals(result, {
     runtime: { name: "node", version: "16" },
-    packageManager: { name: "npm" },
+    packageManager: {
+      name: "npm",
+      commands: {
+        install: "npm ci",
+      },
+    },
     linters: {
       eslint: { name: "eslint", hasIgnoreFile: false },
     },
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
-    testCommand: true,
+    hasTestCommand: true,
+  });
+});
+
+Deno.test("Plugins > Check eslint and node for javascript project with NO defined test command", async () => {
+  const result = await introspector.introspect(
+    fakeContext({ hasTestCommand: false }),
+  );
+
+  assertEquals(result, {
+    runtime: { name: "node", version: "16" },
+    packageManager: {
+      name: "npm",
+      commands: {
+        install: "npm ci",
+      },
+    },
+    linters: {
+      eslint: { name: "eslint", hasIgnoreFile: false },
+    },
+    formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
+    hasTestCommand: false,
   });
 });
