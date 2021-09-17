@@ -3,25 +3,18 @@ name: Release new version
 on: [ push ]
 
 jobs:
-  create_release:
-    name: Create Release
+  version_release:
+    name: Define de release version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Release
-        id: the_release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: 'Test release'
-          prerelease: true
-          tag_name: ${{ github.ref }}
     outputs:
-      upload_url: "${{ steps.the_release.outputs.upload_url }}"
+      version: test_release
 
-  publish_binaries:
+  build_binaries:
     name: Build Binaries
-    needs: "create_release"
+    needs: "version_release"
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -32,23 +25,36 @@ jobs:
         uses: actions/checkout@v2
       - uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.1.14
+          deno-version: v1.14.0
       - name: Build Pipelinit binary
         env:
           BUILD_TARGET: ${{ matrix.build_target }}
-          RELEASE_VERSION: ${{ github.ref }}
+          RELEASE_VERSION: "${{ needs.version_release.outputs.version }}"
         run: |
           cd cli
           deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
       - name: 'See result'
         run: 'ls -a cli/bin'
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: "${{ needs.create_release.outputs.upload_url }}"
-          asset_path: "cli/bin/pipelinit-${{ github.ref }}-${{ matrix.build_target }}"
-          asset_name: "pipelinit-${{ github.ref }}-${{ matrix.build_target }}"
-          asset_content_type: "application/zip"
+          name: "${{ needs.version_release.outputs.version }}"
+          path: "cli/bin/pipelinit-${{ github.ref }}-${{ matrix.build_target }}"
+
+  create_release:
+    name: Create Release
+    needs: [ "version_release", "build_binaries" ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download
+        uses: actions/download-artifact@v2
+        with:
+          name: "${{ needs.version_release.outputs.version }}"
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: 'Test release'
+          prerelease: true
+          tag_name: test_release
+          files: |
+            *
