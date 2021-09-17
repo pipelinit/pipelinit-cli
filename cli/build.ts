@@ -109,7 +109,7 @@ const compress = async function (target: string, version: string) {
 await compile(target, version);
 
 if (target && version) {
-  //await compress(target, version);
+  await compress(target, version);
 }
 
 await Deno.remove(conf.output);

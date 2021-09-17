@@ -38,10 +38,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: "${{ needs.version_release.outputs.version }}"
-          path: "cli/bin/pipelinit-${{ github.ref }}-${{ matrix.build_target }}"
+          path: "cli/bin/pipelinit-${{ needs.version_release.outputs.version }}-${{ matrix.build_target }}"
 
-  create_release:
-    name: Create Release
+  publish_release:
+    name: Publish Release
     needs: [ "version_release", "build_binaries" ]
     runs-on: ubuntu-latest
     steps:
