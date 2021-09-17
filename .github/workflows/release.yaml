@@ -3,6 +3,18 @@ name: Main
 on: [ push ]
 
 jobs:
+  create-release:
+    name: Build Binaries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Release
+        id: the_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: 'Test release'
+          prerelease: true
   build-binaries:
     name: Build Binaries
     runs-on: ubuntu-latest
@@ -24,3 +36,13 @@ jobs:
           deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
       - name: 'See result'
         run: 'ls -a cli/bin'
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ jobs.create-release.steps.the_release.outputs.upload_url }}
+          asset_path: cli/bin/pipelinit-${{ github.sha }}-${{ matrix.build_target }}
+          asset_name: pipelinit-${{ github.sha }}-${{ matrix.build_target }}
+          asset_content_type: application/zip
