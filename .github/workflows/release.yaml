@@ -4,7 +4,7 @@ on: [ push ]
 
 jobs:
   create-release:
-    name: Build Binaries
+    name: Create Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,7 +43,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ jobs.create-release.steps.the_release.outputs.upload_url }}
-          asset_path: cli/bin/pipelinit-${{ github.sha }}-${{ matrix.build_target }}
-          asset_name: pipelinit-${{ github.sha }}-${{ matrix.build_target }}
-          asset_content_type: application/zip
+          upload_url: "${{ jobs.create-release.steps.the_release.outputs.upload_url }}"
+          asset_path: "cli/bin/pipelinit-${{ github.sha }}-${{ matrix.build_target }}"
+          asset_name: "pipelinit-${{ github.sha }}-${{ matrix.build_target }}"
+          asset_content_type: "application/zip"
