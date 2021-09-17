@@ -15,9 +15,12 @@ jobs:
         with:
           name: 'Test release'
           prerelease: true
+    outputs:
+      upload_url: "${{ steps.the_release.outputs.upload_url }}"
 
-  build-binaries:
+  publish-binaries:
     name: Build Binaries
+    needs: "create-release"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -43,7 +46,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: "${{ jobs.create-release.steps.the_release.outputs.upload_url }}"
+          upload_url: "${{ needs.create-release.outputs.upload_url }}"
           asset_path: "cli/bin/pipelinit-${{ github.sha }}-${{ matrix.build_target }}"
           asset_name: "pipelinit-${{ github.sha }}-${{ matrix.build_target }}"
           asset_content_type: "application/zip"
