@@ -1,4 +1,4 @@
-name: Main
+name: Release new version
 
 on: [ push ]
 
@@ -15,6 +15,7 @@ jobs:
         with:
           name: 'Test release'
           prerelease: true
+
   build-binaries:
     name: Build Binaries
     runs-on: ubuntu-latest
