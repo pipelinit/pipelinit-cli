@@ -1,0 +1,25 @@
+name: Main
+
+on: [ push ]
+
+jobs:
+  build-binaries:
+    name: Build Binaries
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_target: ["x86_64-unknown-linux-gnu",  "x86_64-pc-windows-msvc", "x86_64-apple-darwin", "aarch64-apple-darwin"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - name: Build Pipelinit binary
+         env:
+          BUILD_TARGET: ${{ matrix.build_target }}
+          RELEASE_VERSION: ${{ github.sha }}
+        run: |
+          cd cli
+          deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
+        run: 'ls -a cli/bin'
