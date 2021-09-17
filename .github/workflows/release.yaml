@@ -3,7 +3,7 @@ name: Release new version
 on: [ push ]
 
 jobs:
-  create-release:
+  create_release:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
@@ -15,12 +15,14 @@ jobs:
         with:
           name: 'Test release'
           prerelease: true
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
     outputs:
       upload_url: "${{ steps.the_release.outputs.upload_url }}"
 
-  publish-binaries:
+  publish_binaries:
     name: Build Binaries
-    needs: "create-release"
+    needs: "create_release"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -46,7 +48,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: "${{ needs.create-release.outputs.upload_url }}"
+          upload_url: "${{ needs.create_release.outputs.upload_url }}"
           asset_path: "cli/bin/pipelinit-${{ github.sha }}-${{ matrix.build_target }}"
           asset_name: "pipelinit-${{ github.sha }}-${{ matrix.build_target }}"
           asset_content_type: "application/zip"
