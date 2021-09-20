@@ -1,4 +1,4 @@
-<% if (it.runtime.name === "node" && it.linters) { -%>
+<% if (it.runtime.name === "node" && it.linters && it.isVue) { -%>
 name: Lint Vue
 on:
   pull_request:

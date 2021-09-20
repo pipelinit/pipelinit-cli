@@ -98,5 +98,6 @@ Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
       styleLint: { name: "stylelint" },
     },
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
+    isVue: false,
   });
 });
