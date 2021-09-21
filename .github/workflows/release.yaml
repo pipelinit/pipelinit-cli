@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set current version
-        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF#refs/*/})
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.14.0
