@@ -13,15 +13,7 @@ jobs:
         with:
           node-version: '<%= it.runtime.version %>'
           cache: '<%= it.packageManager.name %>'
-
-      <%_ let installCmd; -%>
-      <%_ if (it.packageManager.name === "npm") { -%>
-        <%_ installCmd = "npm ci" %>
-      <%_ } else { -%>
-        <%_ installCmd = "yarn" %>
-      <% } -%>
-
-      - run: <%= installCmd %>
+      - run: <%= it.packageManager.commands.install %>
       <%_ if (it.linters.eslint) { %>
       - run: npx eslint --ext .vue .
       <% } -%>

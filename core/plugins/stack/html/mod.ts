@@ -26,16 +26,16 @@ export default interface HtmlProject {
    */
   packageManager?: PackageManager;
   /**
-    * Which runtime the project uses
-    */
+   * Which runtime the project uses
+   */
   runtime: Runtime;
   /**
-    * Which linter the project uses, if any
-    */
+   * Which linter the project uses, if any
+   */
   linters: Linters;
   /**
-    * Which formatter the project uses, if any
-    */
+   * Which formatter the project uses, if any
+   */
   formatters: Formatters;
 }
 

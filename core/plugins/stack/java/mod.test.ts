@@ -3,8 +3,8 @@ import { assertEquals, deepMerge } from "../../../deps.ts";
 
 import { introspector } from "./mod.ts";
 
-Deno.test("Plugins > Check if Gradle build is identified", async () => {
-  const fakeContext = deepMerge(
+const fakeContext = () => {
+  return deepMerge(
     context,
     {
       files: {
@@ -18,8 +18,11 @@ Deno.test("Plugins > Check if Gradle build is identified", async () => {
       },
     },
   );
+};
+
+Deno.test("Plugins > Check if Gradle build is identified", async () => {
   const result = await introspector.introspect(
-    fakeContext,
+    fakeContext(),
   );
 
   assertEquals(result, {

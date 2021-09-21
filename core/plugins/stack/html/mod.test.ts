@@ -3,8 +3,8 @@ import { assertEquals, context, deepMerge } from "../../../tests/mod.ts";
 
 import { introspector } from "./mod.ts";
 
-Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
-  const fakeContext = deepMerge(
+const fakeContext = () => {
+  return deepMerge(
     context,
     {
       files: {
@@ -57,13 +57,42 @@ Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
       },
     },
   );
+};
+
+Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
   const result = await introspector.introspect(
-    fakeContext,
+    fakeContext(),
   );
 
   assertEquals(result, {
     runtime: { name: "node", version: "16" },
-    packageManager: { name: "npm" },
+    packageManager: {
+      name: "npm",
+      commands: {
+        install: "npm ci",
+      },
+    },
+    linters: {
+      eslint: { name: "eslint", hasIgnoreFile: false },
+      styleLint: { name: "stylelint" },
+    },
+    formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
+  });
+});
+
+Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
+  const result = await introspector.introspect(
+    fakeContext(),
+  );
+
+  assertEquals(result, {
+    runtime: { name: "node", version: "16" },
+    packageManager: {
+      name: "npm",
+      commands: {
+        install: "npm ci",
+      },
+    },
     linters: {
       eslint: { name: "eslint", hasIgnoreFile: false },
       styleLint: { name: "stylelint" },
