@@ -3,7 +3,11 @@ import { assertEquals, context, deepMerge } from "../../../tests/mod.ts";
 
 import { introspector } from "./mod.ts";
 
-const fakeContext = () => {
+const fakeContext = (
+  {
+    isVue = false,
+  } = {},
+) => {
   return deepMerge(
     context,
     {
@@ -11,6 +15,9 @@ const fakeContext = () => {
         // deno-lint-ignore require-await
         includes: async (glob: string): Promise<boolean> => {
           if (glob === "**/.eslintrc.{js,cjs,yaml,yml,json}") {
+            return true;
+          }
+          if (glob === "**/*.vue" && isVue) {
             return true;
           }
           return false;
@@ -61,7 +68,7 @@ const fakeContext = () => {
 
 Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
   const result = await introspector.introspect(
-    fakeContext(),
+    fakeContext({ isVue: true }),
   );
 
   assertEquals(result, {
@@ -77,12 +84,13 @@ Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
       styleLint: { name: "stylelint" },
     },
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
+    frameworks: { vue: {} },
   });
 });
 
-Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
+Deno.test("Plugins > Html has stylelint and eslint configured and not Vue", async () => {
   const result = await introspector.introspect(
-    fakeContext(),
+    fakeContext({ isVue: false }),
   );
 
   assertEquals(result, {
@@ -98,6 +106,6 @@ Deno.test("Plugins > Html has stylelint and eslint configured", async () => {
       styleLint: { name: "stylelint" },
     },
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
-    isVue: false,
+    frameworks: {},
   });
 });

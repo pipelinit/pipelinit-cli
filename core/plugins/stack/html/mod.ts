@@ -1,7 +1,10 @@
 import { Introspector } from "../../../types.ts";
 import { Formatters, introspect as introspectFormatter } from "./formatters.ts";
 import { introspect as introspectLinter, Linters } from "./linters.ts";
-import { introspect as introspectVue } from "./vue.ts";
+import {
+  Frameworks,
+  introspect as introspectFrameworks,
+} from "./frameworks.ts";
 
 import {
   introspect as introspectRuntime,
@@ -40,9 +43,9 @@ export default interface HtmlProject {
    */
   formatters: Formatters;
   /**
-   * Which formatter the project uses, if any
+   * Which framework the project uses, if any
    */
-  isVue: boolean;
+  frameworks: Frameworks;
 }
 
 export const introspector: Introspector<HtmlProject> = {
@@ -65,7 +68,7 @@ export const introspector: Introspector<HtmlProject> = {
         formatters: {
           deno: {},
         },
-        isVue: false,
+        frameworks: {},
       };
     }
 
@@ -78,15 +81,16 @@ export const introspector: Introspector<HtmlProject> = {
     logger.debug(`detecting linters for html`);
     const formatters = await introspectFormatter(context);
 
-    // Check if project is vue
-    const isVue = await introspectVue(context);
+    // Check if project frameworks
+    logger.debug(`detecting web frameworks`);
+    const frameworks = await introspectFrameworks(context);
 
     return {
       runtime,
       packageManager,
       linters,
       formatters,
-      isVue: isVue,
+      frameworks,
     };
   },
 };

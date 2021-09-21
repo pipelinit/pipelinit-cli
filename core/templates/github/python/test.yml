@@ -17,7 +17,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      <%_ if (it.django) { %>
+      <%_ if (it.frameworks.django) { %>
       - name: Run Tests
         run: |
           python manage.py test
