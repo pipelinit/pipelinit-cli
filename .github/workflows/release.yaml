@@ -68,6 +68,6 @@ jobs:
           prerelease: true
           tag_name: test_release
           files: |
-            bin/pipelinit-${{ env.VERSION }}-86_64-unknown-linux-gnu.tar.gz
+            bin/pipelinit-${{ env.VERSION }}-x86_64-unknown-linux-gnu.tar.gz
             bin/pipelinit-${{ env.VERSION }}-x86_64-pc-windows-msvc.zip
             bin/pipelinit-${{ env.VERSION }}-x86_64-apple-darwin.tar.gz
