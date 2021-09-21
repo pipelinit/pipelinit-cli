@@ -1,11 +1,13 @@
 name: Release new version
 
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  VERSION: test_release
-
-on: [ push ]
 
 jobs:
   release:
@@ -13,15 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set current version
+        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF#refs/*/)
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.14.0
-      - name: Build Linux binary
+
+          - name: Build Linux binary
         env:
           BUILD_TARGET: "x86_64-unknown-linux-gnu"
-          RELEASE_VERSION: "${{ env.VERSION }}"
+          RELEASE_VERSION: "${{ env.RELEASE_VERSION }}"
         run: |
           cd cli; deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
+
       - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
@@ -33,12 +39,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
+          tags: |
+            type=semver,enable=true
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          build-args: "version=${{ env.VERSION }}"
+          build-args: "version=${{ env.RELEASE_VERSION }}"
           context: cli/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -46,25 +54,25 @@ jobs:
       - name: Build Windows binary
         env:
           BUILD_TARGET: "x86_64-pc-windows-msvc"
-          RELEASE_VERSION: "${{ env.VERSION }}"
+          RELEASE_VERSION: "${{ env.RELEASE_VERSION }}"
         run: |
           cd cli
           deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
       - name: Build Mac x86_64 binary
         env:
           BUILD_TARGET: "x86_64-apple-darwin"
-          RELEASE_VERSION: "${{ env.VERSION }}"
+          RELEASE_VERSION: "${{ env.RELEASE_VERSION }}"
         run: |
           cd cli
           deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
 
-      - name: Release
+      - name: Publish the release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Test release'
+          name: "Pipelinit ${{ env.RELEASE_VERSION }}"
           prerelease: true
-          tag_name: test_release
+          tag_name: ${{ env.RELEASE_VERSION }}
           files: |
-            cli/bin/pipelinit-${{ env.VERSION }}-x86_64-unknown-linux-gnu.tar.gz
-            cli/bin/pipelinit-${{ env.VERSION }}-x86_64-pc-windows-msvc.zip
-            cli/bin/pipelinit-${{ env.VERSION }}-x86_64-apple-darwin.tar.gz
+            cli/bin/pipelinit-${{ env.RELEASE_VERSION }}-x86_64-unknown-linux-gnu.tar.gz
+            cli/bin/pipelinit-${{ env.RELEASE_VERSION }}-x86_64-pc-windows-msvc.zip
+            cli/bin/pipelinit-${{ env.RELEASE_VERSION }}-x86_64-apple-darwin.tar.gz
