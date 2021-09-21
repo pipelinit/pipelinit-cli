@@ -1,6 +1,7 @@
 FROM debian:11-slim
 
-COPY bin/pipelinit /pipelinit
+ARG version
+COPY bin/pipelinit-${version}-86_64-unknown-linux-gnu /pipelinit
 
 VOLUME ["/app"]
 
