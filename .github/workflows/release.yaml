@@ -11,9 +11,6 @@ jobs:
   release:
     name: Build and publish a new release
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v2
       - uses: denoland/setup-deno@v1
