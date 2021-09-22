@@ -2,6 +2,11 @@ import { Introspector } from "../../../types.ts";
 import { Formatters, introspect as introspectFormatter } from "./formatters.ts";
 import { introspect as introspectLinter, Linters } from "./linters.ts";
 import {
+  Frameworks,
+  introspect as introspectFrameworks,
+} from "./frameworks.ts";
+
+import {
   introspect as introspectRuntime,
   Runtime,
 } from "../javascript/runtime.ts";
@@ -37,6 +42,10 @@ export default interface HtmlProject {
    * Which formatter the project uses, if any
    */
   formatters: Formatters;
+  /**
+   * Which framework the project uses, if any
+   */
+  frameworks: Frameworks;
 }
 
 export const introspector: Introspector<HtmlProject> = {
@@ -59,6 +68,7 @@ export const introspector: Introspector<HtmlProject> = {
         formatters: {
           deno: {},
         },
+        frameworks: {},
       };
     }
 
@@ -71,11 +81,16 @@ export const introspector: Introspector<HtmlProject> = {
     logger.debug(`detecting linters for html`);
     const formatters = await introspectFormatter(context);
 
+    // Check if project frameworks
+    logger.debug(`detecting web frameworks`);
+    const frameworks = await introspectFrameworks(context);
+
     return {
       runtime,
       packageManager,
       linters,
       formatters,
+      frameworks,
     };
   },
 };

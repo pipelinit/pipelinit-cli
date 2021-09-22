@@ -49,7 +49,9 @@ Deno.test("Plugins > Check if python version and django project is identified", 
 
   assertEquals(result, {
     version: "3.6",
-    isDjango: true,
+    frameworks: {
+      django: {},
+    },
   });
 });
 
@@ -60,6 +62,6 @@ Deno.test("Plugins > Check if python version and a non-django-project", async ()
 
   assertEquals(result, {
     version: "3.6",
-    isDjango: false,
+    frameworks: {},
   });
 });

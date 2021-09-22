@@ -1,6 +1,9 @@
 import { Introspector } from "../../../types.ts";
 import { introspect as introspectVersion } from "./version.ts";
-import { introspect as introspectDjango } from "./django.ts";
+import {
+  Frameworks,
+  introspect as introspectFrameworks,
+} from "./frameworks.ts";
 
 /**
  * Introspected information about a project with Python
@@ -11,9 +14,9 @@ export default interface PythonProject {
    */
   version?: string;
   /**
-   * If is a Django project
+   * List of possible project frameworks
    */
-  isDjango?: boolean;
+  frameworks?: Frameworks;
 }
 
 export const introspector: Introspector<PythonProject | undefined> = {
@@ -32,14 +35,16 @@ export const introspector: Introspector<PythonProject | undefined> = {
     }
     logger.debug(`detected version ${version}`);
 
-    // Django
-    const django = await introspectDjango(context);
-    if (django) {
-      logger.debug("detected Django project");
+    // Search python frameworks
+    logger.debug("detecting frameworks");
+    const frameworks = await introspectFrameworks(context);
+    if (frameworks === undefined) {
+      logger.debug("didn't detect any know python framework");
     }
+
     return {
       version: version,
-      isDjango: django,
+      frameworks: frameworks,
     };
   },
 };
