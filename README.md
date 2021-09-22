@@ -1,12 +1,81 @@
-# Pipelinit - creates complete pipelines for your project
+<p align="center">
+  <a href="https://pipelinit.com">
+    <img src="pipelinit-logo.png" />
+  </a>
+</p>
 
-Detects the stack of your project and automatically creates a fully working
-pipeline configuration for multiple continous integration (CI) platforms
-(currently supporting GitHub Actions).
+<p align="center">
+  <a href="https://github.com/pipelinit/pipelinit-cli/">
+    <img src="https://img.shields.io/github/license/pipelinit/pipelinit-cli" />
+  </a>
+  <a href="https://github.com/pipelinit/pipelinit-cli/releases">
+    <img src="https://img.shields.io/github/v/release/pipelinit/pipelinit-cli?sort=semver" alt="GitHub release (latest SemVer)">
+  </a>
+  <a href="https://twitter.com/pipelinit">
+    <img src="https://img.shields.io/twitter/follow/pipelinit?style=social" alt="Twitter Follow">
+  </a>
+</p>
+
+> Automatically create complete pipelines for your project
 
 Say goodbye to YAML!
 
-## Support overview
+Pipelinit detects the stack of your project and automatically creates a fully
+working pipeline configuration for multiple continous integration (CI) platforms
+(currently supporting GitHub Actions).
+
+Start by using the [Pipelinit Playgroud](https://pipelinit.com/playground) right
+on your browser! 🚀
+
+## How to install
+
+### Using a Docker image
+
+Run the command below inside a checkout of your project's source code:
+
+```
+docker run -it -v $(pwd):/app ghcr.io/pipelinit/pipelinit-cli
+```
+
+### Using package managers
+
+Homebrew (macOS):
+
+```
+brew tap pipelinit/pipelinit-cli
+brew install pipelinit/pipelinit-cli
+```
+
+Support for more package managers needed!
+
+### Manual download
+
+Download one of the executables from the
+[Releases page](https://github.com/pipelinit/pipelinit-cli/releases) and add the
+binary into your `PATH`.
+
+We provide binaries for Linux, Windows and Mac.
+
+## How to use
+
+Just run `pipelinit` on the root of your project's source code and follow the
+instructions:
+
+```
+pipelinit
+```
+
+### Examples
+
+You can see the generated pipelines that ran, through our sample projects for
+the following stacks:
+
+- [Python Django](https://github.com/pipelinit/pipelinit-sample-python/pulls)
+- [Docker](https://github.com/pipelinit/pipelinit-sample-docker/pulls)
+- [Vue](https://github.com/pipelinit/pipelinit-sample-vue-html/pulls)
+- [Java with Gradle](https://github.com/pipelinit/pipelinit-sample-java-gradle/pulls)
+
+## Supported stacks overview
 
 <table>
   <caption class="title">Pipelinit Support Matrix</caption>
@@ -88,40 +157,6 @@ Say goodbye to YAML!
   </tbody>
 </table>
 
-## How to install
-
-Download an executable from the
-[Releases page](https://github.com/pipelinit/pipelinit/releases).
-
-If you have [Deno](https://deno.land/) installed, an alternative method is the
-[Script installer](https://deno.land/manual@v1.13.1/tools/script_installer):
-
-```bash
-deno install      \
-  --unstable      \
-  --allow-read=.  \
-  --allow-write=. \
-  https://raw.githubusercontent.com/pipelinit/pipelinit/v0.1.0-rc.1/pipelinit.ts
-```
-
-## How to use
-
-Just run `pipelinit` on the root of your project's source code and follow the
-instructions:
-
-```
-pipelinit
-```
-
-## Examples
-
-You can see the generated pipelines that ran, through our sample projects for the following stacks:
-
-- [Python Django](https://github.com/pipelinit/pipelinit-sample-python/pulls)
-- [Docker](https://github.com/pipelinit/pipelinit-sample-docker/pulls)
-- [Vue](https://github.com/pipelinit/pipelinit-sample-vue-html/pulls)
-- [Java with Gradle](https://github.com/pipelinit/pipelinit-sample-java-gradle/pulls)
-
 ## Concepts
 
 Pipelinit generates pipeline configuration based on these core concepts:
@@ -160,7 +195,7 @@ When you run Pipelinit in the root of a software project:
 2. It collects more detailed data about each _stack_.
 3. It uses that data to build the CI configuration files.
 
-## Stages
+### Stages
 
 Which stages are present in the final CI pipeline depends on the identified
 stacks and their support. You can check a complete reference of supported tools,
@@ -169,7 +204,7 @@ document.
 
 Here is a list of available stages and what is the goal of each one:
 
-### Format
+#### Format
 
 The format step checks if the code follows the format style from an automated
 code formatter.
@@ -180,7 +215,7 @@ Formatters are valuable for most programming languages and text files because:
 - It removes style discussions from code review
 - It free developers from thinking about code style
 
-### Lint
+#### Lint
 
 The lint step uses static analysis tools to improve overall code quality. It
 enforces some rules in the code base and can detect bugs before execution.
@@ -193,7 +228,7 @@ Linters are valuable for most programming languages and text files because:
 - It helps to delete unused code
 - It is a great tool to teach how to write better code
 
-### SAST
+#### SAST
 
 The SAST (Static application security testing) step uses static analysis tools
 to improve overall code security. This step is distinct from the _Lint_ step
@@ -208,7 +243,7 @@ SAST tools are valuable for most applications and libraries because:
 - It improves application reliability
 - It is a great tool to teach how to write safer code
 
-### Test
+#### Test
 
 The test step runs automated tests detected in the project.
 
@@ -270,9 +305,9 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 #### Tools
 
-| Stage  | Tools                                          |
-| ------ | ---------------------------------------------- |
-| Format | [Prettier](https://prettier.io/) (_default_)   |
+| Stage  | Tools                                                                         |
+| ------ | ----------------------------------------------------------------------------- |
+| Format | [Prettier](https://prettier.io/) (_default_)                                  |
 | Lint   | [ESLint](https://eslint.org/) (_default_), [stylelint](https://stylelint.io/) |
 
 ### JavaScript Support
@@ -304,35 +339,17 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 #### Tools
 
-| Stage   | Tools                                |
-| ------  | ------------------------------------ |
-| Lint    | [Flake8](https://flake8.pycqa.org/) _default_  |
-| Format  | [Black](https://black.readthedocs.io/en/stable/) _default_
+| Stage  | Tools                                                      |
+| ------ | ---------------------------------------------------------- |
+| Lint   | [Flake8](https://flake8.pycqa.org/) _default_              |
+| Format | [Black](https://black.readthedocs.io/en/stable/) _default_ |
 
-## Developmenting and contributing
+## Developing and contributing
 
-Pipelinit is built with Deno. To develop, test or build the project, make sure
-you have Deno installed. You can check how to install it
-[in the official Deno website](https://deno.land/#installation)
+We love contributions and our [Contributing Guide](CONTRIBUTING.md) is the best
+place to start!
 
-### Automated testing
+### Building and installing from source code
 
-To run the project automated tests use:
-
-```
-deno --unstable test --allow-read --coverage=cov_profile
-```
-
-And to check the test coverage use:
-
-```
-deno coverage cov_profile
-```
-
-| ⚠️ | Clear the content from cov_profile between each test run. Otherwise your coverage data may be incorrect. |
-| -- | -------------------------------------------------------------------------------------------------------- |
-
-### Building
-
-For details on how to build the @pipelinit/core package or how to compile the
-CLI executable, refer to the README in their respective directories.
+- [Building the @pipelinit/core package](core/README.md)
+- [Building the CLI executable](cli/README.md)
