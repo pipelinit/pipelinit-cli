@@ -1,6 +1,6 @@
 {
   "name": "@pipelinit/core",
-  "version": "0.1.0-rc.6",
+  "version": "0.1.0",
   "description": "Stack detection and CI configuration writing from pipelinit",
   "exports": "./dist/mod.js",
   "types": "./dist/mod.d.ts",
