@@ -1,15 +1,17 @@
-name: Docker Image CI
-
+name: Build Docker
 on:
   pull_request:
     paths:
-      - "Dockerfile"
-
+      - "**Dockerfile"
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag image:$(date +%s)
+      - name: Build Dockerfiles
+        run: |
+          for dockerfile in $(git ls-files **/*Dockerfile* Dockerfile); do
+            echo "Starting build for the Dockerfile $dockerfile"
+            docker build . --file $dockerfile
+          done
+        shell: bash

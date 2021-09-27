@@ -1,16 +1,17 @@
-name: Docker Image CI
-
+name: Docker file Lint
 on:
   pull_request:
     paths:
-      - "Dockerfile"
-
+      - "**Dockerfile"
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-      - uses: hadolint/hadolint-action@v1.5.0
-        with:
-          dockerfile: Dockerfile
+      - run: |
+          for dockerfile in $(git ls-files **/*Dockerfile* Dockerfile)
+          do
+            echo "Starting lint for the Dockerfile $dockerfile"
+            docker run --rm -i hadolint/hadolint < $dockerfile
+          done
+        shell: bash
