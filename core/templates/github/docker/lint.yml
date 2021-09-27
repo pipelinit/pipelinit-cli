@@ -6,12 +6,8 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    container: hadolint/hadolint:latest-debian
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          for dockerfile in $(git ls-files **/*Dockerfile* Dockerfile)
-          do
-            echo "Starting lint for the Dockerfile $dockerfile"
-            docker run --rm -i hadolint/hadolint < $dockerfile
-          done
-        shell: bash
+      - name: Run Hadolint on the project
+        run: hadolint $(find . -iname "*Dockerfile*" -o -iwholename "./Dockerfile")

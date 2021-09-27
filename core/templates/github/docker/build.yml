@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build Dockerfiles
         run: |
-          for dockerfile in $(git ls-files **/*Dockerfile* Dockerfile); do
+          for dockerfile in $(find . -iname "*Dockerfile*" -o -iwholename "./Dockerfile"); do
             echo "Starting build for the Dockerfile $dockerfile"
             docker build . --file $dockerfile
           done
