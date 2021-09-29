@@ -7,6 +7,7 @@ import { introspector } from "./mod.ts";
 const fakeContext = (
   {
     isDjango = false,
+    hasPytest = false,
   } = {},
 ) => {
   return deepMerge(
@@ -19,6 +20,9 @@ const fakeContext = (
             return true;
           }
           if (glob === "**/manage.py" && isDjango) {
+            return true;
+          }
+          if (glob === "**/pytest.ini" && hasPytest) {
             return true;
           }
           return false;
@@ -49,6 +53,7 @@ Deno.test("Plugins > Check if python version and django project is identified", 
 
   assertEquals(result, {
     version: "3.6",
+    hasPytest: false,
     frameworks: {
       django: {},
     },
@@ -62,6 +67,19 @@ Deno.test("Plugins > Check if python version and a non-django-project", async ()
 
   assertEquals(result, {
     version: "3.6",
+    hasPytest: false,
+    frameworks: {},
+  });
+});
+
+Deno.test("Plugins > Check python version, non-django-project and Pytest identified", async () => {
+  const result = await introspector.introspect(
+    fakeContext({ isDjango: false, hasPytest: true }),
+  );
+
+  assertEquals(result, {
+    version: "3.6",
+    hasPytest: true,
     frameworks: {},
   });
 });

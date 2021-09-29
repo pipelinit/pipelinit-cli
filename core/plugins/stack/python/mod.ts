@@ -1,5 +1,6 @@
 import { Introspector } from "../../../types.ts";
 import { introspect as introspectVersion } from "./version.ts";
+import { introspect as introspectPyTest } from "./pytest.ts";
 import {
   Frameworks,
   introspect as introspectFrameworks,
@@ -13,6 +14,10 @@ export default interface PythonProject {
    * Python version
    */
   version?: string;
+  /**
+   * If the project uses PyTest
+   */
+  hasPytest?: boolean;
   /**
    * List of possible project frameworks
    */
@@ -42,9 +47,13 @@ export const introspector: Introspector<PythonProject | undefined> = {
       logger.debug("didn't detect any know python framework");
     }
 
+    // Check if project has pytest configured
+    const pyTest = await introspectPyTest(context);
+
     return {
       version: version,
       frameworks: frameworks,
+      hasPytest: pyTest,
     };
   },
 };
