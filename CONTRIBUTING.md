@@ -50,5 +50,8 @@ deno coverage cov_profile
 
 ## Coding
 
-To send code contributions, start reading [How to write a stack plugin](docs/howto/write-a-new-plugin.md).
 Before you open a PR, please make sure your code follows the [Code Style Guide](docs/reference/code-style-guide.md).
+
+If you want to write or improve stack plugin, the following resources can help:
+- [How to write a stack plugin](docs/howto/write-a-new-plugin.md)
+- [Tutorial: Creating a plugin for Markdown](docs/tutorials/creating-a-plugin-for-markdown.md)
