@@ -1,3 +1,4 @@
+<% if (it.linters || it.formatters) { -%>
 name: Lint Python
 on:
   pull_request:
@@ -12,9 +13,24 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: <%= it.version %>
+<% if (it.packageManager) { -%>
+      - run: <%= it.packageManager.commands.install %>
+<% } -%>
 
-      - run: python -m pip install pip flake8 black
-      - run: black . --check
+<% if (!it.formatters.black.isDependency) { -%>
+      - run: python -m pip install pip black
+<% } -%>
+<% if (!it.linters.flake8.isDependency) { -%>
+      - run: python -m pip install pip flake8
+<% } -%>
+
+<% if (it.formatters.black) { -%>
+      - run: <%= it.packageManager.commands.run %> black . --check
+<% } -%>
+<% if (it.linters.flake8) { -%>
       # Adapts Flake8 to run with the Black formatter, using the '--ignore' flag to skip incompatibilities errors
       # Reference: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html?highlight=other%20tools#id1
-      - run: flake8 --ignore E203,E501,W503 .
+      - run: <%= it.packageManager.commands.run %> flake8 --ignore E203,E501,W503 .
+<% } -%>
+
+<% } -%>
