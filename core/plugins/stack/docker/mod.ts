@@ -9,7 +9,7 @@ export default interface DockerProject {
 
 export const introspector: Introspector<DockerProject> = {
   detect: async (context) => {
-    return await context.files.includes("./Dockerfile");
+    return await context.files.includes("**/Dockerfile");
   },
   introspect: async (context) => {
     const logger = await context.getLogger("docker");

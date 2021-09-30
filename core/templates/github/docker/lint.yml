@@ -1,16 +1,13 @@
-name: Docker Image CI
-
+name: Docker file Lint
 on:
   pull_request:
     paths:
-      - "Dockerfile"
-
+      - "**Dockerfile"
 jobs:
   lint:
     runs-on: ubuntu-latest
-
+    container: hadolint/hadolint:latest-debian
     steps:
       - uses: actions/checkout@v2
-      - uses: hadolint/hadolint-action@v1.5.0
-        with:
-          dockerfile: Dockerfile
+      - name: Run Hadolint on the project
+        run: hadolint $(find . -iname "*Dockerfile*" -o -iwholename "./Dockerfile")
