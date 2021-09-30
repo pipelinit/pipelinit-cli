@@ -204,7 +204,7 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
 };
 ```
 
-The introspect function call the necessary introspectors and collect provide all this stack collected data to the template
+The introspect function call the necessary introspectors that provides data to the template
 
 ```typescript
 import { Introspector } from "../../../types.ts";
