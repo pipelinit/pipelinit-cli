@@ -7,7 +7,7 @@ generated uses _sensible defaults_ from the picked tools.
 
 If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
-## CSS Support
+## CSS
 
 ### Package Managers
 
@@ -27,7 +27,15 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | Format | [Prettier](https://prettier.io/) (_default_)   |
 | Lint   | [stylelint](https://stylelint.io/) (_default_) |
 
-## HTML Support
+## Docker
+
+### Tools
+
+| Stage  | Tools                                            |
+| ------ | ------------------------------------------------ |
+| Lint   | [hadolint](https://github.com/hadolint/hadolint) |
+
+## HTML
 
 ### Package Managers
 
@@ -46,7 +54,15 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | Format | [Prettier](https://prettier.io/) (_default_)                                  |
 | Lint   | [ESLint](https://eslint.org/) (_default_), [stylelint](https://stylelint.io/) |
 
-## JavaScript Support
+## Java
+
+### Tools
+
+| Stage  | Tools                         |
+| ------ | ----------------------------- |
+| Build  | [Gradle](https://gradle.org/) |
+
+## JavaScript
 
 ### Package Managers
 
@@ -79,3 +95,11 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | ------ | ---------------------------------------------------------- |
 | Lint   | [Flake8](https://flake8.pycqa.org/) _default_              |
 | Format | [Black](https://black.readthedocs.io/en/stable/) _default_ |
+
+## Shell script
+
+### Tools
+
+| Stage  | Tools                                     |
+| ------ | ----------------------------------------- |
+| Lint   | [ShellCheck](https://www.shellcheck.net/) |
