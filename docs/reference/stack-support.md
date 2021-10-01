@@ -7,7 +7,7 @@ generated uses _sensible defaults_ from the picked tools.
 
 If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
-## CSS Support
+## CSS
 
 ### Package Managers
 
@@ -27,7 +27,7 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | Format | [Prettier](https://prettier.io/) (_default_)   |
 | Lint   | [stylelint](https://stylelint.io/) (_default_) |
 
-## Docker Support
+## Docker
 
 ### Tools
 
@@ -35,7 +35,7 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | ------ | ------------------------------------------------ |
 | Lint   | [hadolint](https://github.com/hadolint/hadolint) |
 
-## HTML Support
+## HTML
 
 ### Package Managers
 
@@ -54,7 +54,7 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | Format | [Prettier](https://prettier.io/) (_default_)                                  |
 | Lint   | [ESLint](https://eslint.org/) (_default_), [stylelint](https://stylelint.io/) |
 
-## Java Support
+## Java
 
 ### Tools
 
@@ -62,7 +62,7 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | ------ | ----------------------------- |
 | Build  | [Gradle](https://gradle.org/) |
 
-## JavaScript Support
+## JavaScript
 
 ### Package Managers
 
@@ -96,7 +96,7 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | Lint   | [Flake8](https://flake8.pycqa.org/) _default_              |
 | Format | [Black](https://black.readthedocs.io/en/stable/) _default_ |
 
-## Shell script Support
+## Shell script
 
 ### Tools
 
