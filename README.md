@@ -79,18 +79,12 @@ the following stacks:
 
 <table>
   <caption class="title">Pipelinit Support Matrix</caption>
-  <colgroup>
-    <col style="width: 33.3333%;">
-    <col style="width: 33.3333%;">
-    <col style="width: 33.3334%;">
-  </colgroup>
   <thead>
     <tr>
       <th>Stack</th>
       <th>Stage</th>
       <th>GitHub Actions</th>
       <th>GitLab CI</th>
-      <th>Travis CI</th>
     </tr>
   </thead>
   <tbody>
@@ -98,8 +92,16 @@ the following stacks:
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="13">Coming soon</td>
-      <td rowspan="13">Coming soon</td>
+      <td rowspan="14">Coming soon</td>
+    </tr>
+    <tr>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Docker</td>
+      <td>Build</td>
+      <td>✔️</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -112,6 +114,11 @@ the following stacks:
     </tr>
     <tr>
       <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td>Build (Gradle)</td>
       <td>✔️</td>
     </tr>
     <tr>
@@ -129,11 +136,11 @@ the following stacks:
     </tr>
     <tr>
       <td rowspan="3">Python</td>
-      <td>Lint</td>
+      <td>Format</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td>Format</td>
+      <td>Lint</td>
       <td>✔️</td>
     </tr>
     <tr>
@@ -141,17 +148,8 @@ the following stacks:
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="2">Docker</td>
+      <td rowspan="3">Shell script</td>
       <td>Lint</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td>Build</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td>Java</td>
-      <td>Build (Gradle)</td>
       <td>✔️</td>
     </tr>
   </tbody>
