@@ -27,6 +27,14 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | Format | [Prettier](https://prettier.io/) (_default_)   |
 | Lint   | [stylelint](https://stylelint.io/) (_default_) |
 
+## Docker Support
+
+### Tools
+
+| Stage  | Tools                                            |
+| ------ | ------------------------------------------------ |
+| Lint   | [hadolint](https://github.com/hadolint/hadolint) |
+
 ## HTML Support
 
 ### Package Managers
@@ -45,6 +53,14 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | ------ | ----------------------------------------------------------------------------- |
 | Format | [Prettier](https://prettier.io/) (_default_)                                  |
 | Lint   | [ESLint](https://eslint.org/) (_default_), [stylelint](https://stylelint.io/) |
+
+## Java Support
+
+### Tools
+
+| Stage  | Tools                         |
+| ------ | ----------------------------- |
+| Build  | [Gradle](https://gradle.org/) |
 
 ## JavaScript Support
 
@@ -79,3 +95,11 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | ------ | ---------------------------------------------------------- |
 | Lint   | [Flake8](https://flake8.pycqa.org/) _default_              |
 | Format | [Black](https://black.readthedocs.io/en/stable/) _default_ |
+
+## Shell script Support
+
+### Tools
+
+| Stage  | Tools                                     |
+| ------ | ----------------------------------------- |
+| Lint   | [ShellCheck](https://www.shellcheck.net/) |
