@@ -1,6 +1,6 @@
-import { eta, join, loadBuckets, parse, RenderedTemplate } from "../../deps.ts";
-import { Stack } from "../stack/mod.ts";
 import bucketsConf from "../../buckets.ts";
+import { eta, join, loadBuckets, parse, RenderedTemplate } from "../../deps.ts";
+import { Stack } from "./introspect.ts";
 
 /**
  * Common interface for loading templates from embedded buckets or file system

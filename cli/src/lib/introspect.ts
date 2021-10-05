@@ -1,5 +1,5 @@
 import { introspectors, log, ProjectData } from "../../deps.ts";
-import { context } from "../plugin/mod.ts";
+import { context } from "./context/mod.ts";
 
 export type Stack = Record<string, ProjectData>;
 

@@ -1,4 +1,4 @@
-import { IntrospectionError, log } from "../../deps.ts";
+import { IntrospectionError, log } from "../../../deps.ts";
 
 /**
  * Holds a list of fatal errors for stack introspection

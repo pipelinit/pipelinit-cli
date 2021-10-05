@@ -1,14 +1,14 @@
-import { ensureFile, platformWriters } from "../../../deps.ts";
-
-import { GlobalOptions } from "../types.ts";
-import { prelude } from "../prelude/mod.ts";
-import { introspect } from "../../stack/mod.ts";
-import { renderTemplates } from "../../template/mod.ts";
-import { outputErrors } from "../../plugin/errors.ts";
-import { context } from "../../plugin/mod.ts";
-
+import { ensureFile, platformWriters } from "../../deps.ts";
+import {
+  config,
+  context,
+  introspect,
+  outputErrors,
+  renderTemplates,
+} from "../lib/mod.ts";
+import { GlobalOptions } from "../options.ts";
 import { errorCodes } from "../errors.ts";
-import { config } from "../../config/mod.ts";
+import { prelude } from "./prelude.ts";
 
 type DefaultOptions = GlobalOptions;
 
