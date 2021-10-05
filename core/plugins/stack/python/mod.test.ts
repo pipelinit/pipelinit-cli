@@ -140,6 +140,10 @@ Deno.test("Plugins > Check if python version and django project is identified PI
         isDependency: false,
         name: "black",
       },
+      isort: {
+        isDependency: false,
+        name: "isort",
+      },
     },
     frameworks: {
       django: {},
@@ -172,6 +176,10 @@ Deno.test("Plugins > Check if python version and a non-django-project PIPENV", a
       black: {
         isDependency: false,
         name: "black",
+      },
+      isort: {
+        isDependency: false,
+        name: "isort",
       },
     },
     frameworks: {},
@@ -207,6 +215,10 @@ Deno.test("Plugins > Check if python version and django project is identified PO
         isDependency: false,
         name: "black",
       },
+      isort: {
+        isDependency: false,
+        name: "isort",
+      },
     },
     frameworks: {
       django: {},
@@ -239,6 +251,10 @@ Deno.test("Plugins > Check if python version and a non-django-project POETRY", a
       black: {
         isDependency: false,
         name: "black",
+      },
+      isort: {
+        isDependency: false,
+        name: "isort",
       },
     },
     frameworks: {},
@@ -274,6 +290,10 @@ Deno.test("Plugins > Check if python version and django project is identified RE
         isDependency: false,
         name: "black",
       },
+      isort: {
+        isDependency: false,
+        name: "isort",
+      },
     },
     frameworks: {
       django: {},
@@ -306,6 +326,10 @@ Deno.test("Plugins > Check if python version and a non-django-project REQ", asyn
       black: {
         isDependency: false,
         name: "black",
+      },
+      isort: {
+        isDependency: false,
+        name: "isort",
       },
     },
     frameworks: {},
