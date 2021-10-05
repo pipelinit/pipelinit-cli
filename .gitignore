@@ -1,4 +1,5 @@
 cov_profile
+cov_profile.lcov
 app.bundle.js
 cli/bin/*
 !cli/bin/.gitkeep
