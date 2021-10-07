@@ -92,6 +92,7 @@ Deno.test("Plugins > Check eslint and node for javascript project with a defined
     },
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
     hasTestCommand: true,
+    type: null,
   });
 });
 
@@ -111,6 +112,7 @@ Deno.test("Plugins > Check eslint and node for javascript project with NO define
     linters: {
       eslint: { name: "eslint", hasIgnoreFile: false },
     },
+    type: null,
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
     hasTestCommand: false,
   });

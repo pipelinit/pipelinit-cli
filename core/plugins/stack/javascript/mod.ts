@@ -3,6 +3,7 @@ import { Formatters, introspect as introspectFormatter } from "./formatters.ts";
 import { introspect as introspectLinter, Linters } from "./linters.ts";
 import { introspect as introspectRuntime, Runtime } from "./runtime.ts";
 import { introspect as introspectTestCommand } from "./test.ts";
+import { introspect as introspectType } from "./type.ts";
 import {
   introspect as introspectPackageManager,
   NodePackageManager,
@@ -23,6 +24,10 @@ export default interface JavaScriptProject {
    * npm, yarn or any other package manager.
    */
   packageManager?: PackageManager;
+  /**
+   * Identified type of project
+   */
+  type?: string | null;
   /**
    * Which runtime the project uses
    */
@@ -52,6 +57,10 @@ export const introspector: Introspector<JavaScriptProject> = {
     logger.debug("detecting runtime");
     const runtime = await introspectRuntime(context);
     logger.debug(`detected runtime "${runtime.name}"`);
+
+    // Project type
+    const projectType = await introspectType(context);
+
     if (runtime.name === "deno") {
       return {
         runtime,
@@ -62,6 +71,7 @@ export const introspector: Introspector<JavaScriptProject> = {
           deno: {},
         },
         hasTestCommand: false,
+        type: projectType,
       };
     }
 
@@ -83,6 +93,7 @@ export const introspector: Introspector<JavaScriptProject> = {
       linters: linters,
       formatters: formatters,
       hasTestCommand: hasTestCommand,
+      type: projectType,
     };
   },
 };

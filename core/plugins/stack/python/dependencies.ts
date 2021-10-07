@@ -50,3 +50,11 @@ export const hasPythonDependency = async (
   const dependencies = await readDependencyFile(context);
   return dependencies.some((dep) => dep === dependencyName);
 };
+
+export const hasPythonDependencyAny = async (
+  context: Context,
+  dependencyList: Set<string>,
+): Promise<boolean> => {
+  const dependencies = await readDependencyFile(context);
+  return dependencies.some((dep) => dependencyList.has(dep));
+};
