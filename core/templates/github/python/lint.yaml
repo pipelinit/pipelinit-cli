@@ -1,4 +1,4 @@
-<% if (it.linters || it.formatters) { -%>
+<% if (it.linters) { -%>
 name: Lint Python
 on:
   pull_request:
@@ -17,22 +17,10 @@ jobs:
       - run: <%= it.packageManager.commands.install %>
 <% } -%>
 
-<% if (!it.formatters.isort.isDependency) { -%>
-      - run: python -m pip install pip isort
-<% } -%>
-<% if (!it.formatters.black.isDependency) { -%>
-      - run: python -m pip install pip black
-<% } -%>
 <% if (!it.linters.flake8.isDependency) { -%>
       - run: python -m pip install pip flake8
 <% } -%>
 
-<% if (it.formatters.black) { -%>
-      - run: <%= it.packageManager.commands.run %> black . --check
-<% } -%>
-<% if (it.formatters.isort) { -%>
-      - run: <%= it.packageManager.commands.run %> isort . -c
-<% } -%>
 <% if (it.linters.flake8) { -%>
       # Adapts Flake8 to run with the Black formatter, using the '--ignore' flag to skip incompatibilities errors
       # Reference: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html?highlight=other%20tools#id1

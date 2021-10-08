@@ -1,0 +1,34 @@
+<% if (it.formatters) { -%>
+name: Format Python
+on:
+  pull_request:
+    paths:
+      - "**.py"
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: <%= it.version %>
+<% if (it.packageManager) { -%>
+      - run: <%= it.packageManager.commands.install %>
+<% } -%>
+
+<% if (!it.formatters.isort.isDependency) { -%>
+      - run: python -m pip install pip isort
+<% } -%>
+<% if (!it.formatters.black.isDependency) { -%>
+      - run: python -m pip install pip black
+<% } -%>
+
+<% if (it.formatters.black) { -%>
+      - run: <%= it.packageManager.commands.run %> black . --check
+<% } -%>
+<% if (it.formatters.isort) { -%>
+      - run: <%= it.packageManager.commands.run %> isort . -c
+<% } -%>
+
+<% } -%>
