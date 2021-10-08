@@ -1,5 +1,5 @@
-import { colors, log } from "../../../deps.ts";
-import { introspectors } from "../../../../core/plugins/mod.ts";
+import { colors, log } from "../../deps.ts";
+import { introspectors } from "../../../core/plugins/mod.ts";
 
 /**
  * Behaves like the ConsoleHandler, but doesn't change the

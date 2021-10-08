@@ -4,7 +4,7 @@ import {
   fileExists,
   parseToml,
   readLines as stdReadLines,
-} from "../../deps.ts";
+} from "../../../deps.ts";
 
 /**
  * Search for the .gitignore file and if it exists use the content

@@ -1,6 +1,6 @@
 import { Command } from "./deps.ts";
 import { PIPELINIT_VERSION } from "./deps.ts";
-import defaultCommand from "./src/cli/commands/default.ts";
+import defaultCommand from "./src/commands/default.ts";
 
 export const PIPELINIT_ROOT = new URL(".", import.meta.url).pathname;
 

@@ -1,4 +1,5 @@
-import { Context, log, PIPELINIT_VERSION, semver } from "../../deps.ts";
+import { Context, log, PIPELINIT_VERSION, semver } from "../../../deps.ts";
+import { GlobalOptions } from "../../options.ts";
 import {
   each,
   includes,
@@ -7,7 +8,8 @@ import {
   readText,
   readToml,
 } from "./files.ts";
-import { errors } from "./errors.ts";
+import { errors, outputErrors } from "./errors.ts";
+export { outputErrors };
 
 export const context: Context = {
   getLogger: log.getLogger,
@@ -26,3 +28,10 @@ export const context: Context = {
   suggestDefault: true,
   version: PIPELINIT_VERSION,
 };
+
+/**
+ * Apply required changes to the context object
+ */
+export function contextualize(opts: GlobalOptions) {
+  context.suggestDefault = opts.defaultStage;
+}
