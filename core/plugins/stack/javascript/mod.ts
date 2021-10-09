@@ -44,6 +44,10 @@ export default interface JavaScriptProject {
    * Project has a configured test command
    */
   hasTestCommand: boolean;
+  /**
+   * Project has TypeScript files
+   */
+  hasTypeScriptFiles: boolean;
 }
 
 export const introspector: Introspector<JavaScriptProject> = {
@@ -52,6 +56,9 @@ export const introspector: Introspector<JavaScriptProject> = {
   },
   introspect: async (context) => {
     const logger = context.getLogger("javascript");
+
+    // Has TypeScript files
+    const hasTypeScriptFiles = await context.files.includes("**/*.ts");
 
     // Runtime
     logger.debug("detecting runtime");
@@ -72,6 +79,7 @@ export const introspector: Introspector<JavaScriptProject> = {
         },
         hasTestCommand: false,
         type: projectType,
+        hasTypeScriptFiles: hasTypeScriptFiles,
       };
     }
 
@@ -94,6 +102,7 @@ export const introspector: Introspector<JavaScriptProject> = {
       formatters: formatters,
       hasTestCommand: hasTestCommand,
       type: projectType,
+      hasTypeScriptFiles: hasTypeScriptFiles,
     };
   },
 };
