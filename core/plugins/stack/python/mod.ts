@@ -14,6 +14,7 @@ import {
   Formatters,
   introspect as introspectFormatters,
 } from "./formatters.ts";
+import { introspect as introspectType } from "./type.ts";
 
 /**
  * Introspected information about a project with Python
@@ -23,6 +24,10 @@ export default interface PythonProject {
    * Python version
    */
   version?: string;
+  /**
+   * Identified type of project
+   */
+  type?: string | null;
   /**
    * If the project has pytest installed
    */
@@ -81,12 +86,16 @@ export const introspector: Introspector<PythonProject | undefined> = {
     const linters = await introspectLinters(context);
     const formatters = await introspectFormatters(context);
 
+    // Project type
+    const projectType = await introspectType(context);
+
     return {
       version: version,
       frameworks: frameworks,
       packageManager: packageManager,
       formatters: formatters,
       linters: linters,
+      type: projectType,
       hasPytest: hasPytest,
     };
   },

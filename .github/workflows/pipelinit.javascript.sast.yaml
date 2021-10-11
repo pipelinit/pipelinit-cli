@@ -1,17 +1,18 @@
 # Generated with pipelinit 0.1.0
 # https://pipelinit.com/
-name: Format Deno
+name: SAST
 on:
   pull_request:
     paths:
       - '**.js'
       - '**.ts'
 jobs:
-  format:
+  semgrep:
+    name: Scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: denoland/setup-deno@v1
+      - uses: returntocorp/semgrep-action@v1
         with:
-          deno-version: v1.x
-      - run: deno fmt --check $(find . -iname "*.[j|t]s")
+          config: >-
+            p/ci

@@ -162,6 +162,7 @@ Deno.test("Plugins > Check if python version and django project is identified PI
         run: "pipenv run",
       },
     },
+    type: "webApp",
   });
 });
 
@@ -197,6 +198,7 @@ Deno.test("Plugins > Check if python version and a non-django-project PIPENV", a
         run: "pipenv run",
       },
     },
+    type: null,
   });
 });
 
@@ -237,6 +239,7 @@ Deno.test("Plugins > Check if python version and django project is identified PO
         run: "poetry run",
       },
     },
+    type: "webApp",
   });
 });
 
@@ -272,6 +275,7 @@ Deno.test("Plugins > Check if python version and a non-django-project POETRY", a
         run: "poetry run",
       },
     },
+    type: null,
   });
 });
 
@@ -312,6 +316,7 @@ Deno.test("Plugins > Check if python version and django project is identified RE
         run: "",
       },
     },
+    type: "webApp",
   });
 });
 
@@ -347,5 +352,6 @@ Deno.test("Plugins > Check if python version and a non-django-project REQ", asyn
         run: "",
       },
     },
+    type: null,
   });
 });
