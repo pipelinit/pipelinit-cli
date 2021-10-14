@@ -8,9 +8,22 @@ import {
 } from "../../deps.ts";
 import { arePlatforms, isPlatform, Platforms } from "./platform.ts";
 
+export interface StackRegistry {
+  docker: string[];
+}
+
+const sensibleDefault = `
+# Registries to publish artifacts.
+# [registries]
+# Default values per stack are presented below.
+# If your project use other registry(ies), uncomment and edit
+# docker = ["registry.hub.docker.com"]
+`;
+
 export const CONFIG_FILE = ".pipelinit.toml";
 export type Config = {
   platforms?: Platforms;
+  registries?: StackRegistry;
   exists: () => Promise<boolean>;
   load: () => Promise<void>;
   save: () => Promise<void>;
@@ -31,7 +44,10 @@ export function isConfig(c: Record<string, unknown>): c is Config {
 export const config: Config = {
   exists: async () => await fileExists(CONFIG_FILE),
   save: async () => {
-    await Deno.writeTextFile(CONFIG_FILE, stringifyToml(config));
+    await Deno.writeTextFile(
+      CONFIG_FILE,
+      stringifyToml(config) + sensibleDefault,
+    );
   },
   load: async () => {
     const configContent = parseToml(await Deno.readTextFile(CONFIG_FILE));
@@ -39,6 +55,7 @@ export const config: Config = {
     if (isConfig(configContent)) {
       const newConfig = deepMerge(config, configContent);
       config.platforms = newConfig.platforms;
+      config.registries = newConfig.registries;
     } else {
       throw new Error("Couldn't parse configuration file");
     }
