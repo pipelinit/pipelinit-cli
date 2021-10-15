@@ -1,0 +1,7 @@
+platforms = ["github"]
+
+# Registries to publish artifacts.
+[registries]
+# Default values per stack are presented below.
+# If your project use other registry(ies), uncomment and edit
+docker = ["ghcr.io"]

@@ -14,6 +14,10 @@ export const context: Context = {
       critical(_: string) {},
     };
   },
+  // deno-lint-ignore require-await
+  async filesWorkDir() {
+    return "";
+  },
   files: {
     // deno-lint-ignore require-yield
     async *each(_) {

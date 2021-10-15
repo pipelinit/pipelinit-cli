@@ -2,6 +2,7 @@ import { Context, log, PIPELINIT_VERSION, semver } from "../../../deps.ts";
 import { GlobalOptions } from "../../options.ts";
 import {
   each,
+  filesWorkDir,
   includes,
   readJSON,
   readLines,
@@ -13,6 +14,7 @@ export { anyError, outputErrors } from "./errors.ts";
 
 export const context: Context = {
   getLogger: log.getLogger,
+  filesWorkDir: filesWorkDir,
   files: {
     each,
     includes,

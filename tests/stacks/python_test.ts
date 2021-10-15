@@ -114,3 +114,32 @@ test(
     await assertExpectedFiles();
   },
 );
+
+const releaseWarn = `
+Creating a release Pipelinit. Make sure to create the following secrets generated on the workflow:
+  REGISTRY_USERNAME -> Registry username
+  REGISTRY_PASSWORD -> Registry password
+  REGISTRY_ORGANIZATION -> Registry project organization
+`;
+
+test(
+  { fixture: "docker/release-docker", args: ["--no-strict"] },
+  async (stdout, _stderr, code, assertExpectedFiles) => {
+    assertStringIncludes(stdout, "Detected stack: docker");
+    assertStringIncludes(stdout, "Found docker image on root");
+    assertStringIncludes(stdout, releaseWarn);
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);
+
+test(
+  { fixture: "docker/release-github", args: ["--no-strict"] },
+  async (stdout, _stderr, code, assertExpectedFiles) => {
+    assertStringIncludes(stdout, "Detected stack: docker");
+    assertStringIncludes(stdout, "Found docker image on root");
+    assertStringIncludes(stdout, releaseWarn);
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);

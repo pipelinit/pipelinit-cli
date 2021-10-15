@@ -1,0 +1,81 @@
+# Generated with pipelinit 0.4.0
+# https://pipelinit.com/
+name: Release new version
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+env:
+  GITHUB_REPOSITORY: ${{ github.repository }}
+
+jobs:
+  release:
+    name: Build and publish new release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set current version
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Set repository name
+        run: echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY/*\/}" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to the registry registry.hub.docker.com
+        uses: docker/login-action@v1
+        with:
+          registry: registry.hub.docker.com
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Extract metadata (tags, labels) 
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          tags: |
+            type=semver,pattern={{version}},enable=true
+          images: registry.hub.docker.com/${{ secrets.REGISTRY_ORGANIZATION }}/${{ env.GITHUB_REPOSITORY }}
+
+      - name: Build and push Docker image 
+        uses: docker/build-push-action@v2
+        with:
+          build-args: "version=${{ env.RELEASE_VERSION }}"
+          context: ./
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      - name: Extract metadata (tags, labels) sub
+        id: meta-sub
+        uses: docker/metadata-action@v3
+        with:
+          tags: |
+            type=semver,pattern={{version}},enable=true
+          images: registry.hub.docker.com/${{ secrets.REGISTRY_ORGANIZATION }}/${{ env.GITHUB_REPOSITORY }}-sub
+
+      - name: Build and push Docker image sub
+        uses: docker/build-push-action@v2
+        with:
+          build-args: "version=${{ env.RELEASE_VERSION }}"
+          context: ./sub
+          push: true
+          tags: ${{ steps.meta-sub.outputs.tags }}
+          labels: ${{ steps.meta-sub.outputs.labels }}
+      - name: Extract metadata (tags, labels) test
+        id: meta-test
+        uses: docker/metadata-action@v3
+        with:
+          tags: |
+            type=semver,pattern={{version}},enable=true
+          images: registry.hub.docker.com/${{ secrets.REGISTRY_ORGANIZATION }}/${{ env.GITHUB_REPOSITORY }}-test
+
+      - name: Build and push Docker image test
+        uses: docker/build-push-action@v2
+        with:
+          build-args: "version=${{ env.RELEASE_VERSION }}"
+          context: ./test
+          push: true
+          tags: ${{ steps.meta-test.outputs.tags }}
+          labels: ${{ steps.meta-test.outputs.labels }}
+

@@ -8,7 +8,7 @@ export const introspect: IntrospectFn<DockerContext> = async (context) => {
   const dockerContextPaths = new Set();
   for await (const file of context.files.each("**/Dockerfile")) {
     const contextPath = file.path.replace(
-      Deno.cwd() + "/",
+      await context.filesWorkDir() + "/",
       "",
     ).replace("/" + file.name, "").replace(file.name, "");
     dockerContextPaths.add(contextPath);
