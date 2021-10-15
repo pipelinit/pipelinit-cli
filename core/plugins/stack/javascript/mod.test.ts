@@ -93,6 +93,7 @@ Deno.test("Plugins > Check eslint and node for javascript project with a defined
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
     hasTestCommand: true,
     type: null,
+    hasTypeScriptFiles: false,
   });
 });
 
@@ -115,5 +116,6 @@ Deno.test("Plugins > Check eslint and node for javascript project with NO define
     type: null,
     formatters: { prettier: { name: "prettier", hasIgnoreFile: false } },
     hasTestCommand: false,
+    hasTypeScriptFiles: false,
   });
 });
