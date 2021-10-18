@@ -1,4 +1,4 @@
-# Generated with pipelinit 0.1.0
+# Generated with pipelinit 0.2.0
 # https://pipelinit.com/
 name: Lint JavaScript
 on:
