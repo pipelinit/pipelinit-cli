@@ -12,4 +12,9 @@ export interface GlobalOptions {
    * tool when it can't find any of the supported ones
    */
   defaultStage: boolean;
+  /**
+   * Determines if the Stack Plugins should be strict about project
+   * configuration
+   */
+  strict: boolean;
 }

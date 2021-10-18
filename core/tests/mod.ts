@@ -45,6 +45,7 @@ export const context: Context = {
   },
   semver: semver,
   suggestDefault: true,
+  strict: true,
   version: "v0.0.0",
 };
 export { assertEquals, deepMerge } from "../deps.ts";
