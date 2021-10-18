@@ -26,6 +26,7 @@ export const context: Context = {
   },
   semver,
   suggestDefault: true,
+  strict: true,
   version: PIPELINIT_VERSION,
 };
 
@@ -33,5 +34,6 @@ export const context: Context = {
  * Apply required changes to the context object
  */
 export function contextualize(opts: GlobalOptions) {
+  context.strict = opts.strict;
   context.suggestDefault = opts.defaultStage;
 }

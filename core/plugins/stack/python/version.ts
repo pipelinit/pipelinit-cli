@@ -1,5 +1,12 @@
 import { IntrospectFn } from "../../../types.ts";
 
+// Find the latest stable version here:
+// https://www.python.org/downloads/
+const LATEST = "3.10";
+
+const WARN_USING_LATEST =
+  `Couldn't detect the Python version, using the latest available: ${LATEST}`;
+
 const ERR_UNDETECTABLE_TITLE =
   "Couldn't detect which Python version this project uses.";
 const ERR_UNDETECTABLE_INSTRUCTIONS = `
@@ -34,6 +41,8 @@ See https://github.com/pyenv/pyenv
 `;
 
 export const introspect: IntrospectFn<string | undefined> = async (context) => {
+  const logger = context.getLogger("python");
+
   // Search for application specific `.python-version` file from pyenv
   //
   // See https://github.com/pyenv/pyenv/#choosing-the-python-version
@@ -65,6 +74,11 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
       // would be to convert it to a range with 3.6, 3.7, 3.8 and 3.9
       return version.replace(/[\^~]/, "");
     }
+  }
+
+  if (!context.strict) {
+    logger.warning(WARN_USING_LATEST);
+    return LATEST;
   }
 
   context.errors.add({

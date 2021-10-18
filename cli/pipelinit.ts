@@ -17,5 +17,9 @@ await new Command()
     "--no-default-stage [no-default-stage:boolean]",
     "Disable default suggestion for a CI stage when can't detect a supported tool",
   )
+  .option(
+    "--no-strict [no-strict:boolean]",
+    "Disable strict mode. Generates less errors with suggestions to change the project, but may generate less complete or less accurate pipelines.",
+  )
   .action(defaultCommand)
   .parse(Deno.args);
