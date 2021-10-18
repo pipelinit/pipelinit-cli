@@ -12,7 +12,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: <%= it.version %>
+          python-version: "<%= it.version %>"
 <% if (it.packageManager) { -%>
       - run: <%= it.packageManager.commands.install %>
 <% } -%>
@@ -25,10 +25,10 @@ jobs:
 <% } -%>
 
 <% if (it.formatters.black) { -%>
-      - run: <%= it.packageManager.commands.run %> black . --check
+      - run: <%= it.packageManager.commands.run _%> black . --check
 <% } -%>
 <% if (it.formatters.isort) { -%>
-      - run: <%= it.packageManager.commands.run %> isort . -c
+      - run: <%= it.packageManager.commands.run _%> isort . -c
 <% } -%>
 
-<% } -%>
+<%- } -%>
