@@ -10,7 +10,7 @@ const readDependencyFile = async (context: Context) => {
     if (poetryDeps) {
       dependencies.push(...Object.keys(poetryDeps));
     }
-    const poetryDevDeps = pyproject.tool?.poetry["dev-dependencies"];
+    const poetryDevDeps = pyproject.tool?.poetry?.["dev-dependencies"];
     if (poetryDevDeps) {
       dependencies.push(...Object.keys(poetryDevDeps));
     }
