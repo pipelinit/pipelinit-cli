@@ -23,6 +23,27 @@ test(
 );
 
 test(
+  { fixture: "python/requirements-unknown-version", args: [] },
+  async (proc) => {
+    const [stdout, _stderr, { code }] = await output(proc);
+    assertStringIncludes(stdout, "Detected stack: python");
+    assertStringIncludes(
+      stdout,
+      "Didn't generate pipeline for every detected stack!",
+    );
+    assertStringIncludes(
+      stdout,
+      "Couldn't detect which Python version this project uses.",
+    );
+    assertStringIncludes(
+      stdout,
+      "If you don't want to change your project now, try again with the --no-strict flag.",
+    );
+    assertEquals(code, 3);
+  },
+);
+
+test(
   { fixture: "python/requirements-unknown-version", args: ["--no-strict"] },
   async (proc) => {
     const [stdout, _stderr, { code }] = await output(proc);

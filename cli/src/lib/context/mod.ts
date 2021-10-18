@@ -8,8 +8,8 @@ import {
   readText,
   readToml,
 } from "./files.ts";
-import { errors, outputErrors } from "./errors.ts";
-export { outputErrors };
+import { errors } from "./errors.ts";
+export { anyError, outputErrors } from "./errors.ts";
 
 export const context: Context = {
   getLogger: log.getLogger,
