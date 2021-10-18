@@ -65,3 +65,22 @@ test(
     await cleanGitHubFiles("python/requirements-unknown-version");
   },
 );
+
+test(
+  { fixture: "python/requirements-black-and-pyproject", args: [] },
+  async (proc) => {
+    const [stdout, _stderr, { code }] = await output(proc);
+    assertStringIncludes(stdout, "Detected stack: python");
+    assertStringIncludes(
+      stdout,
+      "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
+    );
+    assertStringIncludes(
+      stdout,
+      "No formatters for python were identified in the project, creating default pipeline with 'isort' WITHOUT any specific configuration",
+    );
+    assertEquals(code, 0);
+    await assertExpectedFiles("python/requirements-black-and-pyproject");
+    await cleanGitHubFiles("python/requirements-black-and-pyproject");
+  },
+);
