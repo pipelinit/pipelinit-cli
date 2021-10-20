@@ -15,7 +15,7 @@ export type PackageManager = {
      */
     run: string;
   };
-} | undefined;
+};
 
 /**
  * Detects if a project uses [Poetry](https://python-poetry.org/)
@@ -77,6 +77,9 @@ const requirements: IntrospectFn<PackageManager> = async (context) => {
  * - Poetry usage
  * - Pipenv usage
  * - requirements.txt usage
+ *
+ * If nothing is found, returns pip without a shortcut for installing
+ * the (absent) requirements.txt file.
  */
 export const introspect: IntrospectFn<PackageManager> = async (context) => {
   try {
@@ -87,7 +90,13 @@ export const introspect: IntrospectFn<PackageManager> = async (context) => {
     ]);
   } catch (error: unknown) {
     if (error instanceof AggregateError) {
-      return undefined;
+      return {
+        name: "pip",
+        commands: {
+          install: "",
+          run: "",
+        },
+      };
     } else {
       throw error;
     }
