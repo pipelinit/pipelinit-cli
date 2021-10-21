@@ -40,49 +40,89 @@ file with a version inside, like "3.9".
 See https://github.com/pyenv/pyenv
 `;
 
-export const introspect: IntrospectFn<string | undefined> = async (context) => {
-  const logger = context.getLogger("python");
-
-  // Search for application specific `.python-version` file from pyenv
-  //
-  // See https://github.com/pyenv/pyenv/#choosing-the-python-version
+/**
+ * Search for application specific `.python-version` file from pyenv
+ *
+ * @see https://github.com/pyenv/pyenv/#choosing-the-python-version
+ */
+const pyenv: IntrospectFn<string> = async (context) => {
   for await (const file of context.files.each("**/.python-version")) {
     return await context.files.readText(file.path);
   }
+  throw Error("Can't find python version at .python-version");
+};
 
-  // Search a Pipfile file, that have a key with the Python version, as managed
-  // by pipenv
-  //
-  // See https://pipenv.pypa.io/en/latest/basics/#specifying-versions-of-python
+/**
+ * Search a Pipfile file, that have a key with the Python version, as managed
+ * by pipenv
+ *
+ * @see https://pipenv.pypa.io/en/latest/basics/#specifying-versions-of-python
+ */
+const pipfile: IntrospectFn<string> = async (context) => {
   for await (const file of context.files.each("**/Pipfile")) {
     const pipfile = await context.files.readToml(file.path);
     const version = pipfile?.requires?.python_version;
     if (version) return version;
   }
+  throw Error("Can't find python version at Pipfile");
+};
 
-  // Search a pyproject.toml file. If the project uses Poetry, it has a key
-  // with the Python version
-  //
-  // See https://python-poetry.org/docs/pyproject/#dependencies-and-dev-dependencies
+/**
+ * Search a pyproject.toml file. If the project uses Poetry, it has a key
+ * with the Python version
+ *
+ * @see https://python-poetry.org/docs/pyproject/#dependencies-and-dev-dependencies
+ */
+const poetry: IntrospectFn<string> = async (context) => {
   for await (const file of context.files.each("**/pyproject.toml")) {
     const pyproject = await context.files.readToml(file.path);
     const version: string | null = pyproject?.tool?.poetry?.dependencies
       ?.python;
     if (version) {
       // FIXME this simply removes caret and tilde from version specification
-      // to convert something like "^3.6" to "3.6". The correct behavior
-      // would be to convert it to a range with 3.6, 3.7, 3.8 and 3.9
+      // to convert something like "^3.8" to "3.8". The correct behavior
+      // would be to convert it to a range with 3.8, 3.9 and 3.10
       return version.replace(/[\^~]/, "");
     }
   }
+  throw Error("Can't find python version at pyproject.toml");
+};
 
-  if (!context.strict) {
-    logger.warning(WARN_USING_LATEST);
-    return LATEST;
+/**
+ * Searches for the project Python version in multiple places, such as:
+ * - .python-version (from pyenv)
+ * - Pipfile (from Pipenv)
+ * - pyproject.toml (used by Poetry too)
+ *
+ * If it fails to find a version definition anywhere, the next step depends
+ * wheter Pipelinit is running in the strict mode. It emits an error if running
+ * in the strict mode, otherwise it emits an warning and fallback to the latest
+ * stable version.
+ */
+export const introspect: IntrospectFn<string | undefined> = async (context) => {
+  const logger = context.getLogger("python");
+
+  try {
+    return await Promise.any([
+      pyenv(context),
+      pipfile(context),
+      poetry(context),
+    ]);
+  } catch (error: unknown) {
+    if (error instanceof AggregateError) {
+      logger.debug(error.errors.map((e) => e.message).join("\n"));
+
+      if (!context.strict) {
+        logger.warning(WARN_USING_LATEST);
+        return LATEST;
+      }
+
+      context.errors.add({
+        title: ERR_UNDETECTABLE_TITLE,
+        message: ERR_UNDETECTABLE_INSTRUCTIONS,
+      });
+    } else {
+      throw error;
+    }
   }
-
-  context.errors.add({
-    title: ERR_UNDETECTABLE_TITLE,
-    message: ERR_UNDETECTABLE_INSTRUCTIONS,
-  });
 };
