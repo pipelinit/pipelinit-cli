@@ -1,4 +1,5 @@
-<% if (it.linters) { -%>
+# Generated with pipelinit 0.2.0
+# https://pipelinit.com/
 name: Lint Python
 on:
   pull_request:
@@ -12,19 +13,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "<%= it.version %>"
-<% if (it.packageManager.commands.install) { -%>
-      - run: <%= it.packageManager.commands.install %>
-<% } -%>
+          python-version: "3.10"
 
-<% if (!it.linters.flake8.isDependency) { -%>
       - run: python -m pip install pip flake8
-<% } -%>
 
-<% if (it.linters.flake8) { -%>
       # Adapts Flake8 to run with the Black formatter, using the '--ignore' flag to skip incompatibilities errors
       # Reference: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html?highlight=other%20tools#id1
-      - run: <%= it.packageManager.commands.run _%> flake8 --ignore E203,E501,W503 .
-<% } -%>
-
-<%- } -%>
+      - run: flake8 --ignore E203,E501,W503 .

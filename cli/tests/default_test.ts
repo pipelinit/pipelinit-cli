@@ -84,3 +84,30 @@ test(
     await cleanGitHubFiles("python/requirements-black-and-pyproject");
   },
 );
+
+test(
+  { fixture: "python/setup-flake8", args: ["--no-strict"] },
+  async (proc) => {
+    const [stdout, _stderr, { code }] = await output(proc);
+    assertStringIncludes(stdout, "Detected stack: python");
+    assertStringIncludes(
+      stdout,
+      "Couldn't detect the Python version, using the latest available: 3.10",
+    );
+    assertStringIncludes(
+      stdout,
+      "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
+    );
+    assertStringIncludes(
+      stdout,
+      "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
+    );
+    assertStringIncludes(
+      stdout,
+      "No formatters for python were identified in the project, creating default pipeline with 'isort' WITHOUT any specific configuration",
+    );
+    assertEquals(code, 0);
+    await assertExpectedFiles("python/setup-flake8");
+    await cleanGitHubFiles("python/setup-flake8");
+  },
+);
