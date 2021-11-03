@@ -25,13 +25,13 @@ const fakeContext = (
           if (glob === "**/manage.py" && isDjango) {
             return true;
           }
-          if (glob === "**/poetry.lock" && isPoetry) {
+          if (glob === "./poetry.lock" && isPoetry) {
             return true;
           }
-          if (glob === "**/Pipfile.lock" && isPipenv) {
+          if (glob === "./Pipfile.lock" && isPipenv) {
             return true;
           }
-          if (glob === "**/requirements.txt" && isRequirements) {
+          if (glob === "./requirements.txt" && isRequirements) {
             return true;
           }
           return false;
@@ -43,19 +43,19 @@ const fakeContext = (
               path: "fake-path-root",
             };
           }
-          if (glob === "**/Pipfile" && isPipenv) {
+          if (glob === "./Pipfile" && isPipenv) {
             yield {
               name: "Pipfile",
               path: "fake-path",
             };
           }
-          if (glob === "**/pyproject.toml" && isPoetry) {
+          if (glob === "./pyproject.toml" && isPoetry) {
             yield {
               name: "pyproject.toml",
               path: "fake-path",
             };
           }
-          if (glob === "**/requirements.txt" && isRequirements) {
+          if (glob === "./requirements.txt" && isRequirements) {
             yield {
               name: "requirements.txt",
               path: "fake-path",

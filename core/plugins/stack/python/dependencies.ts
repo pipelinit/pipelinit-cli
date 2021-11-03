@@ -3,7 +3,7 @@ import { Context } from "../../../types.ts";
 const readDependencyFile = async (context: Context) => {
   const dependencies: string[] = [];
 
-  for await (const file of context.files.each("**/pyproject.toml")) {
+  for await (const file of context.files.each("./pyproject.toml")) {
     const pyproject = await context.files.readToml(file.path);
 
     const poetryDeps = pyproject.tool?.poetry?.dependencies;
@@ -16,7 +16,7 @@ const readDependencyFile = async (context: Context) => {
     }
   }
 
-  for await (const file of context.files.each("**/Pipfile")) {
+  for await (const file of context.files.each("./Pipfile")) {
     const pipfile = await context.files.readToml(file.path);
 
     const pipFileDeps = pipfile.packages;
@@ -29,7 +29,7 @@ const readDependencyFile = async (context: Context) => {
     }
   }
 
-  for await (const file of context.files.each("**/requirements.txt")) {
+  for await (const file of context.files.each("./requirements.txt")) {
     const requirements = await context.files.readText(file.path);
     // Using a modified version of the regex pointed on the PEP 508
     // The only difference is the matching of the dependency version number was removed
