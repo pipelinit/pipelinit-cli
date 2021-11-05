@@ -21,7 +21,7 @@ export type PackageManager = {
  * Detects if a project uses [Poetry](https://python-poetry.org/)
  */
 const poetry: IntrospectFn<PackageManager> = async (context) => {
-  if (await context.files.includes("**/poetry.lock")) {
+  if (await context.files.includes("./poetry.lock")) {
     return {
       name: "poetry",
       commands: {
@@ -37,7 +37,7 @@ const poetry: IntrospectFn<PackageManager> = async (context) => {
  * Detects if a project uses [Pipenv](pipenv.pypa.io)
  */
 const pipenv: IntrospectFn<PackageManager> = async (context) => {
-  if (await context.files.includes("**/Pipfile.lock")) {
+  if (await context.files.includes("./Pipfile.lock")) {
     return {
       name: "pipenv",
       commands: {
@@ -60,7 +60,7 @@ const pipenv: IntrospectFn<PackageManager> = async (context) => {
  * https://pip.pypa.io/en/stable/reference/requirements-file-format/#requirements-file-format
  */
 const requirements: IntrospectFn<PackageManager> = async (context) => {
-  if (await context.files.includes("**/requirements.txt")) {
+  if (await context.files.includes("./requirements.txt")) {
     return {
       name: "pip",
       commands: {

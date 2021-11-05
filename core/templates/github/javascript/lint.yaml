@@ -36,23 +36,22 @@ jobs:
       <% } -%>
 <% } -%>
 <% if (it.hasTypeScriptFiles) { -%>
-
   tsc:
-    name: Typecheck Typescript 
+    name: Typecheck Typescript
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-  <% if (it.runtime.name === "deno") { -%>
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.x
-    - run: deno cache --unstable $(find . -iname "*.ts")
-  <% } else if (it.runtime.name === "node") { -%>
-   - uses: actions/setup-node@v2
-      with:
-        node-version: '<%= it.runtime.version %>'
+      - uses: actions/checkout@v2
+<% if (it.runtime.name === "deno") { -%>
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - run: deno cache --unstable $(find . -iname "*.ts")
+<% } else if (it.runtime.name === "node") { -%>
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '<%= it.runtime.version %>'
         cache: '<%= it.packageManager.name %>'
-    - run: <%= it.packageManager.commands.install %>
-    - run: NPM_CONFIG_YES=true npx -p typescript -c 'tsc --init && tsc --noEmit'
-  <% } -%>
+      - run: <%= it.packageManager.commands.install %>
+      - run: NPM_CONFIG_YES=true npx -p typescript -c 'tsc --init && tsc --noEmit'
+<% } -%>
 <% } -%>
