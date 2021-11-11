@@ -80,11 +80,12 @@ jobs:
       - name: Build pipelinit core package
         uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
       - run: |
           cd core
-          deno run --unstable --allow-read --allow-write --allow-run package.ts
+          deno run --unstable -A package.ts ${{ env.RELEASE_VERSION }}
+          cd npm
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

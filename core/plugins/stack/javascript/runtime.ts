@@ -5,11 +5,11 @@ interface Node {
   version: string;
 }
 
-interface Deno {
+interface DenoInterface {
   name: "deno";
 }
 
-export type Runtime = Node | Deno;
+export type Runtime = Node | DenoInterface;
 
 const DENO_IMPORT = /import.*from ["']https:\/\/deno\.land/;
 const DENO_RUNTIME = /Deno\..*/;

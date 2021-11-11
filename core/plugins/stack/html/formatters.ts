@@ -5,11 +5,11 @@ import {
 } from "../_shared/prettier/mod.ts";
 
 // deno-lint-ignore no-empty-interface
-interface Deno {}
+interface DenoInterface {}
 
 export type Formatters = {
   prettier?: Prettier | null;
-  deno?: Deno;
+  deno?: DenoInterface;
 } | null;
 
 function anyValue(records: Record<string, unknown>): boolean {

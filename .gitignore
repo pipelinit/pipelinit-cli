@@ -5,3 +5,4 @@ cli/bin/*
 !cli/bin/.gitkeep
 core/dist/*
 !core/dist/.gitkeep
+core/npm/*
