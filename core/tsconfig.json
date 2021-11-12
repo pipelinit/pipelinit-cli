@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "es2020",
-    "target": "es2020",
+    "target": "es2021",
     "declaration": true,
     "sourceMap": true,
     "outDir": "dist"
@@ -10,6 +10,6 @@
     "deps.ts",
     "package.ts",
     "**/tests/*.ts",
-    "**/*.test.ts",
+    "**/*.test.ts"
   ]
 }

@@ -3,7 +3,7 @@ name: Release new version
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 env:
   REGISTRY: ghcr.io
@@ -76,6 +76,19 @@ jobs:
         run: |
           cd cli
           deno run --unstable --allow-read --allow-write --allow-net --allow-env --allow-run build.ts
+
+      - name: Build pipelinit core package
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: |
+          cd core
+          deno run --unstable -A package.ts ${{ env.RELEASE_VERSION }}
+          cd npm
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish the release
         uses: softprops/action-gh-release@v1

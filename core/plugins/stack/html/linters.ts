@@ -11,12 +11,12 @@ import {
 } from "../_shared/stylelint/mod.ts";
 
 // deno-lint-ignore no-empty-interface
-interface Deno {}
+interface DenoInterface {}
 
 export type Linters = {
   eslint?: ESLint | null;
   stylelint?: Stylelint | null;
-  deno?: Deno;
+  deno?: DenoInterface;
 } | null;
 
 function anyValue(records: Record<string, unknown>): boolean {

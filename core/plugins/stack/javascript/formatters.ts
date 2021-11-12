@@ -5,10 +5,10 @@ import {
 } from "../_shared/prettier/mod.ts";
 
 // deno-lint-ignore no-empty-interface
-interface Deno {}
+interface DenoInterface {}
 
 export type Formatters = {
-  deno?: Deno;
+  deno?: DenoInterface;
   prettier?: Prettier | null;
 } | null;
 

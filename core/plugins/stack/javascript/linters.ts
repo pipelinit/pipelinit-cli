@@ -5,10 +5,10 @@ import {
 } from "../_shared/eslint/mod.ts";
 
 // deno-lint-ignore no-empty-interface
-interface Deno {}
+interface DenoInterface {}
 
 export type Linters = {
-  deno?: Deno;
+  deno?: DenoInterface;
   eslint?: ESLint | null;
 } | null;
 
