@@ -20,7 +20,7 @@ export type PackageManager = {
 /**
  * Detects if a project uses [Poetry](https://python-poetry.org/)
  */
-const poetry: IntrospectFn<PackageManager> = async (context) => {
+const poetry: IntrospectFn<PackageManager | Error> = async (context) => {
   if (await context.files.includes("./poetry.lock")) {
     return {
       name: "poetry",
@@ -30,13 +30,13 @@ const poetry: IntrospectFn<PackageManager> = async (context) => {
       },
     };
   }
-  throw Error("Can't find Poetry");
+  return Error("Can't find Poetry");
 };
 
 /**
  * Detects if a project uses [Pipenv](pipenv.pypa.io)
  */
-const pipenv: IntrospectFn<PackageManager> = async (context) => {
+const pipenv: IntrospectFn<PackageManager | Error> = async (context) => {
   if (await context.files.includes("./Pipfile.lock")) {
     return {
       name: "pipenv",
@@ -46,7 +46,7 @@ const pipenv: IntrospectFn<PackageManager> = async (context) => {
       },
     };
   }
-  throw Error("Can't find Pipenv");
+  return Error("Can't find Pipenv");
 };
 
 /**
@@ -59,7 +59,7 @@ const pipenv: IntrospectFn<PackageManager> = async (context) => {
  * See:
  * https://pip.pypa.io/en/stable/reference/requirements-file-format/#requirements-file-format
  */
-const requirements: IntrospectFn<PackageManager> = async (context) => {
+const requirements: IntrospectFn<PackageManager | Error> = async (context) => {
   if (await context.files.includes("./requirements.txt")) {
     return {
       name: "pip",
@@ -69,7 +69,7 @@ const requirements: IntrospectFn<PackageManager> = async (context) => {
       },
     };
   }
-  throw Error("Can't find requirements.txt");
+  return Error("Can't find requirements.txt");
 };
 
 /**
@@ -82,23 +82,27 @@ const requirements: IntrospectFn<PackageManager> = async (context) => {
  * the (absent) requirements.txt file.
  */
 export const introspect: IntrospectFn<PackageManager> = async (context) => {
-  try {
-    return await Promise.any([
-      poetry(context),
-      pipenv(context),
-      requirements(context),
-    ]);
-  } catch (error: unknown) {
-    if (error instanceof AggregateError) {
-      return {
-        name: "pip",
-        commands: {
-          install: "",
-          run: "",
-        },
-      };
+  const logger = context.getLogger("python");
+
+  const promises = await Promise.all([
+    poetry(context),
+    pipenv(context),
+    requirements(context),
+  ]);
+
+  for (const promiseResult of promises) {
+    if (promiseResult instanceof Error) {
+      logger.debug(promiseResult.message);
     } else {
-      throw error;
+      return promiseResult;
     }
   }
+
+  return {
+    name: "pip",
+    commands: {
+      install: "",
+      run: "",
+    },
+  };
 };

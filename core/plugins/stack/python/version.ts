@@ -45,11 +45,11 @@ See https://github.com/pyenv/pyenv
  *
  * @see https://github.com/pyenv/pyenv/#choosing-the-python-version
  */
-const pyenv: IntrospectFn<string> = async (context) => {
+const pyenv: IntrospectFn<string | Error> = async (context) => {
   for await (const file of context.files.each("**/.python-version")) {
     return await context.files.readText(file.path);
   }
-  throw Error("Can't find python version at .python-version");
+  return Error("Can't find python version at .python-version");
 };
 
 /**
@@ -58,13 +58,13 @@ const pyenv: IntrospectFn<string> = async (context) => {
  *
  * @see https://pipenv.pypa.io/en/latest/basics/#specifying-versions-of-python
  */
-const pipfile: IntrospectFn<string> = async (context) => {
+const pipfile: IntrospectFn<string | Error> = async (context) => {
   for await (const file of context.files.each("**/Pipfile")) {
     const pipfile = await context.files.readToml(file.path);
     const version = pipfile?.requires?.python_version;
     if (version) return version;
   }
-  throw Error("Can't find python version at Pipfile");
+  return Error("Can't find python version at Pipfile");
 };
 
 /**
@@ -73,7 +73,7 @@ const pipfile: IntrospectFn<string> = async (context) => {
  *
  * @see https://python-poetry.org/docs/pyproject/#dependencies-and-dev-dependencies
  */
-const poetry: IntrospectFn<string> = async (context) => {
+const poetry: IntrospectFn<string | Error> = async (context) => {
   for await (const file of context.files.each("**/pyproject.toml")) {
     const pyproject = await context.files.readToml(file.path);
     const version: string | null = pyproject?.tool?.poetry?.dependencies
@@ -85,7 +85,7 @@ const poetry: IntrospectFn<string> = async (context) => {
       return version.replace(/[\^~]/, "");
     }
   }
-  throw Error("Can't find python version at pyproject.toml");
+  return Error("Can't find python version at pyproject.toml");
 };
 
 /**
@@ -102,27 +102,27 @@ const poetry: IntrospectFn<string> = async (context) => {
 export const introspect: IntrospectFn<string | undefined> = async (context) => {
   const logger = context.getLogger("python");
 
-  try {
-    return await Promise.any([
-      pyenv(context),
-      pipfile(context),
-      poetry(context),
-    ]);
-  } catch (error: unknown) {
-    if (error instanceof AggregateError) {
-      logger.debug(error.errors.map((e) => e.message).join("\n"));
+  const promises = await Promise.all([
+    pyenv(context),
+    pipfile(context),
+    poetry(context),
+  ]);
 
-      if (!context.strict) {
-        logger.warning(WARN_USING_LATEST);
-        return LATEST;
-      }
-
-      context.errors.add({
-        title: ERR_UNDETECTABLE_TITLE,
-        message: ERR_UNDETECTABLE_INSTRUCTIONS,
-      });
+  for (const promiseResult of promises) {
+    if (typeof promiseResult === "string") {
+      return promiseResult;
     } else {
-      throw error;
+      logger.debug(promiseResult.message);
     }
   }
+
+  if (!context.strict) {
+    logger.warning(WARN_USING_LATEST);
+    return LATEST;
+  }
+
+  context.errors.add({
+    title: ERR_UNDETECTABLE_TITLE,
+    message: ERR_UNDETECTABLE_INSTRUCTIONS,
+  });
 };
