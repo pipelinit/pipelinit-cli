@@ -1,0 +1,26 @@
+<% if (it.linters) { -%>
+name: Lint Ruby
+on:
+  pull_request:
+    paths:
+      - "**.rb"
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "<%= it.version %>"
+          bundler-cache: true
+<% if (!it.linters.rubocop.isDependency) { -%>
+      - run: gem install
+<% } -%>
+<% if (!it.linters.rubocop.isDependency) { -%>
+      - run: gem install rubocop
+<% } -%>
+<% if (it.linters.rubocop) { -%>
+      - run: bundle exec rubocop --lint .
+<% } -%>
+<%- } -%>
