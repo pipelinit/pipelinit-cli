@@ -155,7 +155,7 @@ Deno.test("Plugins > Check if python version and django project is identified PI
         name: "flake8",
       },
       pylint: {
-        isDependecy: false,
+        isDependency: false,
         name: "pylint",
       },
     },
