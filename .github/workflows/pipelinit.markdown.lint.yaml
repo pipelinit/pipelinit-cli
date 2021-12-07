@@ -1,18 +1,14 @@
 # Generated with pipelinit 0.2.2
 # https://pipelinit.com/
-name: SAST
+name: Lint Markdown
 on:
   pull_request:
     paths:
-      - '**.js'
-      - '**.ts'
+      - '**.md'
 jobs:
-  semgrep:
-    name: Scan
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/ci
+      - run: npm install -g markdownlint-cli
+      - run: markdownlint '**/*.md'

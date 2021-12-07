@@ -143,7 +143,7 @@ test(
   { fixture: "ruby/rubocop-lint", args: ["--no-strict"] },
   async (proc) => {
     const [stdout, _stderr, { code }] = await output(proc);
-    assertStringIncludes(stdout, "Detected stack: ruby");
+    assertStringIncludes(stdout, "Detected stack: markdown, ruby");
     assertEquals(code, 0);
     await assertExpectedFiles("ruby/rubocop-lint");
     await cleanGitHubFiles("ruby/rubocop-lint");
