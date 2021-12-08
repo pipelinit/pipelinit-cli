@@ -58,10 +58,6 @@ test(
     );
     assertStringIncludes(
       stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'pylint' WITHOUT any specific configuration",
-    );
-    assertStringIncludes(
-      stdout,
       "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
     );
     assertEquals(code, 0);
@@ -78,10 +74,6 @@ test(
     assertStringIncludes(
       stdout,
       "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
-    );
-    assertStringIncludes(
-      stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'pylint' WITHOUT any specific configuration",
     );
     assertStringIncludes(
       stdout,
@@ -105,10 +97,6 @@ test(
     assertStringIncludes(
       stdout,
       "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
-    );
-    assertStringIncludes(
-      stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'pylint' WITHOUT any specific configuration",
     );
     assertStringIncludes(
       stdout,
@@ -136,10 +124,6 @@ test(
     assertStringIncludes(
       stdout,
       "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
-    );
-    assertStringIncludes(
-      stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'pylint' WITHOUT any specific configuration",
     );
     assertStringIncludes(
       stdout,

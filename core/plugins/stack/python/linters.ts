@@ -1,6 +1,6 @@
 import { IntrospectFn } from "../../../types.ts";
 import { Flake8, introspect as introspectFlake8 } from "./flake8.ts";
-import { introspect as instrospectPyLint, PyLint } from "./pylint.ts";
+import { introspect as introspectPyLint, PyLint } from "./pylint.ts";
 
 export type Linters = {
   flake8?: Flake8;
@@ -12,7 +12,7 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   const logger = context.getLogger("python");
 
   const flake8Info = await introspectFlake8(context);
-  const pyLintInfo = await instrospectPyLint(context);
+  const pyLintInfo = await introspectPyLint(context);
 
   if (flake8Info) {
     logger.debug("detected Flake8");
@@ -33,15 +33,10 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
     logger.debug("detected Pylint");
     linters.pylint = pyLintInfo;
   } else {
-    if (context.suggestDefault) {
-      logger.warning(
-        "No linters for python were identified in the project, creating default pipeline with 'pylint' WITHOUT any specific configuration",
-      );
-      linters.pylint = {
-        isDependency: false,
-        name: "pylint",
-      };
-    }
+    linters.pylint = {
+      isDependency: false,
+      name: "pylint",
+    };
   }
 
   return linters;
