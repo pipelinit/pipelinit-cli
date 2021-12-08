@@ -1,6 +1,6 @@
 # Generated with pipelinit 0.2.2
 # https://pipelinit.com/
-name: Lint Ruby
+name: Format Ruby
 on:
   pull_request:
     paths:
@@ -15,4 +15,4 @@ jobs:
         with:
           ruby-version: "3.0.1"
           bundler-cache: true
-      - run: bundle exec rubocop --lint .
+      - run: bundle exec rubocop --format .
