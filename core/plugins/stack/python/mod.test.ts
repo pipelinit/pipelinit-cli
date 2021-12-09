@@ -155,6 +155,7 @@ Deno.test("Plugins > Check if python version and django project is identified PI
         name: "flake8",
       },
       pylint: {
+        hasConfig: false,
         isDependency: false,
         name: "pylint",
       },
@@ -195,6 +196,7 @@ Deno.test("Plugins > Check if python version and a non-django-project PIPENV", a
         name: "flake8",
       },
       pylint: {
+        hasConfig: false,
         isDependency: false,
         name: "pylint",
       },
@@ -240,6 +242,7 @@ Deno.test("Plugins > Check if python version and django project is identified PO
         name: "flake8",
       },
       pylint: {
+        hasConfig: false,
         isDependency: false,
         name: "pylint",
       },
@@ -280,6 +283,7 @@ Deno.test("Plugins > Check if python version and a non-django-project POETRY", a
         name: "flake8",
       },
       pylint: {
+        hasConfig: false,
         isDependency: false,
         name: "pylint",
       },
@@ -325,6 +329,7 @@ Deno.test("Plugins > Check if python version and django project is identified RE
         name: "flake8",
       },
       pylint: {
+        hasConfig: false,
         isDependency: false,
         name: "pylint",
       },
@@ -365,6 +370,7 @@ Deno.test("Plugins > Check if python version and a non-django-project REQ", asyn
         name: "flake8",
       },
       pylint: {
+        hasConfig: false,
         isDependency: false,
         name: "pylint",
       },
