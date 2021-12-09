@@ -4,6 +4,7 @@ import { hasPythonDependency } from "./dependencies.ts";
 export interface PyLint {
   name: "pylint";
   isDependency: boolean;
+  hasConfig: boolean;
 }
 
 export const introspect: IntrospectFn<PyLint | null> = async (context) => {
@@ -20,16 +21,17 @@ export const introspect: IntrospectFn<PyLint | null> = async (context) => {
       "**/.pylintrc",
     );
   }
-
   if (hasPyLintConfig) {
     return {
       name: "pylint",
       isDependency: isDependency,
+      hasConfig: true,
     };
   } else if (isDependency) {
     return {
       name: "pylint",
       isDependency: true,
+      hasConfig: hasPyLintConfig,
     };
   }
 
