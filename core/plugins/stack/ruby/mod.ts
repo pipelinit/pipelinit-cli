@@ -1,6 +1,10 @@
 import { Introspector } from "../../../types.ts";
 import { introspect as introspectVersion } from "./version.ts";
 import { introspect as introspectLinters, Linters } from "./linters.ts";
+import {
+  Formatters,
+  introspect as introspectFormatters,
+} from "./formatters.ts";
 
 /**
  * Introspected information about a project with Ruby
@@ -14,6 +18,7 @@ export default interface RubyProject {
    * Which linter the project uses, if any
    */
   linters: Linters;
+  formatters: Formatters;
 }
 
 export const introspector: Introspector<RubyProject | undefined> = {
@@ -22,6 +27,7 @@ export const introspector: Introspector<RubyProject | undefined> = {
   },
   introspect: async (context) => {
     const logger = context.getLogger("ruby");
+    logger.info("Detected Ruby File");
 
     // Version
     logger.debug("detecting version");
@@ -34,10 +40,12 @@ export const introspector: Introspector<RubyProject | undefined> = {
 
     // Linters and Formatters
     const linters = await introspectLinters(context);
+    const formatters = await introspectFormatters(context);
 
     return {
       version: version,
       linters: linters,
+      formatters: formatters,
     };
   },
 };
