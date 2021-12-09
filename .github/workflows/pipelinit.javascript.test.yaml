@@ -1,4 +1,4 @@
-# Generated with pipelinit 0.2.2
+# Generated with pipelinit 0.1.0
 # https://pipelinit.com/
 name: Test Deno
 on:
