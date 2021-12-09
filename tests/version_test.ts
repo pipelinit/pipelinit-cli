@@ -1,8 +1,7 @@
-import { assertEquals } from "../deps.ts";
-import { output, test } from "./helpers.ts";
+import { assertEquals } from "../cli/deps.ts";
+import { test } from "./helpers.ts";
 
-test({ args: ["--version"] }, async (proc) => {
-  const [stdout, _stderr, { code }] = await output(proc);
+test({ args: ["--version"] }, (stdout, _stderr, code, _assertExpectedFiles) => {
   assertEquals(stdout, "0.2.2");
   assertEquals(code, 0);
 });

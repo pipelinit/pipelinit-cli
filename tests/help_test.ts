@@ -1,10 +1,9 @@
-import { assertEquals, assertStringIncludes } from "../deps.ts";
-import { output, test } from "./helpers.ts";
+import { assertEquals, assertStringIncludes } from "../cli/deps.ts";
+import { test } from "./helpers.ts";
 
 test(
   { args: ["--help"] },
-  async (proc) => {
-    const [stdout, _stderr, { code }] = await output(proc);
+  (stdout, _stderr, code, _assertExpectedFiles) => {
     assertStringIncludes(stdout, "--help");
     assertStringIncludes(stdout, "--version");
     assertStringIncludes(stdout, "--debug");
