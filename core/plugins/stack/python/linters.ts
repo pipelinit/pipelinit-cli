@@ -1,8 +1,10 @@
 import { IntrospectFn } from "../../../types.ts";
 import { Flake8, introspect as introspectFlake8 } from "./flake8.ts";
+import { introspect as introspectPyLint, PyLint } from "./pylint.ts";
 
 export type Linters = {
   flake8?: Flake8;
+  pylint?: PyLint;
 };
 
 export const introspect: IntrospectFn<Linters> = async (context) => {
@@ -10,6 +12,8 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   const logger = context.getLogger("python");
 
   const flake8Info = await introspectFlake8(context);
+  const pyLintInfo = await introspectPyLint(context);
+
   if (flake8Info) {
     logger.debug("detected Flake8");
     linters.flake8 = flake8Info;
@@ -23,6 +27,11 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
         name: "flake8",
       };
     }
+  }
+
+  if (pyLintInfo) {
+    logger.debug("detected Pylint");
+    linters.pylint = pyLintInfo;
   }
 
   return linters;

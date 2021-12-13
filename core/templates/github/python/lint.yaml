@@ -20,11 +20,17 @@ jobs:
 <% if (!it.linters.flake8.isDependency) { -%>
       - run: python -m pip install pip flake8
 <% } -%>
+<% if (it.linters.pylint && !it.linters.pylint.isDependency) { -%>
+      - run: python -m pip install pip pylint
+<% } -%>
 
 <% if (it.linters.flake8) { -%>
       # Adapts Flake8 to run with the Black formatter, using the '--ignore' flag to skip incompatibilities errors
       # Reference: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html?highlight=other%20tools#id1
       - run: <%= it.packageManager.commands.run _%> flake8 --ignore E203,E501,W503 .
+<% } -%>
+<% if (it.linters.pylint) { -%>
+      - run: <%= it.packageManager.commands.run _%> pylint .
 <% } -%>
 
 <%- } -%>
