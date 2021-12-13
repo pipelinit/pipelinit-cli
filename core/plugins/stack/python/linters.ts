@@ -28,26 +28,10 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
       };
     }
   }
-  if (!pyLintInfo) {
-    linters.pylint = {
-      isDependency: false,
-      hasConfig: false,
-      name: "pylint",
-    };
-  } else if (pyLintInfo.isDependency) {
+
+  if (pyLintInfo) {
     logger.debug("detected Pylint");
-    console.log(pyLintInfo);
-    linters.pylint = {
-      isDependency: true,
-      hasConfig: pyLintInfo.hasConfig,
-      name: "pylint",
-    };
-  } else {
-    linters.pylint = {
-      isDependency: false,
-      hasConfig: pyLintInfo.hasConfig,
-      name: "pylint",
-    };
+    linters.pylint = pyLintInfo;
   }
 
   return linters;

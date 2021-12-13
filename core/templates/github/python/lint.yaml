@@ -20,7 +20,7 @@ jobs:
 <% if (!it.linters.flake8.isDependency) { -%>
       - run: python -m pip install pip flake8
 <% } -%>
-<% if (!it.linters.pylint.isDependency && it.linters.pylint.hasConfig) { -%>
+<% if (it.linters.pylint && !it.linters.pylint.isDependency) { -%>
       - run: python -m pip install pip pylint
 <% } -%>
 
@@ -29,7 +29,7 @@ jobs:
       # Reference: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html?highlight=other%20tools#id1
       - run: <%= it.packageManager.commands.run _%> flake8 --ignore E203,E501,W503 .
 <% } -%>
-<% if (it.linters.pylint && (it.linters.pylint.hasConfig || it.linters.pylint.isDependency)) { -%>
+<% if (it.linters.pylint) { -%>
       - run: <%= it.packageManager.commands.run _%> pylint .
 <% } -%>
 

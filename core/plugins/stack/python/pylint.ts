@@ -21,6 +21,7 @@ export const introspect: IntrospectFn<PyLint | null> = async (context) => {
       "**/.pylintrc",
     );
   }
+
   if (hasPyLintConfig) {
     return {
       name: "pylint",
@@ -34,6 +35,5 @@ export const introspect: IntrospectFn<PyLint | null> = async (context) => {
       hasConfig: hasPyLintConfig,
     };
   }
-
   return null;
 };
