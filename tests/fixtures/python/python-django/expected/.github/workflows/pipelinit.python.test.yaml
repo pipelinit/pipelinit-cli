@@ -1,0 +1,21 @@
+# Generated with pipelinit 0.2.2
+# https://pipelinit.com/
+name: Test Python
+on:
+  pull_request:
+    paths:
+      - "**.py"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.6.10"
+      - run: pip install -r requirements.txt
+
+      - name: Run Tests
+        run: |
+          python manage.py test
