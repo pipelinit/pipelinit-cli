@@ -65,16 +65,6 @@ instructions:
 pipelinit
 ```
 
-### Examples
-
-You can see the generated pipelines that ran, through our sample projects for
-the following stacks:
-
-- [Python Django](https://github.com/pipelinit/pipelinit-sample-python/pulls)
-- [Docker](https://github.com/pipelinit/pipelinit-sample-docker/pulls)
-- [Vue](https://github.com/pipelinit/pipelinit-sample-vue-html/pulls)
-- [Java with Gradle](https://github.com/pipelinit/pipelinit-sample-java-gradle/pulls)
-
 ## Supported stacks overview
 
 <table>
@@ -92,7 +82,7 @@ the following stacks:
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="14">Coming soon</td>
+      <td rowspan="19">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -117,38 +107,60 @@ the following stacks:
       <td>✔️</td>
     </tr>
     <tr>
+      <td rowspan="4">JavaScript / Typescript</td>
+      <td>Format</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Test</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>SAST (Semgrep)</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Python</td>
+      <td>Format (Black, Isort)</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Test</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>SAST (Semgrep)</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="1">Shell script</td>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
       <td>Java</td>
       <td>Build (Gradle)</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="3">JavaScript / Typescript</td>
-      <td>Format</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
+      <td rowspan="2">Ruby</td>
       <td>Lint</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td>Test</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td rowspan="3">Python</td>
       <td>Format</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td>Lint</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td>Test</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td rowspan="3">Shell script</td>
+      <td rowspan="1">Markdown</td>
       <td>Lint</td>
       <td>✔️</td>
     </tr>

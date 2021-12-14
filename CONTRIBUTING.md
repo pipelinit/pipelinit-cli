@@ -37,12 +37,19 @@ To learn more about Deno security and permissions refer to the
 
 To run the project automated tests use:
 ```
-deno --unstable test --allow-read --coverage=cov_profile
+deno test --unstable --allow-all --coverage=cov_profile
 ```
 
 And to check the test coverage use:
 ```
 deno coverage cov_profile
+```
+
+It's possible too to generate an HTML index for better readability:
+```
+deno coverage --lcov cov_profile > cov.lcov
+genhtml -o html_cov cov.lcov
+firefox html_cov/index.html
 ```
 
 |⚠️|Clear the content from cov_profile between each test run. Otherwise your coverage data may be incorrect.|

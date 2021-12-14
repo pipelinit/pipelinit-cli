@@ -31,9 +31,10 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 ### Tools
 
-| Stage  | Tools                                            |
-| ------ | ------------------------------------------------ |
-| Lint   | [hadolint](https://github.com/hadolint/hadolint) |
+| Stage  | Tools                                                                 |
+| ------ | --------------------------------------------------------------------- |
+| Lint   | [hadolint](https://github.com/hadolint/hadolint)                      |
+| Build  | [Docker](https://docs.docker.com/engine/reference/commandline/build/) |
 
 ## HTML
 
@@ -81,20 +82,27 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 ### Tools
 
-| Stage  | Tools                                                                                                  |
-| ------ | ------------------------------------------------------------------------------------------------------ |
-| Format | [Prettier](https://prettier.io/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/formatter) |
-| Lint   | [ESLint](https://eslint.org/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/linter)       |
-| Test   | [Deno](https://deno.land/manual@v1.13.1/testing)                                                       |
+| Stage  | Tools                                                                                                                         |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| Format | [Prettier](https://prettier.io/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/formatter)                        |
+| Lint   | [ESLint](https://eslint.org/) (_default_), [Deno](https://deno.land/manual@v1.13.1/tools/linter)                              |
+| Test   | [Deno](https://deno.land/manual@v1.13.1/testing)                                                                              |
+| *SAST  | [Semgrep](https://semgrep.dev/)([CI Profile](https://semgrep.dev/p/ci)  _default_, [WebApp Profile](https://semgrep.dev/p/owasp-top-ten))|
+
+\* Static application security testing
 
 ## Python
 
 ### Tools
 
-| Stage  | Tools                                                      |
-| ------ | ---------------------------------------------------------- |
-| Lint   | [Flake8](https://flake8.pycqa.org/) _default_              |
-| Format | [Black](https://black.readthedocs.io/en/stable/) _default_ |
+| Stage  | Tools                                                                                                                         |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| Lint   | [Flake8](https://flake8.pycqa.org/) _default_                                                                                 |
+| Format | [Black](https://black.readthedocs.io/en/stable/), [isort](https://pycqa.github.io/isort/) _default_                           |
+| Test   | [Pytest](https://docs.pytest.org/en/6.2.x/)  _default_, [Django](https://docs.djangoproject.com/en/4.0/topics/testing/)       |
+| *SAST  | [Semgrep](https://semgrep.dev/)([CI Profile](https://semgrep.dev/p/ci)  _default_, [WebApp Profile](https://semgrep.dev/p/owasp-top-ten))|
+
+\* Static application security testing
 
 ## Shell script
 
@@ -103,3 +111,12 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 | Stage  | Tools                                     |
 | ------ | ----------------------------------------- |
 | Lint   | [ShellCheck](https://www.shellcheck.net/) |
+
+
+## Ruby
+
+### Tools
+
+| Stage     | Tools                                        |
+| --------- | -------------------------------------------- |
+| Lint      | [Rubocop](https://docs.rubocop.org/rubocop/) |
