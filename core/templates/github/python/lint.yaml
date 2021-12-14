@@ -23,6 +23,9 @@ jobs:
 <% if (it.linters.pylint && !it.linters.pylint.isDependency) { -%>
       - run: python -m pip install pip pylint
 <% } -%>
+<% if (!it.linters.bandit.isDependency) { -%>
+      - run: python -m pip install pip bandit
+<% } -%>
 
 <% if (it.linters.flake8) { -%>
       # Adapts Flake8 to run with the Black formatter, using the '--ignore' flag to skip incompatibilities errors
@@ -31,6 +34,9 @@ jobs:
 <% } -%>
 <% if (it.linters.pylint) { -%>
       - run: <%= it.packageManager.commands.run _%> pylint .
+<% } -%>
+<% if (it.linters.bandit) { -%>
+      - run: <%= it.packageManager.commands.run _%> bandit -r .
 <% } -%>
 
 <%- } -%>
