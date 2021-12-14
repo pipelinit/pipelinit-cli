@@ -82,7 +82,7 @@ pipelinit
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="19">Coming soon</td>
+      <td rowspan="20">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -146,8 +146,12 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td>Java</td>
-      <td>Build (Gradle)</td>
+      <td rowspan="2">Java</td>
+      <td>Build (Gradle)</td>      
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>SAST (Semgrep)</td>
       <td>✔️</td>
     </tr>
     <tr>
