@@ -97,10 +97,10 @@ If this isn't desired, you can disable this with the flag `--no-default-stage`.
 
 | Stage  | Tools                                                                                                                         |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| Lint   | [Flake8](https://flake8.pycqa.org/) _default_                                                                                 |
+| Lint   | [Flake8](https://flake8.pycqa.org/) _default_, [Pylint](https://pylint.pycqa.org/en/latest/)                                  |
 | Format | [Black](https://black.readthedocs.io/en/stable/), [isort](https://pycqa.github.io/isort/) _default_                           |
 | Test   | [Pytest](https://docs.pytest.org/en/6.2.x/)  _default_, [Django](https://docs.djangoproject.com/en/4.0/topics/testing/)       |
-| *SAST  | [Semgrep](https://semgrep.dev/)([CI Profile](https://semgrep.dev/p/ci)  _default_, [WebApp Profile](https://semgrep.dev/p/owasp-top-ten))|
+| *SAST  | [Semgrep](https://semgrep.dev/)([CI Profile](https://semgrep.dev/p/ci)  _default_, [WebApp Profile](https://semgrep.dev/p/owasp-top-ten)), [Bandit](https://bandit.readthedocs.io/en/latest/) _default_|
 
 \* Static application security testing
 
