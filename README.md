@@ -46,6 +46,12 @@ brew tap pipelinit/pipelinit-cli
 brew install pipelinit/pipelinit-cli
 ```
 
+ArchLinux User Repository ([AUR](https://aur.archlinux.org/packages/)):
+
+```
+yay -Sy pipelinit-bin
+```
+
 Support for more package managers needed!
 
 ### Manual download
