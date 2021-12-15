@@ -9,7 +9,6 @@ export interface Bandit {
 export const introspect: IntrospectFn<Bandit | null> = async (context) => {
   const isDependency = await hasPythonDependency(context, "bandit");
 
-  //check if it is a dependency
   if (isDependency) {
     return {
       name: "bandit",
