@@ -1,0 +1,13 @@
+# Generated with pipelinit 0.2.2
+# https://pipelinit.com/
+
+format:
+  extends:
+    - .format
+  script:
+    - pip install -r requirements.txt
+
+    - python -m pip install pip black
+
+    - black . --check
+    - isort . -c

@@ -16,7 +16,7 @@ export type Config = {
   save: () => Promise<void>;
 };
 
-function isConfig(c: Record<string, unknown>): c is Config {
+export function isConfig(c: Record<string, unknown>): c is Config {
   const platforms = c?.platforms;
   if (
     typeof platforms === "object" &&
@@ -75,8 +75,8 @@ export async function configure() {
     minOptions: 1, // The user must select at least one
     hint: NAV_HINT,
     options: [
-      { name: "GitHub Actions", value: "github", checked: true },
-      { name: "GitLab CI (coming soon)", value: "gitlab", disabled: true },
+      { name: "GitHub Actions", value: "github", checked: false },
+      { name: "GitLab CI", value: "gitlab", checked: false },
       { name: "Travis CI (coming soon)", value: "travis", disabled: true },
     ],
   })).filter(isPlatform);

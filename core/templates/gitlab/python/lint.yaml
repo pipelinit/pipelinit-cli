@@ -1,0 +1,33 @@
+<% if (it.linters) { -%>
+
+lint:
+  extends:
+    - .lint
+  script:
+<% if (it.packageManager) { -%>
+    - <%= it.packageManager.commands.install %>
+<% } -%>
+
+<% if (!it.linters.flake8.isDependency) { -%>
+    - python -m pip install pip flake8
+<% } -%>
+<% if (it.linters.pylint && !it.linters.pylint.isDependency) { -%>
+    - python -m pip install pip pylint
+<% } -%>
+<% if (!it.linters.bandit.isDependency) { -%>
+    - python -m pip install pip bandit
+<% } -%>
+
+<% if (it.linters.flake8) { -%>
+    # Adapts Flake8 to run with the Black formatter, using the '--ignore' flag to skip incompatibilities errors
+    # Reference: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html?highlight=other%20tools#id1
+    - <%= it.packageManager.commands.run _%> flake8 --ignore E203,E501,W503 .
+<% } -%>
+<% if (it.linters.pylint) { -%>
+    - <%= it.packageManager.commands.run _%> pylint .
+<% } -%>
+<% if (it.linters.bandit) { -%>
+    - <%= it.packageManager.commands.run _%> bandit -r .
+<% } -%>
+
+<%- } -%>

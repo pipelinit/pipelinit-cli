@@ -3,6 +3,7 @@
  */
 export const platforms = [
   "github",
+  "gitlab",
 ] as const;
 
 export type Platform = (typeof platforms)[number];

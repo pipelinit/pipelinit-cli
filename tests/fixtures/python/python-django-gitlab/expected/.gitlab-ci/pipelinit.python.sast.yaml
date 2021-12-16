@@ -1,0 +1,9 @@
+# Generated with pipelinit 0.2.2
+# https://pipelinit.com/
+semgrep:
+  extends:
+    - .sast
+  script: semgrep-agent
+  variables:
+    SEMGREP_RULES: >-
+      p/owasp-top-ten

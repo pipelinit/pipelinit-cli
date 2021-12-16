@@ -1,0 +1,10 @@
+# Generated with pipelinit 0.2.2
+# https://pipelinit.com/
+test:
+  extends:
+    - .test
+  script:
+    - pip install -r requirements.txt
+
+
+    - python manage.py test

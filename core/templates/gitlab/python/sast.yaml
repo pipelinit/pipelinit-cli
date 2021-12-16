@@ -1,0 +1,11 @@
+semgrep:
+  extends:
+    - .sast
+  script: semgrep-agent
+  variables:
+    SEMGREP_RULES: >-
+<% if (it.type === "webApp") { -%>
+      p/owasp-top-ten
+<% } else {-%>
+      p/ci
+<% } -%>

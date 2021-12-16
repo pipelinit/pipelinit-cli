@@ -1,0 +1,16 @@
+<% if (it.frameworks.django || it.hasPytest) { -%>
+test:
+  extends:
+    - .test
+  script:
+<% if (it.packageManager) { -%>
+    - <%= it.packageManager.commands.install %>
+<% } -%>
+
+<% if (it.hasPytest) { -%>
+    - pytest
+<% } -%>
+<%_ if (it.frameworks.django) { %>
+    - python manage.py test
+<% } -%>
+<% } -%>
