@@ -1,4 +1,4 @@
-name: SAST
+name: SAST Docker
 on:
   pull_request:
     paths:
