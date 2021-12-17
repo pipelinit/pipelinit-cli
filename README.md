@@ -88,7 +88,7 @@ pipelinit
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="21">Coming soon</td>
+      <td rowspan="11">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -137,27 +137,32 @@ pipelinit
       <td rowspan="4">Python</td>
       <td>Format (Black, Isort)</td>
       <td>✔️</td>
+      <td>✔️</td>
     </tr>
     <tr>
       <td>Lint</td>
+      <td>✔️</td>
       <td>✔️</td>
     </tr>
     <tr>
       <td>Test</td>
       <td>✔️</td>
+      <td>✔️</td>
     </tr>
     <tr>
       <td>SAST (Semgrep)</td>
+      <td>✔️</td>
       <td>✔️</td>
     </tr>
     <tr>
       <td rowspan="1">Shell script</td>
       <td>Lint</td>
       <td>✔️</td>
+      <td rowspan="6">Coming soon</td>
     </tr>
     <tr>
       <td rowspan="2">Java</td>
-      <td>Build (Gradle)</td>      
+      <td>Build (Gradle)</td>
       <td>✔️</td>
     </tr>
     <tr>

@@ -155,11 +155,6 @@ test(
 test(
   { fixture: "python/python-django-gitlab", args: ["--no-strict"] },
   async (_stdout, _stderr, code, assertExpectedFiles) => {
-    // assertStringIncludes(stdout, "Detected stack: python");
-    // assertStringIncludes(
-    //   stdout,
-    //   "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
-    // );
     assertEquals(code, 0);
     await assertExpectedFiles();
   },

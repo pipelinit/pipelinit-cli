@@ -1,11 +1,11 @@
-# Generated with pipelinit 0.2.2
+# Generated with pipelinit 0.3.0
 # https://pipelinit.com/
 name: Format Deno
 on:
   pull_request:
     paths:
-      - '**.js'
-      - '**.ts'
+      - "**.js"
+      - "**.ts"
 jobs:
   format:
     runs-on: ubuntu-latest

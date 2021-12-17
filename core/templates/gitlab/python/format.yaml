@@ -1,25 +1,28 @@
 <% if (it.formatters) { -%>
-
 format:
-  extends:
-    - .format
+  stage: format
+  image: python:3.6.10
+  needs: []
   script:
-<% if (it.packageManager) { -%>
+<%- if (it.packageManager) { %>
     - <%= it.packageManager.commands.install %>
-<% } -%>
-
-<% if (!it.formatters.isort.isDependency) { -%>
+<% } %>
+<%- if (!it.formatters.isort.isDependency) { -%>
     - python -m pip install pip isort
-<% } -%>
-<% if (!it.formatters.black.isDependency) { -%>
+<% } %>
+<%- if (!it.formatters.black.isDependency) { -%>
     - python -m pip install pip black
-<% } -%>
-
-<% if (it.formatters.black) { -%>
+<% } %>
+<%- if (it.formatters.black) { -%>
     - <%= it.packageManager.commands.run _%> black . --check
-<% } -%>
-<% if (it.formatters.isort) { -%>
+<% } %>
+<%- if (it.formatters.isort) { -%>
     - <%= it.packageManager.commands.run _%> isort . -c
 <% } -%>
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"
 
 <%- } -%>

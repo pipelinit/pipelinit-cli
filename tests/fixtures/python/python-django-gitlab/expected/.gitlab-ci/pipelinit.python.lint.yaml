@@ -1,14 +1,16 @@
-# Generated with pipelinit 0.2.2
+# Generated with pipelinit 0.3.0
 # https://pipelinit.com/
-
 lint:
-  extends:
-    - .lint
+  stage: lint
+  image: python:3.6.10
+  needs: []
   script:
     - pip install -r requirements.txt
-
-
     # Adapts Flake8 to run with the Black formatter, using the '--ignore' flag to skip incompatibilities errors
     # Reference: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html?highlight=other%20tools#id1
     - flake8 --ignore E203,E501,W503 .
-    - bandit -r .
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"

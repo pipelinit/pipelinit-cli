@@ -1,11 +1,34 @@
 semgrep:
-  extends:
-    - .sast
+  stage: sast
+  image: returntocorp/semgrep-agent:v1
+  needs: ["format", "lint"]
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"
   script: semgrep-agent
   variables:
     SEMGREP_RULES: >-
-<% if (it.type === "webApp") { -%>
+<%- if (it.type === "webApp") { %>
       p/owasp-top-ten
-<% } else {-%>
+<% } else {%>
       p/ci
 <% } -%>
+
+bandit:
+  stage: sast
+  image: python:3.6.10
+  needs: ["format", "lint"]
+  script:
+<%- if (it.packageManager) { %>
+    - <%= it.packageManager.commands.install %>
+<% } %>
+<%- if (it.linters.bandit) { -%>
+    - <%= it.packageManager.commands.run _%> bandit -r .
+<% } -%>
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"
