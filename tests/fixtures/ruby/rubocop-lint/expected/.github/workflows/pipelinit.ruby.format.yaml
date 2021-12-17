@@ -1,4 +1,4 @@
-# Generated with pipelinit 0.2.2
+# Generated with pipelinit 0.3.0
 # https://pipelinit.com/
 name: Format Ruby
 on:
