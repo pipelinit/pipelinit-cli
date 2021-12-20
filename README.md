@@ -88,19 +88,23 @@ pipelinit
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="20">Coming soon</td>
+      <td rowspan="21">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="2">Docker</td>
+      <td rowspan="3">Docker</td>
       <td>Build</td>
       <td>✔️</td>
     </tr>
     <tr>
       <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>SAST (Semgrep)</td>
       <td>✔️</td>
     </tr>
     <tr>
