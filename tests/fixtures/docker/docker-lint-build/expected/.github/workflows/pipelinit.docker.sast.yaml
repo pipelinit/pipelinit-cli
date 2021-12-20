@@ -1,6 +1,6 @@
-# Generated with pipelinit 0.2.2
+# Generated with pipelinit 0.3.0
 # https://pipelinit.com/
-name: SAST
+name: SAST Docker
 on:
   pull_request:
     paths:
