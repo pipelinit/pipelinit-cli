@@ -1,6 +1,6 @@
 # Generated with pipelinit 0.3.0
 # https://pipelinit.com/
-name: SAST
+name: SAST Python
 on:
   pull_request:
     paths:
