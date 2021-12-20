@@ -40,6 +40,23 @@ file with a version inside, like "3.9".
 See https://github.com/pyenv/pyenv
 `;
 
+/*Search for a setup.py file with python version*/
+const setup: IntrospectFn<string | Error> = async (context) => {
+  for await (const file of context.files.each("**/setup.py")) {
+    const setupText = await context.files.readText(file.path);
+
+    const setupVersion: string | null = Array.from(
+      setupText.matchAll(/python_requires="(..(?<Version>.*))"/gm),
+      (match) => !match.groups ? null : match.groups.Version,
+    )[0];
+
+    if (setupVersion) {
+      return setupVersion;
+    }
+  }
+  return Error("Can't find python version at .setup.py");
+};
+
 /**
  * Search for application specific `.python-version` file from pyenv
  *
@@ -106,6 +123,7 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
     pyenv(context),
     pipfile(context),
     poetry(context),
+    setup(context),
   ]);
 
   for (const promiseResult of promises) {
