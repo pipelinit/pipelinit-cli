@@ -40,12 +40,16 @@ file with a version inside, like "3.9".
 See https://github.com/pyenv/pyenv
 `;
 
-/*Search for a setup.py file with python version*/
+/** Search a setup.py file. If the project uses Python, it has a key
+ * with the Python version
+ * As an example:
+ * @see https://docs.python.org/pt-br/3.6/distutils/introduction.html
+ */
 const setup: IntrospectFn<string | Error> = async (context) => {
   for await (const file of context.files.each("**/setup.py")) {
     const setupText = await context.files.readText(file.path);
 
-    const setupVersion: string | null = Array.from(
+    const setupVersion = Array.from(
       setupText.matchAll(/python_requires="(..(?<Version>.*))"/gm),
       (match) => !match.groups ? null : match.groups.Version,
     )[0];
@@ -110,6 +114,7 @@ const poetry: IntrospectFn<string | Error> = async (context) => {
  * - .python-version (from pyenv)
  * - Pipfile (from Pipenv)
  * - pyproject.toml (used by Poetry too)
+ * - setup.py (from Setup)
  *
  * If it fails to find a version definition anywhere, the next step depends
  * wheter Pipelinit is running in the strict mode. It emits an error if running
