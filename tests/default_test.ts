@@ -77,35 +77,7 @@ test(
   { fixture: "python/setup-flake8", args: ["--no-strict"] },
   async (stdout, _stderr, code, assertExpectedFiles) => {
     assertStringIncludes(stdout, "Detected stack: python");
-    assertStringIncludes(
-      stdout,
-      "Couldn't detect the Python version, using the latest available: 3.10",
-    );
-    assertStringIncludes(
-      stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
-    );
-    assertStringIncludes(
-      stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
-    );
-    assertStringIncludes(
-      stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'isort' WITHOUT any specific configuration",
-    );
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
 
-test(
-  { fixture: "python/setup-flake8", args: ["--no-strict"] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: python");
-    assertStringIncludes(
-      stdout,
-      "Couldn't detect the Python version, using the latest available: 3.10",
-    );
     assertStringIncludes(
       stdout,
       "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
