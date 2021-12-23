@@ -179,6 +179,10 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
+      <td>SAST (Semgrep)</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
       <td rowspan="1">Markdown</td>
       <td>Lint</td>
       <td>✔️</td>
