@@ -34,7 +34,7 @@ on your browser! 🚀
 Run the command below inside a checkout of your project's source code:
 
 ```
-docker run -it -v $(pwd):/app ghcr.io/pipelinit/pipelinit-cli
+docker run -it -v $(pwd):/workdir ghcr.io/pipelinit/pipelinit-cli
 ```
 
 ### Using package managers

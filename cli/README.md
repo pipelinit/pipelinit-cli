@@ -49,3 +49,15 @@ It also generates one executable named just "pipelinit", that uses the native
 target (the computer where you ran the build).
 
 The build script puts those files in the "bin" directory.
+
+### Docker
+
+To build the Docker image, run the following command in the project root:
+```
+docker build -t pipelinit -f cli/Dockerfile .
+```
+
+This build a local image tagged as `pipelinit:latest` that you can use with:
+```
+docker run -it -v $(pwd):/workdir pipelinit:latest
+```
