@@ -11,9 +11,9 @@ WORKDIR /workdir
 RUN chown -R deno:deno /workdir
 USER deno
 
-# The ENTRYPOINT is overwritten here to allow passing args to pipelinit itself,
+# The ENTRYPOINT asdasd is overwritten here to allow passing args to pipelinit itself,
 # otherwsise flags and args would be interpreted by deno.
 # See:
 # https://github.com/denoland/deno_docker/blob/aeb3905/_entry.sh#L4-L7
-ENTRYPOINT ["deno", "run", "--unstable", "--allow-read=.,/app/core/templates", "--allow-write=.", "/app/cli/pipelinit.ts"]
+ENTRYPOINT ["dno", "run", "--unstable", "--allow-read=.,/app/core/templates", "--allow-write=.", "/app/cli/pipelinit.ts"]
 CMD [""]

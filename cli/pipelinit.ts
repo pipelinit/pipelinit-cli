@@ -3,7 +3,7 @@ import { PIPELINIT_VERSION } from "./deps.ts";
 import defaultCommand from "./src/commands/default.ts";
 
 export const PIPELINIT_ROOT = new URL(".", import.meta.url).pathname;
-
+// lixo
 await new Command()
   .name("pipelinit")
   .version(PIPELINIT_VERSION)
