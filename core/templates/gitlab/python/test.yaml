@@ -1,7 +1,7 @@
 <% if (it.frameworks.django || it.hasPytest) { -%>
 test:
   stage: test
-  image: python:3.6.10
+  image: python:<%= it.version %>
   needs: ["format", "lint", "bandit", "semgrep"]
   only:
     refs:

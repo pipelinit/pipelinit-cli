@@ -1,7 +1,7 @@
 <% if (it.linters) { -%>
 lint:
   stage: lint
-  image: python:3.6.10
+  image: python:<%= it.version %>
   needs: []
   script:
 <%- if (it.packageManager) { %>

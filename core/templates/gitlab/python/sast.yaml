@@ -18,7 +18,7 @@ semgrep:
 
 bandit:
   stage: sast
-  image: python:3.6.10
+  image: python:<%= it.version %>
   needs: ["format", "lint"]
   script:
 <%- if (it.packageManager) { %>
