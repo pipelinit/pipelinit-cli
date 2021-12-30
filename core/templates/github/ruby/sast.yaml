@@ -12,4 +12,8 @@ jobs:
       - uses: returntocorp/semgrep-action@v1
         with:
           config: >-
-            p/ruby
+<% if (it.type === "webApp") { -%>
+            p/owasp-top-ten
+<% } else {-%>
+            p/ci
+<% } -%>
