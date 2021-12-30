@@ -163,7 +163,7 @@ Deno.test("Plugins > Check if python version and django project is identified PI
       name: "pipenv",
       commands: {
         install: "python -m pip install pipenv; pipenv install --dev",
-        run: "pipenv run",
+        run: "pipenv run ",
       },
     },
     type: "webApp",
@@ -203,7 +203,7 @@ Deno.test("Plugins > Check if python version and a non-django-project PIPENV", a
       name: "pipenv",
       commands: {
         install: "python -m pip install pipenv; pipenv install --dev",
-        run: "pipenv run",
+        run: "pipenv run ",
       },
     },
     type: null,
@@ -248,7 +248,7 @@ Deno.test("Plugins > Check if python version and django project is identified PO
       name: "poetry",
       commands: {
         install: "python -m pip install poetry; poetry install",
-        run: "poetry run",
+        run: "poetry run ",
       },
     },
     type: "webApp",
@@ -288,7 +288,7 @@ Deno.test("Plugins > Check if python version and a non-django-project POETRY", a
       name: "poetry",
       commands: {
         install: "python -m pip install poetry; poetry install",
-        run: "poetry run",
+        run: "poetry run ",
       },
     },
     type: null,
