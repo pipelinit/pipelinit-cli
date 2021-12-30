@@ -1,4 +1,5 @@
-import { assertEquals, walk } from "../cli/deps.ts";
+import { assertEquals, parseToml, walk } from "../cli/deps.ts";
+import { isConfig } from "../cli/src/lib/config.ts";
 
 const path = (relative: string) =>
   (new URL(relative, import.meta.url))
@@ -79,11 +80,30 @@ const assertFunc = (fixture: string) => {
   return async function assertExpectedFiles() {
     const expectedFiles: string[] = [];
     const generatedFiles: string[] = [];
-    const expectedDir = path(`./fixtures/${fixture}/expected/`);
-    const generatedDir = path(
+    const projectConfig =
+      `${Deno.cwd()}/tests/fixtures/${fixture}/project/.pipelinit.toml`;
+    const configContent = parseToml(
+      await Deno.readTextFile(projectConfig),
+    );
+    let generatedDir = path(
       `./fixtures/${fixture}/project/.github/workflows`,
     );
+    if (isConfig(configContent)) {
+      if (configContent.platforms?.includes("gitlab")) {
+        generatedDir = path(
+          `./fixtures/${fixture}/project/.gitlab-ci`,
+        );
+        for await (
+          const entry of walk(path(`./fixtures/${fixture}/project/`))
+        ) {
+          if (!entry.isFile) continue;
+          if (entry.name !== ".gitlab-ci.yml") continue;
+          generatedFiles.push(entry.name);
+        }
+      }
+    }
 
+    const expectedDir = path(`./fixtures/${fixture}/expected/`);
     for await (const entry of walk(expectedDir)) {
       if (!entry.isFile) continue;
       expectedFiles.push(entry.name);
@@ -129,6 +149,21 @@ export async function output(
 // Generalize this to clean files generated while the CLI was
 // running against a fixture project
 export async function cleanGitHubFiles(fixture: string) {
+  const projectConfig =
+    `${Deno.cwd()}/tests/fixtures/${fixture}/project/.pipelinit.toml`;
+
+  const configContent = parseToml(
+    await Deno.readTextFile(projectConfig),
+  );
+  if (isConfig(configContent)) {
+    if (configContent.platforms?.includes("gitlab")) {
+      await Deno.remove(path(`./fixtures/${fixture}/project/.gitlab-ci`), {
+        recursive: true,
+      });
+      await Deno.remove(path(`./fixtures/${fixture}/project/.gitlab-ci.yml`));
+      return;
+    }
+  }
   await Deno.remove(path(`./fixtures/${fixture}/project/.github`), {
     recursive: true,
   });

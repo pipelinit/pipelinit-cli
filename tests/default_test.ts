@@ -151,3 +151,11 @@ test(
     await assertExpectedFiles();
   },
 );
+
+test(
+  { fixture: "python/python-django-gitlab", args: ["--no-strict"] },
+  async (_stdout, _stderr, code, assertExpectedFiles) => {
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);

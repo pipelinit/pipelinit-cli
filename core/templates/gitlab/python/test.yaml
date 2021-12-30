@@ -1,0 +1,21 @@
+<% if (it.frameworks.django || it.hasPytest) { -%>
+test:
+  stage: test
+  image: python:<%= it.version %>
+  needs: ["format", "lint", "bandit", "semgrep"]
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"
+  script:
+<%- if (it.packageManager) { %>
+    - <%= it.packageManager.commands.install %>
+<% } %>
+<%- if (it.hasPytest) { -%>
+    - pytest
+<% } %>
+<%- if (it.frameworks.django) { -%>
+    - python manage.py test
+<% } -%>
+<% } %>

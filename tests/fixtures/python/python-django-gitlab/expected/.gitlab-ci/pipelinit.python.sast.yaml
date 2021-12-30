@@ -1,0 +1,28 @@
+# Generated with pipelinit 0.3.0
+# https://pipelinit.com/
+semgrep:
+  stage: sast
+  image: returntocorp/semgrep-agent:v1
+  needs: ["format", "lint"]
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"
+  script: semgrep-agent
+  variables:
+    SEMGREP_RULES: >-
+      p/owasp-top-ten
+
+bandit:
+  stage: sast
+  image: python:3.6.10
+  needs: ["format", "lint"]
+  script:
+    - pip install -r requirements.txt
+    - bandit -r .
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"
