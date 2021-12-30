@@ -1,0 +1,22 @@
+# Generated with pipelinit 0.3.0
+# https://pipelinit.com/
+name: Format Python
+on:
+  pull_request:
+    paths:
+      - "**.py"
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - run: python -m pip install pipenv; pipenv install --dev
+
+      - run: python -m pip install pip black
+
+      - run: pipenv run black . --check
+      - run: pipenv run isort . -c
