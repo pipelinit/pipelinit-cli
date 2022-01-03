@@ -43,6 +43,7 @@ export const context: Context = {
   errors: {
     add(_) {},
   },
+  dependencies: [],
   semver: semver,
   suggestDefault: true,
   strict: true,

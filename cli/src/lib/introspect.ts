@@ -1,5 +1,6 @@
 import { introspectors, log, ProjectData } from "../../deps.ts";
 import { context } from "./context/mod.ts";
+import { listDependencies } from "./context/depsIntrospect.ts";
 
 export type Stack = Record<string, ProjectData>;
 
@@ -44,6 +45,11 @@ export async function introspect() {
   } else {
     logger.info(`Detected stack: ${stackNames}`);
   }
+
+  context.dependencies = await listDependencies(
+    stack.map((t) => t.name),
+    context,
+  );
 
   const introspected = (await Promise.all(
     stack.map<Promise<Maybe<ProjectData>>>((introspector) =>

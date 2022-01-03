@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasDependencyAny } from "./dependencies.ts";
 
 const nodeWebApps = new Set([
   "express",
@@ -33,8 +32,9 @@ const denoWebApps = new Set([
 
 export const introspect: IntrospectFn<string | null> = async (context) => {
   if (
-    await hasDependencyAny(context, nodeWebApps) ||
-    await hasDependencyAny(context, denoWebApps)
+    (await context.dependencies.some((dep) =>
+      nodeWebApps.has(dep) || denoWebApps.has(dep)
+    ))
   ) {
     return "webApp";
   }

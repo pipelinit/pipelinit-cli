@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasPythonDependencyAny } from "./dependencies.ts";
 
 const webApps = new Set([
   "uvicorn",
@@ -29,7 +28,7 @@ const webApps = new Set([
 ]);
 
 export const introspect: IntrospectFn<string | null> = async (context) => {
-  if (await hasPythonDependencyAny(context, webApps)) {
+  if (await context.dependencies.some((dep) => webApps.has(dep))) {
     return "webApp";
   }
   return null;

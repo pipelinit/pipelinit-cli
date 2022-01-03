@@ -50,16 +50,28 @@ export type {
   YamlProject,
 };
 
+export type CSS = "css";
+export type HTML = "html";
+export type Docker = "docker";
+export type JavaScript = "javascript";
+export type Java = "java";
+export type Markdown = "markdown";
+export type Python = "python";
+export type Ruby = "ruby";
+export type Shell = "shell";
+export type Terraform = "terraform";
+export type Yaml = "yaml";
+
 export const introspectors = [
-  { name: "css", ...CssIntrospector },
-  { name: "docker", ...DockerIntrospector },
-  { name: "html", ...HtmlIntrospector },
-  { name: "javascript", ...JavaScriptIntrospector },
-  { name: "java", ...JavaIntrospector },
-  { name: "markdown", ...MarkdownIntrospector },
-  { name: "python", ...PythonIntrospector },
-  { name: "ruby", ...RubyIntrospector },
-  { name: "shell", ...ShellIntrospector },
-  { name: "terraform", ...TerraformIntrospector },
-  { name: "yaml", ...YamlIntrospector },
+  { name: <CSS> "css", ...CssIntrospector },
+  { name: <HTML> "docker", ...DockerIntrospector },
+  { name: <Docker> "html", ...HtmlIntrospector },
+  { name: <JavaScript> "javascript", ...JavaScriptIntrospector },
+  { name: <Java> "java", ...JavaIntrospector },
+  { name: <Markdown> "markdown", ...MarkdownIntrospector },
+  { name: <Python> "python", ...PythonIntrospector },
+  { name: <Ruby> "ruby", ...RubyIntrospector },
+  { name: <Shell> "shell", ...ShellIntrospector },
+  { name: <Terraform> "terraform", ...TerraformIntrospector },
+  { name: <Yaml> "yaml", ...YamlIntrospector },
 ];

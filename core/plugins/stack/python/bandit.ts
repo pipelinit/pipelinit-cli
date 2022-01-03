@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasPythonDependency } from "./dependencies.ts";
 
 export interface Bandit {
   name: "bandit";
@@ -7,7 +6,7 @@ export interface Bandit {
 }
 
 export const introspect: IntrospectFn<Bandit | null> = async (context) => {
-  const isDependency = await hasPythonDependency(context, "bandit");
+  const isDependency = await context.dependencies.includes("bandit");
 
   if (isDependency) {
     return {

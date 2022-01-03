@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasRubyDependency } from "./dependencies.ts";
 
 export interface Rubocop {
   name: "rubocop";
@@ -7,7 +6,7 @@ export interface Rubocop {
 }
 
 export const introspect: IntrospectFn<Rubocop | null> = async (context) => {
-  const isDependency = await hasRubyDependency(context, "rubocop");
+  const isDependency = await context.dependencies.includes("rubocop");
   // Search for any of the following files:
   // .rubocop.yml
   // Reference: https://docs.rubocop.org/rubocop/configuration.html#config-file-locations

@@ -28,6 +28,7 @@ export const context: Context = {
   suggestDefault: true,
   strict: true,
   version: PIPELINIT_VERSION,
+  dependencies: [],
 };
 
 /**
