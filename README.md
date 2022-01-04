@@ -157,7 +157,6 @@ pipelinit
       <td>Lint</td>
       <td>✔️</td>
       <td>✔️</td>
-    </tr>
     <tr>
       <td>Test</td>
       <td>✔️</td>
