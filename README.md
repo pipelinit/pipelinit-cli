@@ -158,7 +158,7 @@ pipelinit
       <td rowspan="1">Shell script</td>
       <td>Lint</td>
       <td>✔️</td>
-      <td rowspan="6">Coming soon</td>
+      <td rowspan="7">Coming soon</td>
     </tr>
     <tr>
       <td rowspan="2">Java</td>
@@ -170,12 +170,16 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="2">Ruby</td>
+      <td rowspan="3">Ruby</td>
       <td>Lint</td>
       <td>✔️</td>
     </tr>
     <tr>
       <td>Format</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>SAST (Semgrep)</td>
       <td>✔️</td>
     </tr>
     <tr>

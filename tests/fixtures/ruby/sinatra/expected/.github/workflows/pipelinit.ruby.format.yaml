@@ -1,0 +1,20 @@
+# Generated with pipelinit 0.3.0
+# https://pipelinit.com/
+name: Format Ruby
+on:
+  pull_request:
+    paths:
+      - "**.rb"
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.0.2"
+          bundler-cache: true
+      - run: gem install
+      - run: gem install rubocop
+      - run: bundle exec rubocop --format .
