@@ -158,7 +158,7 @@ pipelinit
       <td rowspan="1">Shell script</td>
       <td>Lint</td>
       <td>✔️</td>
-      <td rowspan="6">Coming soon</td>
+      <td rowspan="8">Coming soon</td>
     </tr>
     <tr>
       <td rowspan="2">Java</td>
@@ -181,6 +181,15 @@ pipelinit
     <tr>
       <td rowspan="1">Markdown</td>
       <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Terraform</td>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Format</td>
       <td>✔️</td>
     </tr>
   </tbody>
