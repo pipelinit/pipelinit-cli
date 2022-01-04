@@ -168,3 +168,12 @@ test(
     await assertExpectedFiles();
   },
 );
+
+test(
+  { fixture: "terraform/terraform-project", args: [] },
+  async (stdout, _stderr, code, assertExpectedFiles) => {
+    assertStringIncludes(stdout, "Detected stack: markdown, terraform");
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);
