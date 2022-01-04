@@ -88,7 +88,7 @@ pipelinit
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="11">Coming soon</td>
+      <td rowspan="14">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -117,6 +117,15 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
+      <td rowspan="2">Java</td>
+      <td>Build</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>SAST</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
       <td rowspan="4">JavaScript / TypeScript</td>
       <td>Format</td>
       <td>✔️</td>
@@ -134,6 +143,11 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
+      <td rowspan="1">Markdown</td>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
       <td rowspan="4">Python</td>
       <td>Format</td>
       <td>✔️</td>
@@ -143,7 +157,6 @@ pipelinit
       <td>Lint</td>
       <td>✔️</td>
       <td>✔️</td>
-    </tr>
     <tr>
       <td>Test</td>
       <td>✔️</td>
@@ -155,35 +168,21 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="1">Shell Script</td>
-      <td>Lint</td>
-      <td>✔️</td>
-      <td rowspan="9">Coming soon</td>
-    </tr>
-    <tr>
-      <td rowspan="2">Java</td>
-      <td>Build (Gradle)</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
-      <td>SAST</td>
-      <td>✔️</td>
-    </tr>
-    <tr>
       <td rowspan="3">Ruby</td>
       <td>Lint</td>
       <td>✔️</td>
+      <td rowspan="6">Coming soon</td>
     </tr>
     <tr>
       <td>Format</td>
-      <td>✔️</td>
+       <td>✔️</td>
     </tr>
     <tr>
       <td>SAST</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="1">Markdown</td>
+      <td rowspan="1">Shell Script</td>
       <td>Lint</td>
       <td>✔️</td>
     </tr>
