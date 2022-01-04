@@ -176,9 +176,7 @@ pipelinit
     </tr>
     <tr>
       <td>Format</td>
-    </tr>
-    <tr>
-      <td>✔️</td>
+       <td>✔️</td>
     </tr>
     <tr>
       <td>SAST</td>
