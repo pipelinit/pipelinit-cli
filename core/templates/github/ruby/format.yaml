@@ -9,14 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "<%= it.version %>"
           bundler-cache: true
-<% if (!it.formatters.rubocop.isDependency) { -%>
-      - run: gem install
-<% } -%>
 <% if (!it.formatters.rubocop.isDependency) { -%>
       - run: gem install rubocop
 <% } -%>
