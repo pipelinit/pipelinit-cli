@@ -172,10 +172,12 @@ pipelinit
       <td rowspan="3">Ruby</td>
       <td>Lint</td>
       <td>✔️</td>
-      <td rowspan="4">Coming soon</td>
+      <td rowspan="6">Coming soon</td>
     </tr>
     <tr>
       <td>Format</td>
+    </tr>
+    <tr>
       <td>✔️</td>
     </tr>
     <tr>
@@ -185,6 +187,15 @@ pipelinit
     <tr>
       <td rowspan="1">Shell Script</td>
       <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Terraform</td>
+      <td>Lint</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Format</td>
       <td>✔️</td>
     </tr>
   </tbody>

@@ -7,6 +7,7 @@ import { introspector as MarkdownIntrospector } from "./markdown/mod.ts";
 import { introspector as PythonIntrospector } from "./python/mod.ts";
 import { introspector as RubyIntrospector } from "./ruby/mod.ts";
 import { introspector as ShellIntrospector } from "./shell/mod.ts";
+import { introspector as TerraformIntrospector } from "./terraform/mod.ts";
 
 import type CSSProject from "./css/mod.ts";
 import type DockerProject from "./docker/mod.ts";
@@ -17,6 +18,7 @@ import type MarkdownProject from "./markdown/mod.ts";
 import type PythonProject from "./python/mod.ts";
 import type RubyProject from "./ruby/mod.ts";
 import type ShellProject from "./shell/mod.ts";
+import type TerraformProject from "./terraform/mod.ts";
 
 // Keep it in alphabetical order
 export type ProjectData =
@@ -28,7 +30,8 @@ export type ProjectData =
   | MarkdownProject
   | PythonProject
   | RubyProject
-  | ShellProject;
+  | ShellProject
+  | TerraformProject;
 
 export type {
   CSSProject,
@@ -40,6 +43,7 @@ export type {
   PythonProject,
   RubyProject,
   ShellProject,
+  TerraformProject,
 };
 
 export const introspectors = [
@@ -52,4 +56,5 @@ export const introspectors = [
   { name: "python", ...PythonIntrospector },
   { name: "ruby", ...RubyIntrospector },
   { name: "shell", ...ShellIntrospector },
+  { name: "terraform", ...TerraformIntrospector },
 ];
