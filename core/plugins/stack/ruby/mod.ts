@@ -5,6 +5,7 @@ import {
   Formatters,
   introspect as introspectFormatters,
 } from "./formatters.ts";
+import { introspect as introspectType } from "./types.ts";
 
 /**
  * Introspected information about a project with Ruby
@@ -19,6 +20,10 @@ export default interface RubyProject {
    */
   linters: Linters;
   formatters: Formatters;
+  /**
+   * Identified type of project
+   */
+  type?: string | null;
 }
 
 export const introspector: Introspector<RubyProject | undefined> = {
@@ -42,10 +47,14 @@ export const introspector: Introspector<RubyProject | undefined> = {
     const linters = await introspectLinters(context);
     const formatters = await introspectFormatters(context);
 
+    //Project type
+    const projectType = await introspectType(context);
+
     return {
       version: version,
       linters: linters,
       formatters: formatters,
+      type: projectType,
     };
   },
 };

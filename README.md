@@ -104,7 +104,7 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td>SAST (Semgrep)</td>
+      <td>SAST</td>
       <td>✔️</td>
     </tr>
     <tr>
@@ -117,7 +117,7 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="4">JavaScript / Typescript</td>
+      <td rowspan="4">JavaScript / TypeScript</td>
       <td>Format</td>
       <td>✔️</td>
     </tr>
@@ -130,12 +130,12 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td>SAST (Semgrep)</td>
+      <td>SAST</td>
       <td>✔️</td>
     </tr>
     <tr>
       <td rowspan="4">Python</td>
-      <td>Format (Black, Isort)</td>
+      <td>Format</td>
       <td>✔️</td>
       <td>✔️</td>
     </tr>
@@ -150,15 +150,15 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td>SAST (Semgrep)</td>
+      <td>SAST</td>
       <td>✔️</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="1">Shell script</td>
+      <td rowspan="1">Shell Script</td>
       <td>Lint</td>
       <td>✔️</td>
-      <td rowspan="6">Coming soon</td>
+      <td rowspan="7">Coming soon</td>
     </tr>
     <tr>
       <td rowspan="2">Java</td>
@@ -166,11 +166,11 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td>SAST (Semgrep)</td>
+      <td>SAST</td>
       <td>✔️</td>
     </tr>
     <tr>
-      <td rowspan="2">Ruby</td>
+      <td rowspan="3">Ruby</td>
       <td>Lint</td>
       <td>✔️</td>
     </tr>
@@ -179,7 +179,7 @@ pipelinit
       <td>✔️</td>
     </tr>
     <tr>
-      <td>SAST (Semgrep)</td>
+      <td>SAST</td>
       <td>✔️</td>
     </tr>
     <tr>
