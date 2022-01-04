@@ -105,6 +105,15 @@ test(
 );
 
 test(
+  { fixture: "ruby/sinatra", args: ["--no-strict"] },
+  async (stdout, _stderr, code, assertExpectedFiles) => {
+    assertStringIncludes(stdout, "Detected stack: ruby");
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);
+
+test(
   { fixture: "docker/docker-lint-build", args: ["--no-strict"] },
   async (stdout, _stderr, code, assertExpectedFiles) => {
     assertStringIncludes(stdout, "Detected stack: docker");
