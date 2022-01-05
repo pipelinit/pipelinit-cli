@@ -85,19 +85,21 @@ const assertFunc = (fixture: string) => {
     const configContent = parseToml(
       await Deno.readTextFile(projectConfig),
     );
-    let generatedDir = path(
-      `./fixtures/${fixture}/project/.github/workflows`,
-    );
-    if (isConfig(configContent)) {
-      if (configContent.platforms?.includes("gitlab")) {
-        generatedDir = path(
-          `./fixtures/${fixture}/project/.gitlab-ci`,
-        );
-        for await (
-          const entry of walk(path(`./fixtures/${fixture}/project/`))
-        ) {
+
+    if (isConfig(configContent) && configContent.platforms) {
+      let generatedDir = "";
+      for (const platform of configContent.platforms) {
+        switch (platform) {
+          case "github":
+            generatedDir = `./fixtures/${fixture}/project/.github/workflows`;
+            break;
+          case "gitlab":
+            generatedDir = `./fixtures/${fixture}/project/.gitlab-ci`;
+            generatedFiles.push(".gitlab-ci.yml");
+            break;
+        }
+        for await (const entry of walk(path(generatedDir))) {
           if (!entry.isFile) continue;
-          if (entry.name !== ".gitlab-ci.yml") continue;
           generatedFiles.push(entry.name);
         }
       }
@@ -107,10 +109,6 @@ const assertFunc = (fixture: string) => {
     for await (const entry of walk(expectedDir)) {
       if (!entry.isFile) continue;
       expectedFiles.push(entry.name);
-    }
-    for await (const entry of walk(generatedDir)) {
-      if (!entry.isFile) continue;
-      generatedFiles.push(entry.name);
     }
 
     // First compare if the generated files are the expected in name and number
@@ -155,16 +153,25 @@ export async function cleanGitHubFiles(fixture: string) {
   const configContent = parseToml(
     await Deno.readTextFile(projectConfig),
   );
-  if (isConfig(configContent)) {
-    if (configContent.platforms?.includes("gitlab")) {
-      await Deno.remove(path(`./fixtures/${fixture}/project/.gitlab-ci`), {
-        recursive: true,
-      });
-      await Deno.remove(path(`./fixtures/${fixture}/project/.gitlab-ci.yml`));
-      return;
+
+  if (isConfig(configContent) && configContent.platforms) {
+    for (const platform of configContent.platforms) {
+      switch (platform) {
+        case "github":
+          await Deno.remove(path(`./fixtures/${fixture}/project/.github`), {
+            recursive: true,
+          });
+
+          break;
+        case "gitlab":
+          await Deno.remove(path(`./fixtures/${fixture}/project/.gitlab-ci`), {
+            recursive: true,
+          });
+          await Deno.remove(
+            path(`./fixtures/${fixture}/project/.gitlab-ci.yml`),
+          );
+          break;
+      }
     }
   }
-  await Deno.remove(path(`./fixtures/${fixture}/project/.github`), {
-    recursive: true,
-  });
 }

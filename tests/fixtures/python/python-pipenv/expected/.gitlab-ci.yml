@@ -1,0 +1,13 @@
+# Generated with pipelinit 0.3.0
+# https://pipelinit.com/
+stages:
+  - lint
+  - format
+  - sast
+  - test
+
+include:
+  - local: ".gitlab-ci/pipelinit.python.lint.yaml"
+  - local: ".gitlab-ci/pipelinit.python.format.yaml"
+  - local: ".gitlab-ci/pipelinit.python.test.yaml"
+  - local: ".gitlab-ci/pipelinit.python.sast.yaml"

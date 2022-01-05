@@ -1,0 +1,14 @@
+# Generated with pipelinit 0.3.0
+# https://pipelinit.com/
+test:
+  stage: test
+  image: python:3.8
+  needs: ["format", "lint", "bandit", "semgrep"]
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.py"
+  script:
+    - python -m pip install pipenv; pipenv install --dev
+    - python manage.py test

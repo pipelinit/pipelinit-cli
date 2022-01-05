@@ -26,7 +26,7 @@ const poetry: IntrospectFn<PackageManager | Error> = async (context) => {
       name: "poetry",
       commands: {
         install: "python -m pip install poetry; poetry install",
-        run: "poetry run",
+        run: "poetry run ",
       },
     };
   }
@@ -42,7 +42,7 @@ const pipenv: IntrospectFn<PackageManager | Error> = async (context) => {
       name: "pipenv",
       commands: {
         install: "python -m pip install pipenv; pipenv install --dev",
-        run: "pipenv run",
+        run: "pipenv run ",
       },
     };
   }

@@ -177,3 +177,16 @@ test(
     await assertExpectedFiles();
   },
 );
+
+test(
+  { fixture: "python/python-pipenv", args: ["--no-strict"] },
+  async (stdout, _stderr, code, assertExpectedFiles) => {
+    assertStringIncludes(stdout, "Detected stack: python");
+    assertStringIncludes(
+      stdout,
+      "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
+    );
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);
