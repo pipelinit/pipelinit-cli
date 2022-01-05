@@ -1,1 +1,1 @@
-export const PIPELINIT_VERSION = "0.3.0";
+export const PIPELINIT_VERSION = "0.4.0";
