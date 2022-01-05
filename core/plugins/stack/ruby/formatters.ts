@@ -17,7 +17,7 @@ export const introspect: IntrospectFn<Formatters> = async (context) => {
   } else {
     if (context.suggestDefault) {
       logger.warning(
-        "No formatters for ruby were identified in the project, creating default pipeline with 'Rubocop' WITHOUT any specific configuration",
+        "No Ruby formatter detected, using Rubocop",
       );
       formatters.rubocop = {
         isDependency: false,

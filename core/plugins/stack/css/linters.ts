@@ -28,7 +28,7 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   if (anyValue(linters)) return linters;
 
   if (context.suggestDefault) {
-    logger.warning("No CSS linter detected, using stylelint");
+    logger.warning("No CSS linter detected, using Stylelint");
     return {
       stylelint: { name: "stylelint" },
     };

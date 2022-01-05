@@ -45,11 +45,11 @@ test(
     );
     assertStringIncludes(
       stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
+      "No Python linter detected, using Flake8",
     );
     assertStringIncludes(
       stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
+      "No Python formatter detected, using Black",
     );
     assertEquals(code, 0);
     await assertExpectedFiles();
@@ -62,11 +62,11 @@ test(
     assertStringIncludes(stdout, "Detected stack: python");
     assertStringIncludes(
       stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
+      "No Python linter detected, using Flake8",
     );
     assertStringIncludes(
       stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'isort' WITHOUT any specific configuration",
+      "No Python linter detected, using isort",
     );
     assertEquals(code, 0);
     await assertExpectedFiles();
@@ -80,15 +80,15 @@ test(
 
     assertStringIncludes(
       stdout,
-      "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
+      "No Python linter detected, using Flake8",
     );
     assertStringIncludes(
       stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
+      "No Python formatter detected, using Black",
     );
     assertStringIncludes(
       stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'isort' WITHOUT any specific configuration",
+      "No Python linter detected, using isort",
     );
     assertEquals(code, 0);
     await assertExpectedFiles();
@@ -154,7 +154,7 @@ test(
     assertStringIncludes(stdout, "Detected stack: markdown, python, shell");
     assertStringIncludes(
       stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
+      "No Python formatter detected, using Black",
     );
     assertEquals(code, 0);
     await assertExpectedFiles();
@@ -184,7 +184,7 @@ test(
     assertStringIncludes(stdout, "Detected stack: python");
     assertStringIncludes(
       stdout,
-      "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
+      "No Python formatter detected, using Black",
     );
     assertEquals(code, 0);
     await assertExpectedFiles();

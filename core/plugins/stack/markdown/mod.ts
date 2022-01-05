@@ -8,9 +8,8 @@ export const introspector: Introspector<MarkdownProject> = {
     return await context.files.includes("**/*.md");
   },
   introspect: async (context) => {
+    // deno-lint-ignore no-unused-vars
     const logger = await context.getLogger("markdown");
-    logger.info("Detected Markdown File");
-
     return {};
   },
 };

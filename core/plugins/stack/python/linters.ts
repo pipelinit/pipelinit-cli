@@ -23,7 +23,7 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   } else {
     if (context.suggestDefault) {
       logger.warning(
-        "No linters for python were identified in the project, creating default pipeline with 'flake8' WITHOUT any specific configuration",
+        "No Python linter detected, using Flake8",
       );
       linters.flake8 = {
         isDependency: false,
@@ -43,7 +43,7 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   } else {
     if (context.suggestDefault) {
       logger.warning(
-        "No linters for python were indentified in the project, creating default with 'bandit' WITHOUT any specific configuration",
+        "No Python linter detected, using Bandit",
       );
       linters.bandit = {
         isDependency: false,
