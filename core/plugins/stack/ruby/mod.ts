@@ -32,7 +32,6 @@ export const introspector: Introspector<RubyProject | undefined> = {
   },
   introspect: async (context) => {
     const logger = context.getLogger("ruby");
-    logger.info("Detected Ruby File");
 
     // Version
     logger.debug("detecting version");

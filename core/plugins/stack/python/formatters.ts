@@ -20,7 +20,7 @@ export const introspect: IntrospectFn<Formatters> = async (context) => {
   } else {
     if (context.suggestDefault) {
       logger.warning(
-        "No formatters for python were identified in the project, creating default pipeline with 'black' WITHOUT any specific configuration",
+        "No Python formatter detected, using Black",
       );
       formatters.black = {
         isDependency: false,
@@ -35,7 +35,7 @@ export const introspect: IntrospectFn<Formatters> = async (context) => {
   } else {
     if (context.suggestDefault) {
       logger.warning(
-        "No formatters for python were identified in the project, creating default pipeline with 'isort' WITHOUT any specific configuration",
+        "No Python linter detected, using isort",
       );
       formatters.isort = {
         isDependency: false,

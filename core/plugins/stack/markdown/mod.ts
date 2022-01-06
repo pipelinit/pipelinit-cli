@@ -9,8 +9,7 @@ export const introspector: Introspector<MarkdownProject> = {
   },
   introspect: async (context) => {
     const logger = await context.getLogger("markdown");
-    logger.info("Detected Markdown File");
-
+    logger.debug("detected markdown file");
     return {};
   },
 };

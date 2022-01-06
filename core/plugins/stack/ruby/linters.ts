@@ -16,7 +16,7 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   } else {
     if (context.suggestDefault) {
       logger.warning(
-        "No linters for ruby were identified in the project, creating default pipeline with 'Rubocop' WITHOUT any specific configuration",
+        "No Ruby linter detected, using Rubocop",
       );
       linters.rubocop = {
         isDependency: false,
