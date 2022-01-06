@@ -12,21 +12,27 @@ const ERR_UNDETECTABLE_TITLE =
 const ERR_UNDETECTABLE_INSTRUCTIONS = `
 To fix this issue, consider one of the following suggestions:
 
-1. Add the 'required_ruby_version' to your Gemfile
+1. Add the 'required_ruby_version' to your .gemspec file
 
-The Gemfile permits the specification of the adequate ruby version for this package.
+The .gemspec file permits the specification of the adequate ruby version for this package.
 
 See https://guides.rubygems.org/specification-reference/#required_ruby_version=
 
-2. Create a .ruby-version file
+2. Add a version of Ruby to your Gemfile, using the ruby method
+
+A Gemfile describes the gem dependencies required to execute associated Ruby code.
+
+See https://bundler.io/man/gemfile.5.html#RUBY
+
+3. Create a .ruby-version file
 
 The .ruby-version file can be used by the RVM(Ruby Version Manager) to choose a specific Ruby version
 for a project.
 
-Its the easiest option, all you have to do is create a .ruby-version text
-file with a version inside, like "3.0.1".
-
 See https://rvm.io/workflow/projects#project-file-ruby-version
+
+4. If your project already has a Gemfile or .gemspec file
+try add an extra line there with the Ruby version to improve the project metadata.
 `;
 
 function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
