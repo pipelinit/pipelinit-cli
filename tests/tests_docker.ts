@@ -1,5 +1,5 @@
 import { assertEquals, assertStringIncludes } from "../cli/deps.ts";
-import { test } from "../helpers.ts";
+import { test } from "./helpers.ts";
 
 test(
   { fixture: "docker/docker-lint-build", args: ["--no-strict"] },
