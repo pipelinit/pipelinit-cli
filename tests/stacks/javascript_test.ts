@@ -1,5 +1,5 @@
-import { assertEquals, assertStringIncludes } from "../cli/deps.ts";
-import { test } from "./helpers.ts";
+import { assertEquals, assertStringIncludes } from "../../cli/deps.ts";
+import { test } from "../helpers.ts";
 
 test(
   { fixture: "javascript/vue-html", args: ["--no-strict"] },
