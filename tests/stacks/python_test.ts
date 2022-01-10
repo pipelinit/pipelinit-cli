@@ -1,19 +1,5 @@
-import { assertEquals, assertStringIncludes } from "../cli/deps.ts";
-import { test } from "./helpers.ts";
-
-test(
-  { fixture: "javascript/npm-no-deps", args: [] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: javascript");
-    assertStringIncludes(stdout, "No JavaScript linter detected, using ESLint");
-    assertStringIncludes(
-      stdout,
-      "No JavaScript formatter detected, using Prettier",
-    );
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
+import { assertEquals, assertStringIncludes } from "../../cli/deps.ts";
+import { test } from "../helpers.ts";
 
 test(
   { fixture: "python/requirements-unknown-version", args: [] },
@@ -96,59 +82,6 @@ test(
 );
 
 test(
-  { fixture: "ruby/rubocop-lint", args: ["--no-strict"] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: markdown, ruby");
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
-
-test(
-  { fixture: "ruby/sinatra", args: ["--no-strict"] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: ruby");
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
-
-test(
-  { fixture: "docker/docker-lint-build", args: ["--no-strict"] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: docker");
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
-
-test(
-  { fixture: "java/java-build-gradle", args: ["--no-strict"] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: java");
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
-
-test(
-  { fixture: "javascript/vue-html", args: ["--no-strict"] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: html, javascript");
-    assertStringIncludes(
-      stdout,
-      "No JavaScript formatter detected, using Prettier",
-    );
-    assertStringIncludes(
-      stdout,
-      "No Vue or Html formatter detected, using Prettier",
-    );
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
-
-test(
   { fixture: "python/python-django", args: ["--no-strict"] },
   async (stdout, _stderr, code, assertExpectedFiles) => {
     assertStringIncludes(stdout, "Detected stack: markdown, python, shell");
@@ -164,15 +97,6 @@ test(
 test(
   { fixture: "python/python-django-gitlab", args: ["--no-strict"] },
   async (_stdout, _stderr, code, assertExpectedFiles) => {
-    assertEquals(code, 0);
-    await assertExpectedFiles();
-  },
-);
-
-test(
-  { fixture: "terraform/terraform-project", args: [] },
-  async (stdout, _stderr, code, assertExpectedFiles) => {
-    assertStringIncludes(stdout, "Detected stack: markdown, terraform");
     assertEquals(code, 0);
     await assertExpectedFiles();
   },
