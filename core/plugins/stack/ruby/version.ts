@@ -35,9 +35,9 @@ See https://rvm.io/workflow/projects#project-file-ruby-version
 try add an extra line there with the Ruby version to improve the project metadata.
 `;
 
-function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
-  return value !== null && value !== undefined;
-}
+const gemfileRegex = /ruby ["'](?<RubyVersion>.*)["']/;
+const gemspecRegex =
+  /required_ruby_version.*(?<RubyVersion>[0-9]+\.[0-9]+\.[0-9])/;
 
 /**
  * Search for application specific `.ruby-version` file from RVM
@@ -55,16 +55,13 @@ const rvm: IntrospectFn<string | Error> = async (context) => {
  * Search a Gemfile for the required ruby version key
  */
 const gemfile: IntrospectFn<string | Error> = async (context) => {
-  for await (const file of context.files.each("./Gemfile")) {
+  for await (const file of context.files.each("**/Gemfile")) {
     const gemfileText = await context.files.readText(file.path);
 
-    const rubyVersion: string[] = Array.from(
-      gemfileText.matchAll(/ruby ["'](?<RubyVersion>.*)["']/g),
-      (match) => !match.groups ? null : match.groups.RubyVersion,
-    ).filter(notEmpty);
+    const matchGroups = gemfileText.match(gemfileRegex)?.groups || {};
 
-    if (rubyVersion.length > 0) {
-      return rubyVersion[0];
+    if ("RubyVersion" in matchGroups) {
+      return matchGroups["RubyVersion"];
     }
   }
   return Error("Can't find ruby version at Gemfile");
@@ -76,25 +73,20 @@ const gemfile: IntrospectFn<string | Error> = async (context) => {
  * @see https://guides.rubygems.org/specification-reference/#required_ruby_version=
  */
 const gemspec: IntrospectFn<string | Error> = async (context) => {
-  for await (const file of context.files.each("./*.gemspec")) {
+  for await (const file of context.files.each("**/*.gemspec")) {
     const gemspecText = await context.files.readText(file.path);
 
-    const rubyVersion: string[] = Array.from(
-      gemspecText.matchAll(
-        /required_ruby_version.*(?<RubyVersion>[0-9]+\.[0-9]+\.[0-9])/gm,
-      ),
-      (match) => !match.groups ? null : match.groups.RubyVersion,
-    ).filter(notEmpty);
+    const matchGroups = gemspecText.match(gemspecRegex)?.groups || {};
 
-    if (rubyVersion.length > 0) {
-      return rubyVersion[0];
+    if ("RubyVersion" in matchGroups) {
+      return matchGroups["RubyVersion"];
     }
   }
   return Error("Can't find ruby version at RubyVersion");
 };
 
 /**
- * Searches for the project Python version in multiple places, such as:
+ * Searches for the project Ruby version in multiple places, such as:
  * - .ruby-version
  * - Gemfile
  * - .gemspec
