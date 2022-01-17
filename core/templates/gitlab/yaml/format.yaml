@@ -1,0 +1,14 @@
+<% if (it.formatters) { -%>
+format:
+  stage: format
+  image: node:16
+  needs: []
+  script:
+    - npx prettier --no-error-on-unmatched-pattern --check "**/*.yaml" "**/*.yml"
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.yaml"
+      - "**/*.yml"
+<%- } -%>

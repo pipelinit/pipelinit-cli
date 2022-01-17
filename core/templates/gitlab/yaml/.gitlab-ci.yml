@@ -1,0 +1,7 @@
+stages:
+  - format
+
+include:
+<% if (it.formatters) { -%>
+  - local: ".gitlab-ci/pipelinit.yaml.format.yaml"
+<% } -%>

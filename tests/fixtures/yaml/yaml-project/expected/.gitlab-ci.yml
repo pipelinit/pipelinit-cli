@@ -1,0 +1,7 @@
+# Generated with pipelinit 0.4.0
+# https://pipelinit.com/
+stages:
+  - format
+
+include:
+  - local: ".gitlab-ci/pipelinit.yaml.format.yaml"
