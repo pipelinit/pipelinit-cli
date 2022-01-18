@@ -1,0 +1,19 @@
+<% if (it.formatters) { -%>
+name: Format Yaml
+on:
+  pull_request:
+    paths:
+      - "**.yaml"
+      - "**.yml"
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+      <%_ if (it.formatters.prettier) { %>
+      - run: npx prettier --no-error-on-unmatched-pattern --check "**/*.yaml" "**/*.yml"
+      <% } -%>
+<% } -%>

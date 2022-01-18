@@ -1,0 +1,6 @@
+learning_rate: 0.1
+random_seed: 789108
+maintainer: Shahin Rostami
+categories:
+  - hotdog
+  - not a hotdog
