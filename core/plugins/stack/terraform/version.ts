@@ -1,11 +1,19 @@
 import { IntrospectFn } from "../../../types.ts";
 
+// The version declaratiom can diverge for each platform
+
+export type TerraformVersion = {
+  gitlab: string;
+  github: string;
+};
+
 // Find the latest stable version here:
 // https://www.terraform.io/downloads
-const LATEST = "1.1.2";
+// GitHub Actions determines the latest minor version
+const LATEST = "1";
 
 const WARN_USING_LATEST =
-  `Couldn't detect the Terraform version, using the latest available: ${LATEST}`;
+  "Couldn't detect the Terraform version, using the latest available";
 
 const ERR_UNDETECTABLE_TITLE =
   "Couldn't detect which Terraform version this project uses.";
@@ -55,7 +63,9 @@ const tfFile: IntrospectFn<string | Error> = async (context) => {
   return Error("Can't find terraform version at .tf file");
 };
 
-export const introspect: IntrospectFn<string | undefined> = async (context) => {
+export const introspect: IntrospectFn<TerraformVersion | undefined> = async (
+  context,
+) => {
   const logger = context.getLogger("terraform");
 
   const promises = await Promise.all([
@@ -65,7 +75,10 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
 
   for (const promiseResult of promises) {
     if (typeof promiseResult === "string") {
-      return promiseResult;
+      return {
+        github: promiseResult,
+        gitlab: promiseResult,
+      };
     } else {
       logger.debug(promiseResult.message);
     }
@@ -73,7 +86,10 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
 
   if (!context.strict) {
     logger.warning(WARN_USING_LATEST);
-    return LATEST;
+    return {
+      github: LATEST,
+      gitlab: "latest",
+    };
   }
 
   context.errors.add({

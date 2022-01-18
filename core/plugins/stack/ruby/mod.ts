@@ -1,5 +1,5 @@
 import { Introspector } from "../../../types.ts";
-import { introspect as introspectVersion } from "./version.ts";
+import { introspect as introspectVersion, RubyVersion } from "./version.ts";
 import { introspect as introspectLinters, Linters } from "./linters.ts";
 import {
   Formatters,
@@ -14,7 +14,7 @@ export default interface RubyProject {
   /**
    * Ruby version
    */
-  version?: string;
+  version?: RubyVersion;
   /**
    * Which linter the project uses, if any
    */

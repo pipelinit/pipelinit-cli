@@ -27,7 +27,7 @@ test(
     assertStringIncludes(stdout, "Detected stack: python");
     assertStringIncludes(
       stdout,
-      "Couldn't detect the Python version, using the latest available: 3.10",
+      "Couldn't detect the Python version, using the latest available",
     );
     assertStringIncludes(
       stdout,

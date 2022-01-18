@@ -1,5 +1,5 @@
 import { Introspector } from "../../../types.ts";
-import { introspect as introspectVersion } from "./version.ts";
+import { introspect as introspectVersion, PythonVersion } from "./version.ts";
 import { introspect as introspectPytest } from "./pytest.ts";
 import {
   introspect as introspectPackageManager,
@@ -23,7 +23,7 @@ export default interface PythonProject {
   /**
    * Python version
    */
-  version?: string;
+  version?: PythonVersion;
   /**
    * Identified type of project
    */

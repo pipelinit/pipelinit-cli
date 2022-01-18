@@ -18,7 +18,7 @@ semgrep:
 
 bandit:
   stage: python-sast
-  image: python:<%= it.version %>
+  image: python:<%= it.version.gitlab %>
   needs: ["format", "lint"]
   script:
 <%- if (it.packageManager) { %>

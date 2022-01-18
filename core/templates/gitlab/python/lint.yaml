@@ -1,7 +1,7 @@
 <% if (it.linters) { -%>
 lint:
   stage: python-lint
-  image: python:<%= it.version %>
+  image: python:<%= it.version.gitlab %>
   needs: []
   script:
 <%- if (it.packageManager) { %>

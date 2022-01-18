@@ -12,7 +12,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "<%= it.version %>"
+          python-version: "<%= it.version.github %>"
 <% if (it.packageManager.commands.install) { -%>
       - run: <%= it.packageManager.commands.install %>
 <% } -%>

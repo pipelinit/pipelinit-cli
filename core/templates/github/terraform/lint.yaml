@@ -11,6 +11,6 @@ jobs:
       - name: Set Up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-            terraform-version: "<%= it.version %>"
+            terraform-version: "<%= it.version.github %>"
       - run: terraform init
       - run: terraform validate

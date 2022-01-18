@@ -1,11 +1,18 @@
 import { IntrospectFn } from "../../../types.ts";
 
+// The version declaratiom can diverge for each platform
+export type RubyVersion = {
+  gitlab: string;
+  github: string;
+};
+
 // Find the latest stable version here:
 // https://www.ruby-lang.org/en/downloads/
-const LATEST = "3.0.2";
+// GitHub Actions determines the latest minor version
+const LATEST = "3";
 
 const WARN_USING_LATEST =
-  `Couldn't detect the Ruby version, using the latest available: ${LATEST}`;
+  `Couldn't detect the Ruby version, using the latest available`;
 
 const ERR_UNDETECTABLE_TITLE =
   "Couldn't detect which Ruby version this project uses.";
@@ -96,7 +103,9 @@ const gemspec: IntrospectFn<string | Error> = async (context) => {
  * in the strict mode, otherwise it emits an warning and fallback to the latest
  * stable version.
  */
-export const introspect: IntrospectFn<string | undefined> = async (context) => {
+export const introspect: IntrospectFn<RubyVersion | undefined> = async (
+  context,
+) => {
   const logger = context.getLogger("ruby");
 
   const promises = await Promise.all([
@@ -107,7 +116,7 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
 
   for (const promiseResult of promises) {
     if (typeof promiseResult === "string") {
-      return promiseResult;
+      return { github: promiseResult, gitlab: promiseResult };
     } else {
       logger.debug(promiseResult.message);
     }
@@ -115,7 +124,10 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
 
   if (!context.strict) {
     logger.warning(WARN_USING_LATEST);
-    return LATEST;
+    return {
+      github: LATEST,
+      gitlab: "latest",
+    };
   }
 
   context.errors.add({

@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '<%= it.runtime.version %>'
+          node-version: '<%= it.runtime.version.github %>'
           cache: '<%= it.packageManager.name %>'
       - run: <%= it.packageManager.commands.install %>
       - run: <%= it.packageManager.name %> test
