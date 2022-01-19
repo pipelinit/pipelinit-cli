@@ -19,7 +19,7 @@ bandit:
   image: python:3.8
   needs: ["format", "lint"]
   script:
-    - python -m pip install pipenv; pipenv install --dev
+    - python -m pip install pipenv; pipenv install --system --dev
     - pipenv run bandit -r .
   only:
     refs:

@@ -10,5 +10,5 @@ test:
     changes:
       - "**/*.py"
   script:
-    - python -m pip install pipenv; pipenv install --dev
+    - python -m pip install pipenv; pipenv install --system --dev
     - python manage.py test
