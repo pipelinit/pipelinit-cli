@@ -41,7 +41,7 @@ const pipenv: IntrospectFn<PackageManager | Error> = async (context) => {
     return {
       name: "pipenv",
       commands: {
-        install: "python -m pip install pipenv; pipenv install --dev",
+        install: "python -m pip install pipenv; pipenv install --system --dev",
         run: "pipenv run ",
       },
     };
