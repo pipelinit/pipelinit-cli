@@ -1,5 +1,5 @@
 semgrep:
-  stage: sast
+  stage: python-sast
   image: returntocorp/semgrep-agent:v1
   needs: ["format", "lint"]
   only:
@@ -17,7 +17,7 @@ semgrep:
 <% } -%>
 
 bandit:
-  stage: sast
+  stage: python-sast
   image: python:<%= it.version %>
   needs: ["format", "lint"]
   script:
