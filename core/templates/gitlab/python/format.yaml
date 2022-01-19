@@ -1,6 +1,6 @@
 <% if (it.formatters) { -%>
 format:
-  stage: format
+  stage: python-format
   image: python:<%= it.version %>
   needs: []
   script:

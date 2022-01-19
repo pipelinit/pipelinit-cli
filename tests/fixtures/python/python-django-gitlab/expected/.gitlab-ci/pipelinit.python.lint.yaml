@@ -1,7 +1,7 @@
 # Generated with pipelinit 0.4.0
 # https://pipelinit.com/
 lint:
-  stage: lint
+  stage: python-lint
   image: python:3.6.10
   needs: []
   script:

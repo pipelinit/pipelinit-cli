@@ -1,6 +1,6 @@
 <% if (it.formatters) { -%>
 format:
-  stage: format
+  stage: yaml-format
   image: node:16
   needs: []
   script:

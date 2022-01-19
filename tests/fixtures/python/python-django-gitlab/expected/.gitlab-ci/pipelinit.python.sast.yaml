@@ -1,7 +1,7 @@
 # Generated with pipelinit 0.4.0
 # https://pipelinit.com/
 semgrep:
-  stage: sast
+  stage: python-sast
   image: returntocorp/semgrep-agent:v1
   needs: ["format", "lint"]
   only:
@@ -15,7 +15,7 @@ semgrep:
       p/owasp-top-ten
 
 bandit:
-  stage: sast
+  stage: python-sast
   image: python:3.6.10
   needs: ["format", "lint"]
   script:

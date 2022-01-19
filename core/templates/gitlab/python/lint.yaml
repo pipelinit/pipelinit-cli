@@ -1,6 +1,6 @@
 <% if (it.linters) { -%>
 lint:
-  stage: lint
+  stage: python-lint
   image: python:<%= it.version %>
   needs: []
   script:
