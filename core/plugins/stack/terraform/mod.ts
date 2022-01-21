@@ -1,8 +1,11 @@
 import { Introspector } from "../../../types.ts";
-import { introspect as introspectVersion } from "./version.ts";
+import {
+  introspect as introspectVersion,
+  TerraformVersion,
+} from "./version.ts";
 
 export default interface TerraformProject {
-  version?: string;
+  version?: TerraformVersion;
 }
 
 export const introspector: Introspector<TerraformProject | undefined> = {

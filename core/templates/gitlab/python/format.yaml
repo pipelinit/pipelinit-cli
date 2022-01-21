@@ -1,7 +1,7 @@
 <% if (it.formatters) { -%>
 format:
   stage: python-format
-  image: python:<%= it.version %>
+  image: python:<%= it.version.gitlab %>
   needs: []
   script:
 <%- if (it.packageManager) { %>

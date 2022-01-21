@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python <%= it.version %>
+      - name: Set up Python <%= it.version.github %>
         uses: actions/setup-python@v2
         with:
-          python-version: "<%= it.version %>"
+          python-version: "<%= it.version.github %>"
 <% if (it.packageManager) { -%>
       - run: <%= it.packageManager.commands.install %>
 <% } -%>

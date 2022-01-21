@@ -1,11 +1,18 @@
 import { IntrospectFn } from "../../../types.ts";
 
+// The version declaratiom can diverge for each platform
+export type PythonVersion = {
+  gitlab: string;
+  github: string;
+};
+
 // Find the latest stable version here:
 // https://www.python.org/downloads/
-const LATEST = "3.10";
+// GitHub Actions determines the latest minor version
+const LATEST = "3";
 
 const WARN_USING_LATEST =
-  `Couldn't detect the Python version, using the latest available: ${LATEST}`;
+  `Couldn't detect the Python version, using the latest available`;
 
 const ERR_UNDETECTABLE_TITLE =
   "Couldn't detect which Python version this project uses.";
@@ -97,13 +104,13 @@ const pipfile: IntrospectFn<string | Error> = async (context) => {
 const poetry: IntrospectFn<string | Error> = async (context) => {
   for await (const file of context.files.each("**/pyproject.toml")) {
     const pyproject = await context.files.readToml(file.path);
-    const version: string | null = pyproject?.tool?.poetry?.dependencies
+    const versionRaw: string | null = pyproject?.tool?.poetry?.dependencies
       ?.python;
-    if (version) {
+    if (versionRaw) {
       // FIXME this simply removes caret and tilde from version specification
       // to convert something like "^3.8" to "3.8". The correct behavior
       // would be to convert it to a range with 3.8, 3.9 and 3.10
-      return version.replace(/[\^~]/, "");
+      return versionRaw.replace(/[\^~]/, "");
     }
   }
   return Error("Can't find python version at pyproject.toml");
@@ -121,7 +128,9 @@ const poetry: IntrospectFn<string | Error> = async (context) => {
  * in the strict mode, otherwise it emits an warning and fallback to the latest
  * stable version.
  */
-export const introspect: IntrospectFn<string | undefined> = async (context) => {
+export const introspect: IntrospectFn<PythonVersion | undefined> = async (
+  context,
+) => {
   const logger = context.getLogger("python");
 
   const promises = await Promise.all([
@@ -133,7 +142,10 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
 
   for (const promiseResult of promises) {
     if (typeof promiseResult === "string") {
-      return promiseResult;
+      return {
+        github: promiseResult,
+        gitlab: promiseResult,
+      };
     } else {
       logger.debug(promiseResult.message);
     }
@@ -141,7 +153,10 @@ export const introspect: IntrospectFn<string | undefined> = async (context) => {
 
   if (!context.strict) {
     logger.warning(WARN_USING_LATEST);
-    return LATEST;
+    return {
+      github: LATEST,
+      gitlab: "latest",
+    };
   }
 
   context.errors.add({

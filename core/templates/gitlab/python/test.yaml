@@ -1,7 +1,7 @@
 <% if (it.frameworks.django || it.hasPytest) { -%>
 test:
   stage: python-test
-  image: python:<%= it.version %>
+  image: python:<%= it.version.gitlab %>
   needs: ["format", "lint", "bandit", "semgrep"]
   only:
     refs:

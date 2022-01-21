@@ -2,7 +2,10 @@ import { IntrospectFn } from "../../../types.ts";
 
 interface Node {
   name: "node";
-  version: string;
+  version: {
+    gitlab: string;
+    github: string;
+  };
 }
 
 interface DenoInterface {
@@ -14,15 +17,10 @@ export type Runtime = Node | DenoInterface;
 const DENO_IMPORT = /import.*from ["']https:\/\/deno\.land/;
 const DENO_RUNTIME = /Deno\..*/;
 
-// Use the major with status "Current" at https://nodejs.org/en/about/releases/
+// Use the latest LTS major
+// See: https://nodejs.org/en/about/releases/
+// GitHub Actions determines the latest minor version
 const NODEJS_LATEST_MAJOR = "16";
-
-// Latest available version for each major
-const NODEJS_LATEST_VERSIONS = [
-  "12.22.5",
-  "14.17.5",
-  "16.7.0",
-];
 
 export const introspect: IntrospectFn<Runtime> = async (context) => {
   // Search for an import statement from https://deno.land/ or usage from
@@ -41,10 +39,13 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
   //
   // See https://github.com/nvm-sh/nvm#nvmrc
   for await (const file of context.files.each("**/.nvmrc")) {
-    const version = await context.files.readText(file.path);
+    const version = (await context.files.readText(file.path)).trim();
     return {
       name: "node",
-      version,
+      version: {
+        gitlab: version,
+        github: version,
+      },
     };
   }
 
@@ -55,14 +56,18 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
     const packageJson = await context.files.readJSON(file.path);
     if (packageJson?.engines?.node) {
       const nodeEngine = packageJson.engines.node;
-      const version = context.semver.minSatisfying(
-        NODEJS_LATEST_VERSIONS,
+      const version = context.semver.minVersion(
         nodeEngine,
       );
       if (version) {
+        const versionMajor = context.semver.major(version.toString())
+          .toString().trim();
         return {
           name: "node",
-          version: context.semver.major(version).toString(),
+          version: {
+            github: versionMajor,
+            gitlab: versionMajor,
+          },
         };
       }
     }
@@ -78,6 +83,9 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
   // See https://docs.npmjs.com/cli/v7/configuring-npm/package-json#engines
   return {
     name: "node",
-    version: NODEJS_LATEST_MAJOR,
+    version: {
+      gitlab: "latest",
+      github: NODEJS_LATEST_MAJOR,
+    },
   };
 };
