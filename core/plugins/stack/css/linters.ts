@@ -1,4 +1,4 @@
-import { IntrospectFn } from "../../../types.ts";
+import { anyValue, IntrospectFn } from "../../../types.ts";
 import {
   introspect as introspectStylelint,
   Stylelint,
@@ -7,10 +7,6 @@ import {
 export type Linters = {
   stylelint?: Stylelint | null;
 } | null;
-
-function anyValue(records: Record<string, unknown>): boolean {
-  return Object.values(records).some((v) => v);
-}
 
 export const introspect: IntrospectFn<Linters> = async (context) => {
   const logger = context.getLogger("javascript");

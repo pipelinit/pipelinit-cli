@@ -1,4 +1,4 @@
-import { Introspector } from "../../../types.ts";
+import { anyValue, Introspector } from "../../../types.ts";
 import { introspect as introspectLinters, Linters } from "./linters.ts";
 
 /**
@@ -9,10 +9,6 @@ export default interface ShellProject {
    * Which linter the project uses, if any
    */
   linters?: Linters;
-}
-
-function anyValue(records: Record<string, unknown>): boolean {
-  return Object.values(records).some((v) => v);
 }
 
 export const introspector: Introspector<ShellProject> = {

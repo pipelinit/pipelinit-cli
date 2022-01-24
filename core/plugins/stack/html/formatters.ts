@@ -1,4 +1,4 @@
-import { IntrospectFn } from "../../../types.ts";
+import { anyValue, IntrospectFn } from "../../../types.ts";
 import {
   introspect as introspectPrettier,
   Prettier,
@@ -11,10 +11,6 @@ export type Formatters = {
   prettier?: Prettier | null;
   deno?: DenoInterface;
 } | null;
-
-function anyValue(records: Record<string, unknown>): boolean {
-  return Object.values(records).some((v) => v);
-}
 
 export const introspect: IntrospectFn<Formatters> = async (context) => {
   const logger = context.getLogger("html");

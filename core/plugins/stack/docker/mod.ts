@@ -13,7 +13,7 @@ export const introspector: Introspector<DockerProject> = {
   },
   introspect: async (context) => {
     const logger = await context.getLogger("docker");
-    logger.info("Found docker image on root");
+    logger.debug("detected docker image");
 
     return { hasDockerImage: true };
   },
