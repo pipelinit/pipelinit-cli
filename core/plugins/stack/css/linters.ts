@@ -26,10 +26,10 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   if (context.suggestDefault) {
     logger.warning("No CSS linter detected, using Stylelint");
     return {
-      stylelint: { name: "stylelint" },
+      stylelint: { name: "stylelint", isDependency: true },
     };
   }
 
   logger.debug("no supported linter detected");
-  return null;
+  return linters;
 };

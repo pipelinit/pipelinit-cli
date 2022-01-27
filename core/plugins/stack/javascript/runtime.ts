@@ -26,12 +26,12 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
   // Search for an import statement from https://deno.land/ or usage from
   // the runtime api, such as Deno.cwd(), in JavaScript and TypeScript files
   for await (const file of context.files.each("**/*.[j|t]s")) {
-    for await (const line of context.files.readLines(file.path)) {
-      if (DENO_IMPORT.test(line) || DENO_RUNTIME.test(line)) {
-        return {
-          name: "deno",
-        };
-      }
+    const fileText = await context.files.readText(file.path);
+
+    if (DENO_IMPORT.test(fileText) || DENO_RUNTIME.test(fileText)) {
+      return {
+        name: "deno",
+      };
     }
   }
 
@@ -70,6 +70,10 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
           },
         };
       }
+    } else if (!packageJson) {
+      return {
+        name: "deno",
+      };
     }
   }
 
