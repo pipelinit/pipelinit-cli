@@ -1,4 +1,5 @@
-import { anyValue, IntrospectFn } from "../../../types.ts";
+import { IntrospectFn } from "../../../types.ts";
+import { anyValue } from "../helpers.ts";
 import {
   introspect as introspectStylelint,
   Stylelint,

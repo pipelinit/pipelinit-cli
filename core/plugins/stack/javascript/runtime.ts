@@ -27,7 +27,6 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
   // the runtime api, such as Deno.cwd(), in JavaScript and TypeScript files
   for await (const file of context.files.each("**/*.[j|t]s")) {
     const fileText = await context.files.readText(file.path);
-
     if (DENO_IMPORT.test(fileText) || DENO_RUNTIME.test(fileText)) {
       return {
         name: "deno",
@@ -70,10 +69,6 @@ export const introspect: IntrospectFn<Runtime> = async (context) => {
           },
         };
       }
-    } else if (!packageJson) {
-      return {
-        name: "deno",
-      };
     }
   }
 

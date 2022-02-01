@@ -95,7 +95,3 @@ export type PlatformWriterFn = (
   context: Context,
   templates: AsyncIterableIterator<RenderedTemplate>,
 ) => Promise<Array<CiConfigurationFile>>;
-
-export function anyValue(records: Record<string, unknown>): boolean {
-  return Object.values(records).some((v) => v);
-}

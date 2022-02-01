@@ -1,4 +1,5 @@
-import { anyValue, Introspector } from "../../../types.ts";
+import { Introspector } from "../../../types.ts";
+import { anyValue } from "../helpers.ts";
 import { introspect as introspectLinters, Linters } from "./linters.ts";
 
 /**
