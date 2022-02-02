@@ -1,4 +1,5 @@
 import { IntrospectFn } from "../../../types.ts";
+import { anyValue } from "../helpers.ts";
 import {
   ESLint,
   introspect as introspectESLint,
@@ -11,10 +12,6 @@ export type Linters = {
   deno?: DenoInterface;
   eslint?: ESLint | null;
 } | null;
-
-function anyValue(records: Record<string, unknown>): boolean {
-  return Object.values(records).some((v) => v);
-}
 
 export const introspect: IntrospectFn<Linters> = async (context) => {
   const logger = context.getLogger("javascript");

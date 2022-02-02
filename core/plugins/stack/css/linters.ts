@@ -1,4 +1,5 @@
 import { IntrospectFn } from "../../../types.ts";
+import { anyValue } from "../helpers.ts";
 import {
   introspect as introspectStylelint,
   Stylelint,
@@ -7,10 +8,6 @@ import {
 export type Linters = {
   stylelint?: Stylelint | null;
 } | null;
-
-function anyValue(records: Record<string, unknown>): boolean {
-  return Object.values(records).some((v) => v);
-}
 
 export const introspect: IntrospectFn<Linters> = async (context) => {
   const logger = context.getLogger("javascript");
@@ -30,10 +27,10 @@ export const introspect: IntrospectFn<Linters> = async (context) => {
   if (context.suggestDefault) {
     logger.warning("No CSS linter detected, using Stylelint");
     return {
-      stylelint: { name: "stylelint" },
+      stylelint: { name: "stylelint", isDependency: true },
     };
   }
 
   logger.debug("no supported linter detected");
-  return null;
+  return linters;
 };

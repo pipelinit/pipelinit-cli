@@ -13,7 +13,7 @@ export const introspector: Introspector<JavaProject> = {
   },
   introspect: async (context) => {
     const logger = await context.getLogger("java");
-    logger.info("Detected gradle project");
+    logger.debug("detected gradle project");
 
     return { isGradleProject: true };
   },
