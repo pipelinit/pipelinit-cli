@@ -12,7 +12,7 @@ it [on the official Deno website](https://deno.land/#installation).
 Checkout the Pipelinit repository in your computer and install Pipelinit with
 Deno script installer:
 ```
-deno install -f --unstable --allow-read=.,$(pwd) --allow-write=. cli/pipelinit.ts
+deno install -A -f --unstable cli/pipelinit.ts
 ```
 
 You should see the following message in your terminal:

@@ -29,14 +29,6 @@ on your browser! 🚀
 
 ## How to install
 
-### Using a Docker image
-
-Run the command below inside a checkout of your project's source code:
-
-```
-docker run -it -v $(pwd):/workdir ghcr.io/pipelinit/pipelinit-cli
-```
-
 ### Using package managers
 
 Homebrew (macOS):
@@ -53,6 +45,25 @@ yay -Sy pipelinit-bin
 ```
 
 Support for more package managers needed!
+
+### Install version with latest changes
+
+Start by installing [Deno](https://deno.land/) following their [official site](https://deno.land/#installation)
+
+Checkout the Pipelinit repository in your computer:
+```
+git clone https://github.com/pipelinit/pipelinit-cli.git
+```
+
+Then install Pipelinit with the Deno script installer:
+```
+deno install -A -f --unstable cli/pipelinit.ts
+```
+
+You should see the following message in your terminal:
+```
+✅ Successfully installed pipelinit
+```
 
 ### Manual download
 
