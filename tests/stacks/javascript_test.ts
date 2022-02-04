@@ -31,3 +31,12 @@ test(
     await assertExpectedFiles();
   },
 );
+
+test(
+  { fixture: "javascript/multiples-packages", args: [] },
+  async (stdout, _stderr, code, assertExpectedFiles) => {
+    assertStringIncludes(stdout, "Detected stack: javascript");
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);
