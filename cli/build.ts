@@ -1,5 +1,5 @@
 import { bundle } from "https://deno.land/x/buckets@0.1.0/mod.ts";
-import * as esbuild from "https://deno.land/x/esbuild@v0.12.19/mod.js";
+import * as esbuild from "https://deno.land/x/esbuild@v0.14.19/mod.js";
 
 import conf from "./buckets.ts";
 
