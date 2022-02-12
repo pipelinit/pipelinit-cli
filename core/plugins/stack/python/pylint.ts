@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasPythonDependency } from "./dependencies.ts";
 
 export interface PyLint {
   name: "pylint";
@@ -8,7 +7,7 @@ export interface PyLint {
 }
 
 export const introspect: IntrospectFn<PyLint | null> = async (context) => {
-  const isDependency = await hasPythonDependency(context, "pylint");
+  const isDependency = await context.dependencies.includes("pylint");
   let hasPyLintConfig = false;
 
   for await (const file of context.files.each("**/pyproject.toml")) {

@@ -1,6 +1,6 @@
-import { Context } from "../../../types.ts";
+import { Context } from "../../../../deps.ts";
 
-const readDependencyFile = async (context: Context) => {
+export const pythonDependency = async (context: Context) => {
   const dependencies: string[] = [];
 
   for await (const file of context.files.each("./pyproject.toml")) {
@@ -41,20 +41,4 @@ const readDependencyFile = async (context: Context) => {
   }
 
   return dependencies;
-};
-
-export const hasPythonDependency = async (
-  context: Context,
-  dependencyName: string,
-): Promise<boolean> => {
-  const dependencies = await readDependencyFile(context);
-  return dependencies.some((dep) => dep === dependencyName);
-};
-
-export const hasPythonDependencyAny = async (
-  context: Context,
-  dependencyList: Set<string>,
-): Promise<boolean> => {
-  const dependencies = await readDependencyFile(context);
-  return dependencies.some((dep) => dependencyList.has(dep));
 };

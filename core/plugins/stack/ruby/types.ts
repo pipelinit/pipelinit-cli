@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasRubyDependencyAny } from "./dependencies.ts";
 
 const webApps = new Set([
   "rails",
@@ -11,7 +10,7 @@ const webApps = new Set([
 ]);
 
 export const introspect: IntrospectFn<string | null> = async (context) => {
-  if (await hasRubyDependencyAny(context, webApps)) {
+  if ((await context.dependencies.some((dep) => webApps.has(dep)))) {
     return "webApp";
   }
   return null;

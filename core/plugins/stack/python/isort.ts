@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasPythonDependency } from "./dependencies.ts";
 
 export interface ISort {
   name: "isort";
@@ -7,7 +6,7 @@ export interface ISort {
 }
 
 export const introspect: IntrospectFn<ISort | null> = async (context) => {
-  const isDependency = await hasPythonDependency(context, "isort");
+  const isDependency = await context.dependencies.includes("isort");
   let hasISortConfig = false;
 
   for await (const file of context.files.each("**/pyproject.toml")) {

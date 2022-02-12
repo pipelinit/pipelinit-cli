@@ -1,5 +1,4 @@
 import { IntrospectFn } from "../../../types.ts";
-import { hasPythonDependency } from "./dependencies.ts";
 
 export interface Black {
   name: "black";
@@ -7,7 +6,7 @@ export interface Black {
 }
 
 export const introspect: IntrospectFn<Black | null> = async (context) => {
-  const isDependency = await hasPythonDependency(context, "black");
+  const isDependency = context.dependencies.includes("black");
   let hasBlackConfig = false;
 
   for await (const file of context.files.each("**/pyproject.toml")) {
