@@ -16,4 +16,4 @@ USER deno
 # See:
 # https://github.com/denoland/deno_docker/blob/aeb3905/_entry.sh#L4-L7
 ENTRYPOINT ["deno", "run", "--unstable", "--allow-read=.,/app/core/templates", "--allow-write=.", "/app/cli/pipelinit.ts"]
-CMD [""]
+CMD ["--"]
