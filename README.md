@@ -29,6 +29,14 @@ on your browser! 🚀
 
 ## How to install
 
+### Using a Docker image
+
+Run the command below inside a checkout of your project's source code:
+
+```
+docker run -it -v $(pwd):/workdir ghcr.io/pipelinit/pipelinit-cli
+```
+
 ### Using package managers
 
 Homebrew (macOS):
