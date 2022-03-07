@@ -15,12 +15,14 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno lint --unstable
-  tsc:
-    name: Typecheck Typescript
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
-      - run: deno cache --unstable $(find . -iname "*.ts")
+  # Not working
+  # @see: https://github.com/denoland/deno/issues/13058
+  # tsc:
+  #   name: Typecheck Typescript
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: denoland/setup-deno@v1
+  #       with:
+  #         deno-version: v1.x
+  #     - run: deno cache --unstable $(find . -iname "*.ts")

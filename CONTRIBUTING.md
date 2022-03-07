@@ -16,7 +16,7 @@ Pipelinit is built with Deno check how to install it
 [on the official Deno website](https://deno.land/#installation).
 To install the executable locally, use the command:
 
-```deno install -f --unstable --allow-read=.,$(pwd) --allow-write=. cli/pipelinit.ts```
+```deno install -A -f --unstable cli/pipelinit.ts```
 
 This automatically updates the executable as you change the source code,
 eliminating the need to rebuild and reinstall the CLI.

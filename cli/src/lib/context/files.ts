@@ -24,6 +24,10 @@ async function loadGitignoreExcludes() {
       }
       excludedFiles.push(file);
     }
+    // Specifically ignore 'node_modules'
+    excludedFiles.push("**/node_modules/**");
+    // Ignore hidden directories
+    excludedFiles.push("**/.*/**");
     return excludedFiles;
   }
   return [];

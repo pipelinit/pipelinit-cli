@@ -240,7 +240,7 @@ import { introspect as introspectDjango } from "./django.ts";
 ##### Run a local build of the Pipelinit CLI in the root of your project
 Run the command:
 
-```deno install -f --unstable --allow-read=.,$(pwd) --allow-write=. cli/pipelinit.ts```
+```deno install -A -f --unstable cli/pipelinit.ts```
 
 ##### Push the project and test the generated workflow.
 

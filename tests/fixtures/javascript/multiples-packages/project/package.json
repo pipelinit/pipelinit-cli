@@ -1,0 +1,23 @@
+{
+  "name": "hrcrm",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "web/",
+    "worker/",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "SCRIPTY_PARALLEL=true scripty"
+  },
+  "devDependencies": {
+    "scripty": "^2.0.0",
+    "prettier": "^2.1.2",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.1.4"
+  },
+  "engines": {
+    "node": "16.13"
+  }
+}
