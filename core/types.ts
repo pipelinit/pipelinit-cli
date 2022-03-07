@@ -41,6 +41,7 @@ interface SemVerHelpers {
 
 export type Context = {
   getLogger(name?: string): Logger;
+  filesWorkDir(): Promise<string>;
   files: {
     each(glob: string): AsyncIterableIterator<FileEntry>;
     includes(glob: string): Promise<boolean>;

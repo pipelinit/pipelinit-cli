@@ -92,3 +92,10 @@ export async function* readLines(path: string): AsyncIterableIterator<string> {
 export async function readText(path: string): Promise<string> {
   return await Deno.readTextFile(path);
 }
+
+/**
+ * Return a string representing the current working directory
+ */
+export async function filesWorkDir(): Promise<string> {
+  return await Deno.cwd();
+}
