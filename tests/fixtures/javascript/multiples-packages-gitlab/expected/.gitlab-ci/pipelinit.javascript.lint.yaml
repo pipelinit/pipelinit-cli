@@ -1,0 +1,22 @@
+# Generated with pipelinit 0.4.0
+# https://pipelinit.com/
+lint:
+  stage: javascript-lint
+  image: actions/setup-node@v2
+  needs: []
+  script:
+    - yarn
+    - npx eslint --ext .js --ext .ts .
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+
+tsc:
+  stage: typecheck-typescript
+  image: actions/setup-node@v2
+  script:
+    - yarn
+    - NPM_CONFIG_YES=true npx -p typescript -c 'tsc --init && tsc --noEmit'

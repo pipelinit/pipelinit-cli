@@ -1,0 +1,20 @@
+semgrep:
+  stage: sast-javascript
+  image: returntocorp/semgrep-action@v1
+  needs: ["format", "lint"]
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*js"
+      - "**/*ts"
+    script: semgrep-agent
+    variables:
+      SEMGREP_RULES: >-
+<% if (it.type === "webApp") { -%>
+        p/owasp-top-ten
+<% } else {-%>
+        p/ci
+<% } -%>
+
+

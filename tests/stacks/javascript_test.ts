@@ -40,3 +40,12 @@ test(
     await assertExpectedFiles();
   },
 );
+
+test(
+  { fixture: "javascript/multiples-packages-gitlab", args: ["--no-strict"] },
+  async (_stdout, _stderr, code, assertExpectedFiles) => {
+    console.log("--->", _stdout, _stderr);
+    assertEquals(code, 0);
+    await assertExpectedFiles();
+  },
+);

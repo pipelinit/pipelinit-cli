@@ -1,0 +1,15 @@
+# Generated with pipelinit 0.4.0
+# https://pipelinit.com/
+format:
+  stage: format-javascript
+  image: '16'
+  needs: []
+  script:
+    - yarn
+    - npx prettier --no-error-on-unmatched-pattern --check "**/*.js" "**/*.ts"
+only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
