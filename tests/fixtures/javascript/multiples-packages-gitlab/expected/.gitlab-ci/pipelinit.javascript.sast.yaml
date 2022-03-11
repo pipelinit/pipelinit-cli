@@ -7,7 +7,7 @@ javascript-sast:
   script: semgrep-agent
   variables:
       SEMGREP_RULES: >-
-       p/ci
+        p/ci
   only:
     refs:
       - merge_requests

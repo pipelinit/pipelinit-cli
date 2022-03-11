@@ -7,7 +7,7 @@ javascript-format:
   script:
     - yarn
     - npx prettier --no-error-on-unmatched-pattern --check "**/*.js" "**/*.ts"
-only:
+  only:
     refs:
       - merge_requests
     changes:

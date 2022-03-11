@@ -1,20 +1,18 @@
 javascript-sast:
   stage: javascript-sast
   image: returntocorp/semgrep-action@v1
-  needs: ["javascript-format", "javascript-lint"]
-  only:
-    refs:
-      - merge_requests
-    changes:
-      - "**/*js"
-      - "**/*ts"
-    script: semgrep-agent
-    variables:
+  needs: ["javascript-format", "javascript-lint", "tsc"]
+  script: semgrep-agent
+  variables:
       SEMGREP_RULES: >-
 <% if (it.type === "webApp") { -%>
         p/owasp-top-ten
 <% } else {-%>
         p/ci
 <% } -%>
-
-
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"

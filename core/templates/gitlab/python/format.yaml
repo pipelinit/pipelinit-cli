@@ -1,5 +1,5 @@
 <% if (it.formatters) { -%>
-python-format:
+format:
   stage: python-format
   image: python:<%= it.version.gitlab %>
   needs: []

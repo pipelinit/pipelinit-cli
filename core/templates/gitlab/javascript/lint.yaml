@@ -16,13 +16,13 @@ javascript-lint:
   stage: javascript-lint
   image: node:<%=it.runtime.version.gitlab%>
   needs: []
-  script:
-    - <%= it.packageManager.commands.install %>
-<%_ if (it.formatters.eslint) { %>
-    - npx eslint --ext .js --ext .ts .
-<% } -%>
   cache:
     key: '<%= it.packageManager.name %>'
+  script:
+    - <%= it.packageManager.commands.install %>
+<%_ if (it.linters.eslint) { %>
+    - npx eslint --ext .js --ext .ts .
+<% } -%>
   only:
     refs:
       - merge_requests
@@ -30,6 +30,7 @@ javascript-lint:
       - "**/*.js"
       - "**/*.ts"
 <% } -%>
+
 <% if (it.hasTypeScriptFiles) { -%>
 tsc:
   stage: javascript-lint
@@ -46,5 +47,11 @@ tsc:
   script:
     - <%= it.packageManager.commands.install %>
     - NPM_CONFIG_YES=true npx -p typescript -c 'tsc --init && tsc --noEmit'
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
 <% } -%>
 <% } -%>

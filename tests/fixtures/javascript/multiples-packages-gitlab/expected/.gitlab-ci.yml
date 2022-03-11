@@ -5,11 +5,8 @@ stages:
   - javascript-lint
   - javascript-format
   - javascript-sast
-  - yaml-format
 
 include:
-  - local: ".gitlab-ci/pipelinit.javascript.lint.yaml"
   - local: ".gitlab-ci/pipelinit.javascript.format.yaml"
+  - local: ".gitlab-ci/pipelinit.javascript.lint.yaml"
   - local: ".gitlab-ci/pipelinit.javascript.sast.yaml"
-  - local: ".gitlab-ci/pipelinit.yaml.format.yaml"
-

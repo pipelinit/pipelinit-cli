@@ -3,26 +3,26 @@ javascript-test:
   stage: javascript-test
   image: denoland/setup-deno@v1
   needs: ["javascript-format", "javascript-lint", "javascript-sast"]
+  script:
+    - deno test --unstable --allow-all
   only:
     refs:
       - merge_requests
     changes:
       - "**/*.js"
       - "**/*.ts"
-  script:
-    - deno test --unstable --allow-all
 <% } else if (it.runtime.name === "node" && it.testCommand) { -%>
 javascript-test:
   stage: javacript-test
   image: node:<%= it.runtime.version.gitlab %>
   needs: ["javascript-format", "javascript-lint", "javascript-sast"]
+  script:
+    - <%= it.packageManager.commands.install %>
+    - <%= it.packageManager.name %> test
   only:
     refs:
       - merge_requests
     changes:
       - "**/*.js"
       - "**/*.ts"
-  script:
-    - <%= it.packageManager.commands.install %>
-    - <%= it.packageManager.name %> test
 <% } -%>
