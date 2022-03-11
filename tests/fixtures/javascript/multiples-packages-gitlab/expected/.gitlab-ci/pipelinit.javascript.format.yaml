@@ -1,8 +1,8 @@
 # Generated with pipelinit 0.4.0
 # https://pipelinit.com/
-format:
-  stage: format-javascript
-  image: '16'
+javascript-format:
+  stage: javascript-format
+  image: node:16
   needs: []
   script:
     - yarn

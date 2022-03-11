@@ -20,3 +20,36 @@ tsc:
   script:
     - yarn
     - NPM_CONFIG_YES=true npx -p typescript -c 'tsc --init && tsc --noEmit'
+# Generated with pipelinit 0.4.0
+# https://pipelinit.com/
+javascript-lint:
+  stage: javascript-lint
+  image: node:16
+  needs: []
+  script:
+    - yarn
+  cache:
+    key: 'yarn'
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+
+tsc:
+  stage: javascript-lint
+  image: node:16
+  needs: []
+  cache:
+    key: 'yarn'
+  script:
+    - yarn
+    - NPM_CONFIG_YES=true npx -p typescript -c 'tsc --init && tsc --noEmit'
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+
