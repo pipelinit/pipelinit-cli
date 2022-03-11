@@ -1,4 +1,4 @@
-semgrep:
+python-semgrep:
   stage: python-sast
   image: returntocorp/semgrep-agent:v1
   needs: ["format", "lint"]

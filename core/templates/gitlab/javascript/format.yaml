@@ -1,7 +1,7 @@
 <% if (it.runtime.name === "deno") { -%>
-format:
-  stage: deno-format
-  image: javascript:<%=it.version.gitlab%>
+javascript-format:
+  stage: javascript-format
+  image: denoland/setup-deno@v1
   needs: []
   script:
     - deno fmt --check $(find . -iname "*.[j|t]s")
@@ -12,9 +12,9 @@ format:
       - "**/*.js"
       - "**/*.ts"
 <% } else if (it.runtime.name === "node" && it.formatters) { -%>
-format:
+javascript-format:
   stage: javascript-format
-  image: javascript:<%=it.version.gitlab%>
+  image: node:<%=it.runtime.version.gitlab%>
   needs: []
   script:
     - <%= it.packageManager.commands.install %>

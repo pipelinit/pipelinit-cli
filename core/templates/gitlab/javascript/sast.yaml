@@ -1,7 +1,7 @@
-semgrep:
-  stage: sast-javascript
+javascript-sast:
+  stage: javascript-sast
   image: returntocorp/semgrep-action@v1
-  needs: ["format", "lint"]
+  needs: ["javascript-format", "javascript-lint"]
   only:
     refs:
       - merge_requests

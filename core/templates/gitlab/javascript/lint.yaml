@@ -1,6 +1,6 @@
 <% if (it.runtime.name === "deno") { -%>
-lint:
-  stage: deno-lint
+javascript-lint:
+  stage: javascript-lint
   image: denoland/setup-deno@v1
   needs: []
   script:
@@ -12,9 +12,9 @@ lint:
       - "**/*.js"
       - "**/*.ts"
 <% } else if (it.runtime.name === "node" && it.linters) { -%>
-lint:
+javascript-lint:
   stage: javascript-lint
-  image: actions/setup-node@v2
+  image: node:<%=it.runtime.version.gitlab%>
   needs: []
   script:
     - <%= it.packageManager.commands.install %>
@@ -31,15 +31,15 @@ lint:
       - "**/*.ts"
 <% } -%>
 <% if (it.hasTypeScriptFiles) { -%>
-  tsc:
-    stage: typecheck-typescript
+tsc:
+  stage: javascript-lint
 <% if (it.runtime.name === "deno") { -%>
   image: denoland/setup-deno@v1
   needs: []
   script:
     - deno cache --unstable $(find . -iname "*.ts")
 <% } else if (it.runtime.name === "node") { -%>
-  image: actions/setup-node@v2
+  image: node:<%=it.runtime.version.gitlab%>
   needs: []
   cache:
     key: '<%= it.packageManager.name %>'

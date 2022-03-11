@@ -1,8 +1,8 @@
 <% if (it.runtime.name === "deno") { -%>
-test:
-  stage: deno-test
-  image: javascript:<%= it.version.gitlab %>
-  needs: ["format", "lint", "semgrep"]
+javascript-test:
+  stage: javascript-test
+  image: denoland/setup-deno@v1
+  needs: ["javascript-format", "javascript-lint", "javascript-sast"]
   only:
     refs:
       - merge_requests
@@ -12,10 +12,10 @@ test:
   script:
     - deno test --unstable --allow-all
 <% } else if (it.runtime.name === "node" && it.testCommand) { -%>
-test:
-  stage: node-test
-  image: javascript:<%= it.version.gitlab %>
-  needs: ["format", "lint", "semgrep"]
+javascript-test:
+  stage: javacript-test
+  image: node:<%= it.runtime.version.gitlab %>
+  needs: ["javascript-format", "javascript-lint", "javascript-sast"]
   only:
     refs:
       - merge_requests
