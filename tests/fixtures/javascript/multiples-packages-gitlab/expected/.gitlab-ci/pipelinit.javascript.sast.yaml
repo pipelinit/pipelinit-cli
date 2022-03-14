@@ -1,0 +1,16 @@
+# Generated with pipelinit 0.4.0
+# https://pipelinit.com/
+javascript-sast:
+  stage: javascript-sast
+  image: returntocorp/semgrep-action@v1
+  needs: ["javascript-format", "javascript-lint"]
+  script: semgrep-agent
+  variables:
+      SEMGREP_RULES: >-
+        p/ci
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"

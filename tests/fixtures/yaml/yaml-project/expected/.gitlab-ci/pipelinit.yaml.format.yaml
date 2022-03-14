@@ -1,6 +1,6 @@
 # Generated with pipelinit 0.4.0
 # https://pipelinit.com/
-format:
+yaml-format:
   stage: yaml-format
   image: node:16
   needs: []

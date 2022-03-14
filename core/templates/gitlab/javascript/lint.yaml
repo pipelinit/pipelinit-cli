@@ -1,0 +1,57 @@
+<% if (it.runtime.name === "deno") { -%>
+javascript-lint:
+  stage: javascript-lint
+  image: denoland/setup-deno@v1
+  needs: []
+  script:
+    - deno lint --unstable
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+<% } else if (it.runtime.name === "node" && it.linters) { -%>
+javascript-lint:
+  stage: javascript-lint
+  image: node:<%=it.runtime.version.gitlab%>
+  needs: []
+  cache:
+    key: '<%= it.packageManager.name %>'
+  script:
+    - <%= it.packageManager.commands.install %>
+<%_ if (it.linters.eslint) { %>
+    - npx eslint --ext .js --ext .ts .
+<% } -%>
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+<% } -%>
+
+<% if (it.hasTypeScriptFiles) { -%>
+tsc:
+  stage: javascript-lint
+<% if (it.runtime.name === "deno") { -%>
+  image: denoland/setup-deno@v1
+  needs: []
+  script:
+    - deno cache --unstable $(find . -iname "*.ts")
+<% } else if (it.runtime.name === "node") { -%>
+  image: node:<%=it.runtime.version.gitlab%>
+  needs: []
+  cache:
+    key: '<%= it.packageManager.name %>'
+  script:
+    - <%= it.packageManager.commands.install %>
+    - NPM_CONFIG_YES=true npx -p typescript -c 'tsc --init && tsc --noEmit'
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+<% } -%>
+<% } -%>

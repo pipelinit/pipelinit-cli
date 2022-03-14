@@ -1,0 +1,30 @@
+<% if (it.runtime.name === "deno") { -%>
+javascript-format:
+  stage: javascript-format
+  image: denoland/setup-deno@v1
+  needs: []
+  script:
+    - deno fmt --check $(find . -iname "*.[j|t]s")
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+<% } else if (it.runtime.name === "node" && it.formatters) { -%>
+javascript-format:
+  stage: javascript-format
+  image: node:<%=it.runtime.version.gitlab%>
+  needs: []
+  script:
+    - <%= it.packageManager.commands.install %>
+<%_ if (it.formatters.prettier) { %>
+    - npx prettier --no-error-on-unmatched-pattern --check "**/*.js" "**/*.ts"
+<% } -%>
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - "**/*.js"
+      - "**/*.ts"
+<% } -%>

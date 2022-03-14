@@ -126,7 +126,6 @@ test(
   { fixture: "docker/release-docker", args: ["--no-strict"] },
   async (stdout, _stderr, code, assertExpectedFiles) => {
     assertStringIncludes(stdout, "Detected stack: docker");
-    assertStringIncludes(stdout, "Found docker image on root");
     assertStringIncludes(stdout, releaseWarn);
     assertEquals(code, 0);
     await assertExpectedFiles();
@@ -137,7 +136,6 @@ test(
   { fixture: "docker/release-github", args: ["--no-strict"] },
   async (stdout, _stderr, code, assertExpectedFiles) => {
     assertStringIncludes(stdout, "Detected stack: docker");
-    assertStringIncludes(stdout, "Found docker image on root");
     assertStringIncludes(stdout, releaseWarn);
     assertEquals(code, 0);
     await assertExpectedFiles();
