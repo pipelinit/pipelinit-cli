@@ -3,7 +3,7 @@
 javascript-sast:
   stage: javascript-sast
   image: returntocorp/semgrep-action@v1
-  needs: ["javascript-format", "javascript-lint", "tsc"]
+  needs: ["javascript-format", "javascript-lint"]
   script: semgrep-agent
   variables:
       SEMGREP_RULES: >-
