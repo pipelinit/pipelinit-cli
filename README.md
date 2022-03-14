@@ -107,7 +107,7 @@ pipelinit
       <td rowspan="2">CSS</td>
       <td>Format</td>
       <td>✔️</td>
-      <td rowspan="14">Coming soon</td>
+      <td rowspan="9">Coming soon</td>
     </tr>
     <tr>
       <td>Lint</td>
@@ -148,23 +148,28 @@ pipelinit
       <td rowspan="4">JavaScript / TypeScript</td>
       <td>Format</td>
       <td>✔️</td>
+      <td>✔️</td>
     </tr>
     <tr>
       <td>Lint</td>
+      <td>✔️</td>
       <td>✔️</td>
     </tr>
     <tr>
       <td>Test</td>
       <td>✔️</td>
+      <td>✔️</td>
     </tr>
     <tr>
       <td>SAST</td>
+      <td>✔️</td>
       <td>✔️</td>
     </tr>
     <tr>
       <td rowspan="1">Markdown</td>
       <td>Lint</td>
       <td>✔️</td>
+      <td>Coming soon</td>
     </tr>
     <tr>
       <td rowspan="4">Python</td>
