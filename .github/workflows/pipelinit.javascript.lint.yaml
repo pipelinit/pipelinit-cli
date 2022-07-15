@@ -1,11 +1,11 @@
-# Generated with pipelinit 0.3.0
+# Generated with pipelinit 0.4.0
 # https://pipelinit.com/
 name: Lint Deno
 on:
   pull_request:
     paths:
-      - "**.js"
-      - "**.ts"
+      - '**.js'
+      - '**.ts'
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -15,14 +15,12 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno lint --unstable
-  # Not working
-  # @see: https://github.com/denoland/deno/issues/13058
-  # tsc:
-  #   name: Typecheck Typescript
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: denoland/setup-deno@v1
-  #       with:
-  #         deno-version: v1.x
-  #     - run: deno cache --unstable $(find . -iname "*.ts")
+  tsc:
+    name: Typecheck Typescript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - run: deno cache --unstable $(find . -iname "*.ts")

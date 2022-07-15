@@ -1,0 +1,14 @@
+# Generated with pipelinit 0.4.0
+# https://pipelinit.com/
+name: Lint Markdown
+on:
+  pull_request:
+    paths:
+      - '**.md'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install -g markdownlint-cli
+      - run: markdownlint '**/*.md'

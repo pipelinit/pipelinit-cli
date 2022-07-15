@@ -1,11 +1,11 @@
-# Generated with pipelinit 0.3.0
+# Generated with pipelinit 0.4.0
 # https://pipelinit.com/
 name: Test Deno
 on:
   pull_request:
     paths:
-      - "**.js"
-      - "**.ts"
+      - '**.js'
+      - '**.ts'
 jobs:
   test:
     runs-on: ubuntu-latest

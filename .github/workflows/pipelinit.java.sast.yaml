@@ -1,11 +1,10 @@
 # Generated with pipelinit 0.4.0
 # https://pipelinit.com/
-name: SAST JavaScript
+name: SAST Java
 on:
   pull_request:
     paths:
-      - '**.js'
-      - '**.ts'
+      - "**.java"
 jobs:
   semgrep:
     name: Scan
@@ -13,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/owasp-top-ten
+        with:          
+          config: >-   
+            p/java
+            p/security-audit
